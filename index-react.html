@@ -11,7 +11,7 @@
     .label {
       fill: rgb(108, 108, 108);
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 20px;
+      font-size: 18px;
       text-anchor: middle;
       background-color: rgb(255, 255, 255, 0.8) !important;
       border-radius: 5px;
@@ -147,6 +147,12 @@
 
 
                 
+
+                
+
+
+
+
                 const words = ratingsLabels[i].split(" ");
 const numLines = words.length;
 const fontSize = 20; // same as in your CSS
@@ -159,13 +165,12 @@ const group = svg.append("g");
 
 const text = group.append("text")
   .attr("x", labelX)
-  .attr("class", "label")
-  .style("dominant-baseline", "middle"); // Add this line
+  .attr("class", "label");
 
 words.forEach((word, j) => {
   const tspan = text.append("tspan")
     .attr("x", labelX)
-    .attr("dy", j === 0 ? "0em" : `${lineHeight}em`)
+    .attr("dy", j === 0 ? `${-lineHeight * (numLines - 1) / 2}em` : `${lineHeight}em`)
     .text(word);
 
   textWidth = Math.max(textWidth, tspan.node().getComputedTextLength());
@@ -187,6 +192,11 @@ text.attr("y", parseFloat(rect.attr("y")) + parseFloat(rect.attr("height")) / 2)
 
 
 
+
+
+
+
+
           });
         }, [ratings]);
 
@@ -199,26 +209,26 @@ text.attr("y", parseFloat(rect.attr("y")) + parseFloat(rect.attr("height")) / 2)
         return React.createElement(
           "div",
           { className: "App" },
-          // ratingsLabels.map((label, index) =>
-          //   React.createElement(
-          //     "div",
-          //     { key: index },
-          //     React.createElement(
-          //       "label",
-          //       { htmlFor: `rating-${index}` },
-          //       label
-          //     ),
-          //     React.createElement("input", {
-          //       id: `rating-${index}`,
-          //       type: "number",
-          //       min: "1",
-          //       max: "10",
-          //       step: "1",
-          //       value: ratings[index],
-          //       onChange: handleRatingChange(index),
-          //     })
-          //   )
-          // ),
+          ratingsLabels.map((label, index) =>
+            React.createElement(
+              "div",
+              { key: index },
+              React.createElement(
+                "label",
+                { htmlFor: `rating-${index}` },
+                label
+              ),
+              React.createElement("input", {
+                id: `rating-${index}`,
+                type: "number",
+                min: "1",
+                max: "10",
+                step: "1",
+                value: ratings[index],
+                onChange: handleRatingChange(index),
+              })
+            )
+          ),
           React.createElement("svg", { ref: svgRef })
         );
       }
