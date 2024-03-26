@@ -41,54 +41,6 @@ input:disabled {
   text-align: center;
   z-index: 10;
 }
-#ctrl0 {
-  top: 400px;
-  left: 710px;
-}
-#ctrl1 {
-  top: 520px;
-  left: 650px;
-}
-#ctrl2 {
-  top: 610px;
-  left: 480px;
-}
-#ctrl3 {
-  top: 610px;
-  right: 490px;
-}
-#ctrl4 {
-  top: 520px;
-  right: 650px;
-}
-#ctrl5 {
-  top: 400px;
-  right: 710px;
-}
-#ctrl6 {
-  top: 260px;
-  right: 710px;
-}
-#ctrl7 {
-  top: 140px;
-  right: 640px;
-}
-#ctrl8 {
-  top: 40px;
-  right: 470px;
-}
-#ctrl9 {
-  top: 40px;
-  left: 480px;
-}
-#ctrl10 {
-  top: 140px;
-  left: 640px;
-}
-#ctrl11 {
-  top: 260px;
-  left: 710px;
-}
 #myCanvas {
   display: block;
   position: relative;
@@ -119,4 +71,3 @@ input:disabled {
   padding: 10px;
   height: 50px;
 }
-

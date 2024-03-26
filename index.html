@@ -6,36 +6,82 @@
 
     <title>Alten UX Competency Wheel</title>
 
-    <link href="./styles.css" rel="stylesheet" type="text/css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-weight: 300;
+        font-size: 16px;
+      }
+      :invalid {
+        border: 1px solid red;
+      }
+      .invalid {
+        color: red;
+        background: #fff;
+        display: none;
+      }
+      input[type="number"] {
+        width: 3em;
+        padding: 0 0 0 5px;
+        margin-top: 5px;
+        font-size: 1.5em;
+        color: #000;
+        background: #dde;
+        text-align: center;
+      }
+      input:disabled {
+        background: 0 0;
+        border: none;
+      }
+      .button-link {
+        cursor: pointer;
+      }
+      #sundial {
+        height: 700px;
+        width: 100%;
+      }
+      #myCanvas {
+        display: block;
+        position: relative;
+        top: 100px;
+        left: 200px;
+      }
+      #content {
+        position: relative;
+        width: 900px;
+        margin: 0 auto;
+      }
+
+      #sharing {
+        background: #fff;
+        padding: 1em auto;
+        width: 100%;
+      }
+      #yourname {
+        font-size: 40px;
+        padding: 10px;
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      #yourname_edit {
+        display: none;
+        font-size: 25px;
+        padding: 10px;
+        height: 50px;
+      }
+      .rating {
+        position: absolute;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <svg height="100%" width="50%" viewBox="0 0 20 20">
-      <circle r="10" cx="10" cy="10" fill="white" />
-      <circle
-        r="5"
-        cx="10"
-        cy="10"
-        fill="transparent"
-        stroke="tomato"
-        stroke-width="10"
-        stroke-dasharray="calc(25 * 31 / 100) 31"
-        transform="rotate(-90) translate(-20)"
-      />
-    </svg>
-
-    <svg height="100%" width="50%" viewBox="0 0 20 20">
-      <circle r="10" cx="10" cy="10" fill="white" />
-      <circle
-        r="5"
-        cx="10"
-        cy="10"
-        fill="bisque"
-        stroke="tomato"
-        stroke-width="10"
-        stroke-dasharray="calc(100 * 25 / 100) 25"
-      />
-    </svg>
-
     <section>
       <div style="width: 400px; margin: 0 auto; text-align: center">
         <h1 id="yourname" style="display: none">Your Name</h1>
@@ -49,593 +95,193 @@
       </div>
 
       <div id="sundial">
-        <form id="content">
-          <div class="rating" id="ctrl0">
-            <label for="ctrl_0">Vision</label><br />
-            <input
-              id="ctrl_0"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl1">
-            <label for="ctrl_1">Concept development</label><br />
-            <input
-              id="ctrl_1"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl2">
-            <label for="ctrl_2">Value proposition</label><br />
-            <input
-              id="ctrl_2"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl3">
-            <label for="ctrl_3">Contextual research</label><br />
-            <input
-              id="ctrl_3"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl4">
-            <label for="ctrl_4">User research</label><br />
-            <input
-              id="ctrl_4"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl5">
-            <label for="ctrl_5">Market research</label><br />
-            <input
-              id="ctrl_5"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl6">
-            <label for="ctrl_6">Information architecture</label><br />
-            <input
-              id="ctrl_6"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl7">
-            <label for="ctrl_7">User flow</label><br />
-            <input
-              id="ctrl_7"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl8">
-            <label for="ctrl_8">Behaviour</label><br />
-            <input
-              id="ctrl_8"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl9">
-            <label for="ctrl_9">Graphic design</label><br />
-            <input
-              id="ctrl_9"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl10">
-            <label for="ctrl_10">Data visualisation</label><br />
-            <input
-              id="ctrl_10"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl11">
-            <label for="ctrl_11">Specifications</label><br />
-            <input
-              id="ctrl_11"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl12">
-            <label for="ctrl_12">Mock-up</label><br />
-            <input
-              id="ctrl_12"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl13">
-            <label for="ctrl_13">Interactive prototype</label><br />
-            <input
-              id="ctrl_13"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl14">
-            <label for="ctrl_14">Front-end development</label><br />
-            <input
-              id="ctrl_14"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl15">
-            <label for="ctrl_15">Hardware</label><br />
-            <input
-              id="ctrl_15"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <div class="rating" id="ctrl16">
-            <label for="ctrl_16">Testing</label><br />
-            <input
-              id="ctrl_16"
-              type="number"
-              required=""
-              min="1"
-              max="10"
-              step="1"
-              value="5"
-            />
-            <div class="invalid">Number between 1 and 10</div>
-          </div>
-          <canvas id="myCanvas" width="500" height="500">
-            Your browser does not support the HTML5 canvas tag.
-          </canvas>
-        </form>
+        <form id="content"></form>
       </div>
     </section>
 
-    <path
-      d="M 100 0 A 100 100 0 0 1 186.6 150 L 100 100 L 100 0 Z"
-      class="type0"
-    />
-    <path
-      d="M 186.6 150 A 100 100 0 1 1 100 0 L 100 100 L 186.6 150 Z"
-      class="type1"
-    />
-
-    <figure>
-      <svg width="100%" height="100%" class="donut">
-        <!--   <circle class="donut-hole"    cx="21" cy="21" r="15.91549430918954" fill="white"></circle> -->
-        <!--   <circle class="donut-ring"    cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="gray" stroke-width="5"></circle> -->
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="purple"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="0"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="20"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="30"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="40"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="50"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="60"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="70"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="80"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="90"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="100"
-        ></circle>
-      </svg>
-
-      <svg width="100%" height="100%" class="donut">
-        <!--   <circle class="donut-hole"    cx="21" cy="21" r="15.91549430918954" fill="white"></circle> -->
-        <!--   <circle class="donut-ring"    cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="gray" stroke-width="5"></circle> -->
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="purple"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="0"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="20"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="30"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="40"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="50"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="60"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="70"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="80"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="90"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="42"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="10"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="100"
-        ></circle>
-      </svg>
-
-      <svg width="100%" height="100%" class="donut">
-        <!--   <circle class="donut-hole"    cx="21" cy="21" r="15.91549430918954" fill="white"></circle> -->
-        <!--   <circle class="donut-ring"    cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="gray" stroke-width="5"></circle> -->
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="purple"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="0"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="20"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="30"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="40"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="50"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="60"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="70"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="80"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="green"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="90"
-        ></circle>
-        <circle
-          class="donut-segment"
-          cx="21"
-          cy="21"
-          r="15.91549430918954"
-          fill="transparent"
-          stroke="red"
-          stroke-width="5"
-          stroke-dasharray="10 100"
-          stroke-dashoffset="100"
-        ></circle>
-      </svg>
-    </figure>
-
     <script type="text/javascript" src="./jquery.min.js"></script>
 
-    <script src="./script.js"></script>
+    <script>
+      $(function () {
+        const ratingsLabels = [
+          "Vision",
+          "Concept development",
+          "Value proposition",
+          "Contextual research",
+          "User research",
+          "Market research",
+          "Information architecture",
+          "User flow",
+          "Behaviour",
+          "Graphic design",
+          "Data visualisation",
+          "Specifications",
+          "Mock-up",
+          "Interactive prototype",
+          "Front-end development",
+          "Hardware",
+          "Testing",
+        ];
+
+        const form = $("#content");
+        const ratings = Array(ratingsLabels.length).fill(5);
+        const data = Array(ratingsLabels.length).fill(21.17647);
+        const colors = [
+          "#6A2B8B",
+          "#864C9E",
+          "#9C69AC",
+          "#CB2026",
+          "#EF4749",
+          "#F37D80",
+          "#CA6E28",
+          "#F6881F",
+          "#FDBA34",
+          "#446630",
+          "#659A41",
+          "#98CA3C",
+          "#0099CD",
+          "#34B5E3",
+          "#B21E5B",
+          "#E50F73",
+          "#EE3B95",
+        ];
+        const centerX = 250;
+        const centerY = 250;
+        const centerRadius = centerX / 3;
+
+        ratingsLabels.forEach((label, i) => {
+          const div = $("<div>").addClass("rating").attr("id", `ctrl${i}`);
+          const labelElement = $("<label>")
+            .attr("for", `ctrl_${i}`)
+            .text(label);
+          const input = $("<input>").attr({
+            id: `ctrl_${i}`,
+            type: "number",
+            required: true,
+            min: "1",
+            max: "10",
+            step: "1",
+            value: "5",
+          });
+          const invalid = $("<div>")
+            .addClass("invalid")
+            .text("Number between 1 and 10");
+          div.append(labelElement, $("<br>"), input, invalid);
+          form.append(div);
+        });
+
+        const svg = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        );
+        svg.setAttribute("width", "500");
+        svg.setAttribute("height", "500");
+        document.getElementById("sundial").appendChild(svg);
+
+        const degreesToRadians = (degrees) => (degrees * Math.PI) / 180;
+        const sumTo = (a, i) =>
+          a.slice(0, i).reduce((acc, val) => acc + val, 0);
+
+        const drawSegment = (i) => {
+          const radius =
+            centerRadius + ratings[i] * ((centerX - centerRadius) / 10);
+          const startingAngle = sumTo(data, i);
+          const arcSize = data[i];
+          const endingAngle = startingAngle + arcSize;
+
+          const largeArcFlag = arcSize <= 180 ? "0" : "1";
+
+          const startX =
+            centerX + radius * Math.cos(degreesToRadians(startingAngle));
+          const startY =
+            centerY + radius * Math.sin(degreesToRadians(startingAngle));
+          const endX =
+            centerX + radius * Math.cos(degreesToRadians(endingAngle));
+          const endY =
+            centerY + radius * Math.sin(degreesToRadians(endingAngle));
+
+          const d = [
+            "M",
+            centerX,
+            centerY,
+            "L",
+            startX,
+            startY,
+            "A",
+            radius,
+            radius,
+            0,
+            largeArcFlag,
+            1,
+            endX,
+            endY,
+            "Z",
+          ].join(" ");
+
+          const path = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+          );
+          path.setAttribute("d", d);
+          path.setAttribute("fill", colors[i]);
+          svg.appendChild(path);
+
+          // Draw the label
+          const labelRadius = radius + 20; // Adjust as needed
+          const labelAngle = startingAngle + arcSize / 2;
+          const labelX =
+            centerX + labelRadius * Math.cos(degreesToRadians(labelAngle));
+          const labelY =
+            centerY + labelRadius * Math.sin(degreesToRadians(labelAngle));
+
+          const text = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "text"
+          );
+          text.setAttribute("x", labelX);
+          text.setAttribute("y", labelY);
+          text.setAttribute("text-anchor", "middle");
+          text.textContent = ratingsLabels[i];
+          svg.appendChild(text);
+        };
+
+        const refreshChart = () => {
+          // Clear the SVG
+          while (svg.firstChild) {
+            svg.removeChild(svg.firstChild);
+          }
+
+          data.forEach((_, i) => {
+            drawSegment(i);
+          });
+
+          // Draw the center text
+          const text = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "text"
+          );
+          text.setAttribute("x", centerX);
+          text.setAttribute("y", centerY);
+          text.setAttribute("text-anchor", "middle");
+          text.textContent = "UX Competency Wheel";
+          svg.appendChild(text);
+        };
+
+        $(".rating input").change(function (e) {
+          const index = parseInt($(this).attr("id").split("_")[1]);
+          if (this.validity.valid) {
+            ratings[index] = parseInt($(this).val());
+            refreshChart();
+            $(this).next().hide();
+          } else {
+            $(this).next().show();
+            $(this).focus();
+            $(this).select();
+          }
+        });
+
+        refreshChart();
+      });
+    </script>
   </body>
 </html>

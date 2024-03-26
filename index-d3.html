@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Alten UX Competency Wheel</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-weight: 300;
+        font-size: 16px;
+      }
+      :invalid {
+        border: 1px solid red;
+      }
+      .invalid {
+        color: red;
+        background: #fff;
+        display: none;
+      }
+      input[type="number"] {
+        width: 3em;
+        padding: 0 0 0 5px;
+        margin-top: 5px;
+        font-size: 1.5em;
+        color: #000;
+        background: #dde;
+        text-align: center;
+      }
+      input:disabled {
+        background: 0 0;
+        border: none;
+      }
+      .button-link {
+        cursor: pointer;
+      }
+      #sundial {
+        height: 700px;
+        width: 100%;
+      }
+      .rating {
+        position: absolute;
+        text-align: center;
+        z-index: 10;
+      }
+      #myCanvas {
+        display: block;
+        position: relative;
+        top: 100px;
+        left: 200px;
+      }
+      #content {
+        position: relative;
+        width: 900px;
+        margin: 0 auto;
+      }
+
+      #sharing {
+        background: #fff;
+        padding: 1em auto;
+        width: 100%;
+      }
+      #yourname {
+        font-size: 40px;
+        padding: 10px;
+        width: 400px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      #yourname_edit {
+        display: none;
+        font-size: 25px;
+        padding: 10px;
+        height: 50px;
+      }
+      .rating {
+        position: absolute;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div style="width: 400px; margin: 0 auto; text-align: center">
+        <h1 id="yourname" style="display: none">Your Name</h1>
+        <input
+          id="yourname_edit"
+          type="text"
+          maxlength="50"
+          value="Your name"
+          style="text-align: center; display: inline-block"
+        />
+      </div>
+
+      <div id="sundial">
+        <form id="content"></form>
+      </div>
+    </section>
+
+    <script>
+      const ratingsLabels = [
+        "Vision",
+        "Concept development",
+        "Value proposition",
+        "Contextual research",
+        "User research",
+        "Market research",
+        "Information architecture",
+        "User flow",
+        "Behaviour",
+        "Graphic design",
+        "Data visualisation",
+        "Specifications",
+        "Mock-up",
+        "Interactive prototype",
+        "Front-end development",
+        "Hardware",
+        "Testing",
+      ];
+
+      const form = document.querySelector("#content");
+      const ratings = Array(ratingsLabels.length).fill(5);
+      const colors = [
+        "#6A2B8B",
+        "#864C9E",
+        "#9C69AC",
+        "#CB2026",
+        "#EF4749",
+        "#F37D80",
+        "#CA6E28",
+        "#F6881F",
+        "#FDBA34",
+        "#446630",
+        "#659A41",
+        "#98CA3C",
+        "#0099CD",
+        "#34B5E3",
+        "#B21E5B",
+        "#E50F73",
+        "#EE3B95",
+      ];
+      const centerX = 250;
+      const centerY = 250;
+      const centerRadius = centerX / 3;
+
+      ratingsLabels.forEach((label, i) => {
+        const div = document.createElement("div");
+        div.className = "rating";
+        div.id = `ctrl${i}`;
+        const labelElement = document.createElement("label");
+        labelElement.htmlFor = `ctrl_${i}`;
+        labelElement.textContent = label;
+        const input = document.createElement("input");
+        input.id = `ctrl_${i}`;
+        input.type = "number";
+        input.required = true;
+        input.min = "1";
+        input.max = "10";
+        input.step = "1";
+        input.value = "5";
+        div.append(labelElement, document.createElement("br"), input);
+        form.append(div);
+      });
+
+      const svg = d3
+        .select("#sundial")
+        .append("svg")
+        .attr("width", 500)
+        .attr("height", 500);
+
+      const pie = d3.pie();
+      const arc = d3
+        .arc()
+        .innerRadius(centerRadius)
+        .outerRadius(
+          (d) => centerRadius + d.data * ((centerX - centerRadius) / 10)
+        );
+
+      const refreshChart = () => {
+        svg.selectAll("*").remove();
+
+        const arcs = svg
+          .selectAll("path")
+          .data(pie(ratings))
+          .enter()
+          .append("path")
+          .attr("fill", (d, i) => colors[i])
+          .attr("d", arc)
+          .attr("transform", `translate(${centerX}, ${centerY})`);
+
+        const text = svg
+          .append("text")
+          .attr("x", centerX)
+          .attr("y", centerY)
+          .attr("text-anchor", "middle")
+          .text("UX Competency Wheel");
+      };
+
+      document.querySelectorAll(".rating input").forEach((input, index) => {
+        input.addEventListener("change", function (e) {
+          if (this.validity.valid) {
+            ratings[index] = parseInt(this.value);
+            refreshChart();
+          }
+        });
+      });
+
+      refreshChart();
+    </script>
+  </body>
+</html>
