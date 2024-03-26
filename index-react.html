@@ -145,26 +145,48 @@
               labelRadius *
                 Math.sin(degreesToRadians(startingAngle + arcSize / 2));
 
-            const words = ratingsLabels[i].split(" ");
-            svg
-              .append("text")
-              .attr("x", labelX)
-              .attr("y", labelY)
-              .attr("class", "label")
-              .append("tspan")
-              .attr("x", labelX)
-              .attr("dy", "1.2em")
-              .text(words[0]);
-            if (words[1]) {
-              svg
-                .select(`text[x="${labelX}"][y="${labelY}"]`)
-                .append("tspan")
-                .attr("x", labelX)
-                .attr("dy", "1.2em")
-                .text(words[1]);
-            }
 
-            
+                
+                const words = ratingsLabels[i].split(" ");
+const numLines = words.length;
+const fontSize = 20; // same as in your CSS
+const lineHeight = 1.2; // This is the line-height in ems
+
+let textWidth = 0;
+let textHeight = numLines * fontSize * lineHeight;
+
+const group = svg.append("g");
+
+const text = group.append("text")
+  .attr("x", labelX)
+  .attr("class", "label")
+  .style("dominant-baseline", "middle"); // Add this line
+
+words.forEach((word, j) => {
+  const tspan = text.append("tspan")
+    .attr("x", labelX)
+    .attr("dy", j === 0 ? "0em" : `${lineHeight}em`)
+    .text(word);
+
+  textWidth = Math.max(textWidth, tspan.node().getComputedTextLength());
+});
+
+const rect = group.insert("rect", ":first-child")
+  .attr("x", labelX - textWidth / 2 - 5) // 5 is for padding
+  .attr("y", labelY - textHeight / 2) // Adjusted to align with the text
+  .attr("width", textWidth + 10) // 10 is for padding
+  .attr("height", textHeight + 10) // 10 is for padding
+  .attr("rx", 5) // Corner radius
+  .attr("ry", 5) // Corner radius
+  .style("fill", "rgba(255, 255, 255, 0.8)");
+
+// Adjust the y attribute of the text after the rect is added
+text.attr("y", parseFloat(rect.attr("y")) + parseFloat(rect.attr("height")) / 2);
+
+
+
+
+
           });
         }, [ratings]);
 
@@ -177,26 +199,26 @@
         return React.createElement(
           "div",
           { className: "App" },
-          ratingsLabels.map((label, index) =>
-            React.createElement(
-              "div",
-              { key: index },
-              React.createElement(
-                "label",
-                { htmlFor: `rating-${index}` },
-                label
-              ),
-              React.createElement("input", {
-                id: `rating-${index}`,
-                type: "number",
-                min: "1",
-                max: "10",
-                step: "1",
-                value: ratings[index],
-                onChange: handleRatingChange(index),
-              })
-            )
-          ),
+          // ratingsLabels.map((label, index) =>
+          //   React.createElement(
+          //     "div",
+          //     { key: index },
+          //     React.createElement(
+          //       "label",
+          //       { htmlFor: `rating-${index}` },
+          //       label
+          //     ),
+          //     React.createElement("input", {
+          //       id: `rating-${index}`,
+          //       type: "number",
+          //       min: "1",
+          //       max: "10",
+          //       step: "1",
+          //       value: ratings[index],
+          //       onChange: handleRatingChange(index),
+          //     })
+          //   )
+          // ),
           React.createElement("svg", { ref: svgRef })
         );
       }
