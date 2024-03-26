@@ -31,8 +31,6 @@ export default function Chart() {
       .attr("viewBox", `0 0 ${width} ${height}`)
       .attr("preserveAspectRatio", "xMidYMid meet");
 
-    const degreesToRadians = (degrees: number) => (degrees * Math.PI) / 180;
-
     let totalRating = competencies.reduce((a, b) => a + b.value, 0);
 
     let accumulatedRating = 0;
@@ -48,7 +46,6 @@ export default function Chart() {
         padding,
         totalRating,
         accumulatedRating,
-        degreesToRadians,
       });
     });
 
