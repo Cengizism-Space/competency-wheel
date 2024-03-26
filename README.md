@@ -1,1 +1,1 @@
-Alten Consultant Competency Wheel
+Consultant Competency Wheel app
