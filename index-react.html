@@ -70,20 +70,43 @@
         const [ratings, setRatings] = useState(
           Array(ratingsLabels.length).fill(5)
         );
+        const [dimensions, setDimensions] = useState({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
         const svgRef = useRef();
+
+        useEffect(() => {
+          function handleResize() {
+            setDimensions({
+              width: window.innerWidth,
+              height: window.innerHeight,
+            });
+          }
+
+          window.addEventListener("resize", handleResize);
+
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
 
         useEffect(() => {
           const svg = d3.select(svgRef.current);
           svg.selectAll("*").remove(); // Clear the SVG
 
-          const width = window.innerWidth;
-          const height = window.innerHeight;
+          const width = dimensions.width;
+          const height = dimensions.height;
           const centerX = width / 2;
           const centerY = height / 2;
           const centerRadius = Math.min(centerX, centerY) / 3;
-          const padding = 30;
+          const padding = 10;
 
-          svg.attr("width", width).attr("height", height);
+          svg
+            .attr("width", width)
+            .attr("height", height)
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("preserveAspectRatio", "xMidYMid meet");
 
           const degreesToRadians = (degrees) => (degrees * Math.PI) / 180;
           const sumTo = (a, i) =>
@@ -205,9 +228,9 @@
             .append("circle")
             .attr("cx", centerX)
             .attr("cy", centerY)
-            .attr("r", centerRadius * 0.8)
+            .attr("r", centerRadius * 0.7)
             .attr("fill", "white");
-        }, [ratings]);
+        }, [ratings, dimensions]);
 
         const handleRatingChange = (index) => (event) => {
           const newRatings = [...ratings];
