@@ -133,7 +133,12 @@
               "Z",
             ].join(" ");
 
-            svg.append("path").attr("d", d).attr("fill", colors[i]);
+            svg
+              .append("path")
+              .attr("d", d)
+              .attr("fill", colors[i])
+              .attr("stroke", "white")
+              .attr("stroke-width", 1);
 
             const labelRadius = radius + 20;
             const labelX =
@@ -195,6 +200,13 @@
                 5
             );
           });
+
+          svg
+            .append("circle")
+            .attr("cx", centerX)
+            .attr("cy", centerY)
+            .attr("r", centerRadius * 0.8)
+            .attr("fill", "white");
         }, [ratings]);
 
         const handleRatingChange = (index) => (event) => {
