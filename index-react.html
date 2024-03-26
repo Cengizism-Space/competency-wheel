@@ -7,6 +7,17 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
   </head>
+  <style>
+    .label {
+      fill: rgb(108, 108, 108);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      text-anchor: middle;
+      background-color: rgb(255, 255, 255, 0.8) !important;
+      border-radius: 5px;
+      padding: 5px;
+    }
+  </style>
   <body>
     <div id="root"></div>
     <script type="text/babel">
@@ -33,51 +44,60 @@
       ];
 
       const colors = [
-        "#6A2B8B",
-        "#864C9E",
-        "#9C69AC",
-        "#CB2026",
-        "#EF4749",
-        "#F37D80",
-        "#CA6E28",
-        "#F6881F",
-        "#FDBA34",
-        "#446630",
-        "#659A41",
-        "#98CA3C",
-        "#0099CD",
-        "#34B5E3",
-        "#B21E5B",
-        "#E50F73",
-        "#EE3B95",
+        "#6A2B8B", // Dark Orchid
+        "#864C9E", // Medium Purple
+        "#9C69AC", // Medium Orchid
+        "#CB2026", // Firebrick
+        "#EF4749", // Indian Red
+        "#F37D80", // Light Coral
+        "#CA6E28", // Chocolate
+        "#F6881F", // Dark Orange
+        "#FDBA34", // Goldenrod
+        "#FFD700", // Gold
+        "#446630", // Dark Olive Green
+        "#688E23", // Olive Drab
+        "#659A41", // Yellow Green
+        "#98CA3C", // Lime Green
+        "#0099CD", // Deep Sky Blue
+        "#34B5E3", // Sky Blue
+        "#B21E5B", // Medium Violet Red
+        "#E50F73", // Deep Pink
+        "#EE3B95", // Hot Pink
+        "#FF69B4", // Hot Pink
       ];
 
       function App() {
-        const [ratings, setRatings] = useState(Array(ratingsLabels.length).fill(5));
+        const [ratings, setRatings] = useState(
+          Array(ratingsLabels.length).fill(5)
+        );
         const svgRef = useRef();
 
         useEffect(() => {
           const svg = d3.select(svgRef.current);
-          svg.selectAll('*').remove(); // Clear the SVG
+          svg.selectAll("*").remove(); // Clear the SVG
 
           const width = window.innerWidth;
           const height = window.innerHeight;
           const centerX = width / 2;
           const centerY = height / 2;
           const centerRadius = Math.min(centerX, centerY) / 3;
-          const padding = 50;
+          const padding = 30;
 
-          svg.attr('width', width).attr('height', height);
+          svg.attr("width", width).attr("height", height);
 
           const degreesToRadians = (degrees) => (degrees * Math.PI) / 180;
-          const sumTo = (a, i) => a.slice(0, i).reduce((acc, val) => acc + val, 0);
+          const sumTo = (a, i) =>
+            a.slice(0, i).reduce((acc, val) => acc + val, 0);
 
           let totalRating = ratings.reduce((a, b) => a + b, 0);
 
           let accumulatedRating = 0;
 
           ratings.forEach((rating, i) => {
-            const radius = centerRadius + rating * ((Math.min(centerX, centerY) - centerRadius - padding) / 10);
+            const radius =
+              centerRadius +
+              rating *
+                ((Math.min(centerX, centerY) - centerRadius - padding) / 10);
             const startingAngle = (accumulatedRating / totalRating) * 360;
             const arcSize = (rating / totalRating) * 360;
             const endingAngle = startingAngle + arcSize;
@@ -86,10 +106,14 @@
 
             const largeArcFlag = arcSize <= 180 ? "0" : "1";
 
-            const startX = centerX + radius * Math.cos(degreesToRadians(startingAngle));
-            const startY = centerY + radius * Math.sin(degreesToRadians(startingAngle));
-            const endX = centerX + radius * Math.cos(degreesToRadians(endingAngle));
-            const endY = centerY + radius * Math.sin(degreesToRadians(endingAngle));
+            const startX =
+              centerX + radius * Math.cos(degreesToRadians(startingAngle));
+            const startY =
+              centerY + radius * Math.sin(degreesToRadians(startingAngle));
+            const endX =
+              centerX + radius * Math.cos(degreesToRadians(endingAngle));
+            const endY =
+              centerY + radius * Math.sin(degreesToRadians(endingAngle));
 
             const d = [
               "M",
@@ -109,20 +133,38 @@
               "Z",
             ].join(" ");
 
-            svg.append('path')
-              .attr('d', d)
-              .attr('fill', colors[i]); // replace with your color
+            svg.append("path").attr("d", d).attr("fill", colors[i]); // replace with your color
 
             const labelRadius = radius + 20; // Adjust as needed
-            const labelX = centerX + labelRadius * Math.cos(degreesToRadians(startingAngle + arcSize / 2));
-            const labelY = centerY + labelRadius * Math.sin(degreesToRadians(startingAngle + arcSize / 2));
+            const labelX =
+              centerX +
+              labelRadius *
+                Math.cos(degreesToRadians(startingAngle + arcSize / 2));
+            const labelY =
+              centerY +
+              labelRadius *
+                Math.sin(degreesToRadians(startingAngle + arcSize / 2));
 
-            svg.append('text')
-              .attr('x', labelX)
-              .attr('y', labelY)
-              .text(ratingsLabels[i])
-              .attr('font-size', '10px')
-              .attr('text-anchor', 'middle');
+            const words = ratingsLabels[i].split(" ");
+            svg
+              .append("text")
+              .attr("x", labelX)
+              .attr("y", labelY)
+              .attr("class", "label")
+              .append("tspan")
+              .attr("x", labelX)
+              .attr("dy", "1.2em")
+              .text(words[0]);
+            if (words[1]) {
+              svg
+                .select(`text[x="${labelX}"][y="${labelY}"]`)
+                .append("tspan")
+                .attr("x", labelX)
+                .attr("dy", "1.2em")
+                .text(words[1]);
+            }
+
+            
           });
         }, [ratings]);
 
@@ -133,29 +175,36 @@
         };
 
         return React.createElement(
-          'div',
-          { className: 'App' },
+          "div",
+          { className: "App" },
           ratingsLabels.map((label, index) =>
             React.createElement(
-              'div',
+              "div",
               { key: index },
-              React.createElement('label', { htmlFor: `rating-${index}` }, label),
-              React.createElement('input', {
+              React.createElement(
+                "label",
+                { htmlFor: `rating-${index}` },
+                label
+              ),
+              React.createElement("input", {
                 id: `rating-${index}`,
-                type: 'number',
-                min: '1',
-                max: '10',
-                step: '1',
+                type: "number",
+                min: "1",
+                max: "10",
+                step: "1",
                 value: ratings[index],
                 onChange: handleRatingChange(index),
               })
             )
           ),
-          React.createElement('svg', { ref: svgRef })
+          React.createElement("svg", { ref: svgRef })
         );
       }
 
-      ReactDOM.render(React.createElement(App), document.getElementById('root'));
+      ReactDOM.render(
+        React.createElement(App),
+        document.getElementById("root")
+      );
     </script>
   </body>
 </html>
