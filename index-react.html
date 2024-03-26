@@ -133,9 +133,9 @@
               "Z",
             ].join(" ");
 
-            svg.append("path").attr("d", d).attr("fill", colors[i]); // replace with your color
+            svg.append("path").attr("d", d).attr("fill", colors[i]);
 
-            const labelRadius = radius + 20; // Adjust as needed
+            const labelRadius = radius + 20;
             const labelX =
               centerX +
               labelRadius *
@@ -145,58 +145,55 @@
               labelRadius *
                 Math.sin(degreesToRadians(startingAngle + arcSize / 2));
 
+            const words = ratingsLabels[i].split(" ");
+            const numLines = words.length;
+            const fontSize = 20;
+            const lineHeight = 1.2;
 
-                
+            let textWidth = 0;
+            let textHeight = numLines * fontSize * lineHeight;
 
-                
+            const group = svg.append("g");
 
+            const text = group
+              .append("text")
+              .attr("x", labelX)
+              .attr("class", "label");
 
+            words.forEach((word, j) => {
+              const tspan = text
+                .append("tspan")
+                .attr("x", labelX)
+                .attr(
+                  "dy",
+                  j === 0
+                    ? `${(-lineHeight * (numLines - 1)) / 2}em`
+                    : `${lineHeight}em`
+                )
+                .text(word);
 
+              textWidth = Math.max(
+                textWidth,
+                tspan.node().getComputedTextLength()
+              );
+            });
 
-                const words = ratingsLabels[i].split(" ");
-const numLines = words.length;
-const fontSize = 20; // same as in your CSS
-const lineHeight = 1.2; // This is the line-height in ems
+            const rect = group
+              .insert("rect", ":first-child")
+              .attr("x", labelX - textWidth / 2 - 5)
+              .attr("y", labelY - textHeight / 2 - 5)
+              .attr("width", textWidth + 10)
+              .attr("height", textHeight + 10)
+              .attr("rx", 5)
+              .attr("ry", 5)
+              .style("fill", "rgba(255, 255, 255, 0.75)");
 
-let textWidth = 0;
-let textHeight = numLines * fontSize * lineHeight;
-
-const group = svg.append("g");
-
-const text = group.append("text")
-  .attr("x", labelX)
-  .attr("class", "label");
-
-words.forEach((word, j) => {
-  const tspan = text.append("tspan")
-    .attr("x", labelX)
-    .attr("dy", j === 0 ? `${-lineHeight * (numLines - 1) / 2}em` : `${lineHeight}em`)
-    .text(word);
-
-  textWidth = Math.max(textWidth, tspan.node().getComputedTextLength());
-});
-
-const rect = group.insert("rect", ":first-child")
-  .attr("x", labelX - textWidth / 2 - 5) // 5 is for padding
-  .attr("y", labelY - textHeight / 2) // Adjusted to align with the text
-  .attr("width", textWidth + 10) // 10 is for padding
-  .attr("height", textHeight + 10) // 10 is for padding
-  .attr("rx", 5) // Corner radius
-  .attr("ry", 5) // Corner radius
-  .style("fill", "rgba(255, 255, 255, 0.8)");
-
-// Adjust the y attribute of the text after the rect is added
-text.attr("y", parseFloat(rect.attr("y")) + parseFloat(rect.attr("height")) / 2);
-
-
-
-
-
-
-
-
-
-
+            text.attr(
+              "y",
+              parseFloat(rect.attr("y")) +
+                parseFloat(rect.attr("height")) / 2 +
+                5
+            );
           });
         }, [ratings]);
 
