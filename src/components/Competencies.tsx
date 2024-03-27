@@ -60,6 +60,7 @@ export default function Competencies() {
 
     competencies.forEach((competency: CompetencyType, i: number) => {
       accumulatedRating = Competency({
+        competencies,
         competency,
         i,
         svg,

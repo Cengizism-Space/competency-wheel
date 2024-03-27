@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { CompetencyType } from "../constants";
 
 interface CompetencyControllerProps {
@@ -15,6 +15,14 @@ const CompetencyController: React.FC<CompetencyControllerProps> = ({
   setActiveIndex,
 }) => {
   const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    let activeName = "";
+    if (activeIndex !== null) {
+      activeName = competencies[activeIndex].name;
+    }
+    setInputValue(activeName);
+  }, [activeIndex]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
