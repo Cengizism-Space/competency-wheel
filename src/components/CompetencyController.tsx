@@ -1,5 +1,8 @@
-import React, { useState, ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent, useCallback, useMemo } from "react";
 import { CompetencyType } from "../constants";
+import CompetencyValueController from "./CompetencyValueController";
+import CompetencyName from "./CompetencyName";
+import RemoveButton from "./RemoveButton";
 
 interface CompetencyControllerProps {
   competencies: CompetencyType[];
@@ -14,89 +17,37 @@ const CompetencyController: React.FC<CompetencyControllerProps> = ({
   activeIndex,
   setActiveIndex,
 }) => {
-  const [inputValue, setInputValue] = useState("");
-
-  useEffect(() => {
-    let activeName = "";
+  const updateCompetency = (update: (competency: CompetencyType) => void) => {
     if (activeIndex !== null) {
-      activeName = competencies[activeIndex].name;
-    }
-    setInputValue(activeName);
-  }, [activeIndex]);
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleIncrease = () => {
-    if (activeIndex !== null && competencies[activeIndex].value < 10) {
       const updatedCompetencies = [...competencies];
-      updatedCompetencies[activeIndex].value++;
+      update(updatedCompetencies[activeIndex]);
       setCompetencies(updatedCompetencies);
-    }
-  };
-
-  const handleDecrease = () => {
-    if (activeIndex !== null && competencies[activeIndex].value > 1) {
-      const updatedCompetencies = [...competencies];
-      updatedCompetencies[activeIndex].value--;
-      setCompetencies(updatedCompetencies);
-    }
-  };
-
-  const handleAdd = () => {
-    if (inputValue && competencies.length < 20) {
-      setCompetencies([...competencies, { name: inputValue, value: 5 }]);
-      setInputValue("");
-    }
-  };
-
-  const handleRemove = () => {
-    if (activeIndex !== null && competencies.length > 1) {
-      const updatedCompetencies = competencies.filter(
-        (_, index) => index !== activeIndex
-      );
-      setCompetencies(updatedCompetencies);
-      setActiveIndex(null);
     }
   };
 
   return (
     <div className="flex flex-rows items-center space-y-4 mb-8">
-      <input
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-        className="border-2 border-gray-300 rounded-md p-2"
+      <CompetencyName
+        competencies={competencies}
+        updateCompetency={updateCompetency}
+        setCompetencies={setCompetencies}
+        activeIndex={activeIndex}
       />
-      {activeIndex === null ? (
-        <button
-          onClick={handleAdd}
-          className={`bg-green-500 text-white px-4 py-2 rounded-md ${competencies.length >= 20 ? "opacity-50 cursor-not-allowed" : ""}`}
-        >
-          Add Competency
-        </button>
-      ) : (
-        <>
-          <button
-            onClick={handleIncrease}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
-          >
-            Increase
-          </button>
-          <button
-            onClick={handleDecrease}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
-          >
-            Decrease
-          </button>
-          <button
-            onClick={handleRemove}
-            className="bg-red-500 text-white px-4 py-2 rounded-md"
-          >
-            Remove Competency
-          </button>
-        </>
+      {activeIndex !== null && (
+        <RemoveButton
+          competencies={competencies}
+          setCompetencies={setCompetencies}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+        />
+      )}
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      {activeIndex !== null && (
+        <CompetencyValueController
+          activeIndex={activeIndex}
+          competencies={competencies}
+          updateCompetency={updateCompetency}
+        />
       )}
     </div>
   );
