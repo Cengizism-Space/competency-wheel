@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { useRef, useEffect, RefObject } from "react";
+import { useState, useRef, useEffect, RefObject } from "react";
 import { competencies, CompetencyType } from "../constants";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Competency from "./Competency";
@@ -7,10 +7,11 @@ import Competency from "./Competency";
 export default function Chart() {
   const svgRef = useRef();
   const dimensions = useWindowDimensions();
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
     drawChart();
-  }, [dimensions]);
+  }, [dimensions, activeIndex]);
 
   const drawChart = () => {
     const svg = svgRef.current ? d3.select(svgRef.current) : null;
@@ -46,6 +47,8 @@ export default function Chart() {
         padding,
         totalRating,
         accumulatedRating,
+        activeIndex,
+        setActiveIndex,
       });
     });
 

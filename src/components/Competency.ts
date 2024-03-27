@@ -11,7 +11,9 @@ const Competency = ({
   centerRadius,
   padding,
   totalRating,
-  accumulatedRating
+  accumulatedRating,
+  activeIndex,
+  setActiveIndex,
 }: any) => {
   const rating = competency.value;
   const radius =
@@ -50,10 +52,12 @@ const Competency = ({
 
   svg
     .append("path")
+    .attr("class", `arc ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`)
     .attr("d", d)
     .attr("fill", colors[i])
     .attr("stroke", "white")
-    .attr("stroke-width", 1);
+    .attr("stroke-width", 1)
+    .on("click", () => setActiveIndex(i));
 
   CompetencyLabel({
     svg,

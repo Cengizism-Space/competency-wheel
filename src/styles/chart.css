@@ -1,0 +1,24 @@
+.arc.active {
+  opacity: 1;
+}
+
+.arc.active + g {
+  opacity: 1;
+}
+
+.arc.inactive {
+  opacity: 0.3;
+}
+
+.arc.inactive + g {
+  opacity: 0.3;
+}
+
+.arc:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.arc:hover + g {
+  opacity: 1;
+}
