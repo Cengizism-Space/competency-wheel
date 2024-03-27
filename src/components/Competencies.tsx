@@ -36,11 +36,11 @@ const Competencies: React.FC = () => {
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [setActiveIndex]);
 
   useEffect(() => {
     drawChart;
-  }, [dimensions, activeIndex, competencies]);
+  }, [dimensions, activeIndex, competencies, drawChart]);
 
   return (
     <>

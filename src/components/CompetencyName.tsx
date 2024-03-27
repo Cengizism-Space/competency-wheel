@@ -25,7 +25,7 @@ const CompetencyName: React.FC<CompetencyNameProps> = ({
     } else {
       setInputValue("");
     }
-  }, [activeIndex]);
+  }, [activeIndex, competencies]);
 
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
