@@ -23,11 +23,11 @@ export const colors = [
 
 export type CompetencyType = {
   name: string;
-  description: string;
+  description?: string;
   value: number;
 };
 
-export const competencies = [
+export const UXCompetencies = [
   {
     name: "Vision",
     description:

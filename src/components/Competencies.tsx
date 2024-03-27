@@ -1,12 +1,15 @@
 import * as d3 from "d3";
 import { useState, useRef, useEffect, RefObject } from "react";
-import { competencies, CompetencyType } from "../constants";
+import { UXCompetencies, CompetencyType } from "../constants";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Competency from "./Competency";
+import CompetencyController from "./CompetencyController";
 
 export default function Competencies() {
   const svgRef = useRef();
   const dimensions = useWindowDimensions();
+  const [competencies, setCompetencies] =
+    useState<CompetencyType[]>(UXCompetencies);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -30,7 +33,7 @@ export default function Competencies() {
 
   useEffect(() => {
     drawChart();
-  }, [dimensions, activeIndex]);
+  }, [dimensions, activeIndex, competencies]);
 
   const drawChart = () => {
     const svg = svgRef.current ? d3.select(svgRef.current) : null;
@@ -81,6 +84,12 @@ export default function Competencies() {
 
   return (
     <>
+      <CompetencyController
+        competencies={competencies}
+        setCompetencies={setCompetencies}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
+      />
       <svg ref={svgRef as unknown as RefObject<SVGSVGElement> | undefined} />
     </>
   );
