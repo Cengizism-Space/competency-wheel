@@ -1,16 +1,21 @@
 import * as d3 from "d3";
-import { useState, useRef, useEffect, RefObject } from "react";
-import { UXCompetencies, CompetencyType } from "../constants";
+import React, { useRef, useEffect, RefObject, useContext } from "react";
+import { CompetencyType } from "../constants";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Competency from "./Competency";
 import CompetencyController from "./CompetencyController";
+import { CompetencyContext } from "./CompetencyContext";
 
-export default function Competencies() {
+import { CompetencyContextType } from "./CompetencyContext";
+
+const Competencies: React.FC = () => {
   const svgRef = useRef();
   const dimensions = useWindowDimensions();
-  const [competencies, setCompetencies] =
-    useState<CompetencyType[]>(UXCompetencies);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const context = useContext(CompetencyContext);
+
+  const { competencies, activeIndex, setActiveIndex } =
+    context as CompetencyContextType;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -85,13 +90,10 @@ export default function Competencies() {
 
   return (
     <>
-      <CompetencyController
-        competencies={competencies}
-        setCompetencies={setCompetencies}
-        activeIndex={activeIndex}
-        setActiveIndex={setActiveIndex}
-      />
+      <CompetencyController />
       <svg ref={svgRef as unknown as RefObject<SVGSVGElement> | undefined} />
     </>
   );
-}
+};
+
+export default Competencies;

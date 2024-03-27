@@ -1,17 +1,17 @@
 import { CompetencyType } from "@/constants";
-import React, { ChangeEvent, useCallback, useMemo } from "react";
+import React, { ChangeEvent, useCallback, useMemo, useContext } from "react";
+import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
 
 interface CompetencyValueControllerProps {
-  activeIndex: number | null;
-  competencies: CompetencyType[];
   updateCompetency: (update: (competency: CompetencyType) => void) => void;
 }
 
 const CompetencyValueController: React.FC<CompetencyValueControllerProps> = ({
-  activeIndex,
-  competencies,
   updateCompetency,
 }) => {
+  const context = useContext(CompetencyContext);
+  const { activeIndex, competencies } = context as CompetencyContextType;
+
   const handleValueChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       updateCompetency(

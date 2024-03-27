@@ -1,19 +1,12 @@
 import { CompetencyType } from "@/constants";
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
+import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
 
-interface RemoveButtonProps {
-  competencies: CompetencyType[];
-  setCompetencies: React.Dispatch<React.SetStateAction<CompetencyType[]>>;
-  activeIndex: number | null;
-  setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
-}
+const RemoveButton: React.FC = () => {
+  const context = useContext(CompetencyContext);
+  const { competencies, setCompetencies, activeIndex, setActiveIndex } =
+    context as CompetencyContextType;
 
-const RemoveButton: React.FC<RemoveButtonProps> = ({
-  competencies,
-  setCompetencies,
-  activeIndex,
-  setActiveIndex,
-}) => {
   const handleRemove = useCallback(() => {
     if (activeIndex !== null && competencies.length > 1) {
       setCompetencies(competencies.filter((_, index) => index !== activeIndex));

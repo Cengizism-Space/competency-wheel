@@ -1,19 +1,24 @@
 import { CompetencyType } from "@/constants";
-import React, { ChangeEvent, useCallback, useState, useEffect } from "react";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useState,
+  useEffect,
+  useContext,
+} from "react";
+import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
 
 interface CompetencyNameProps {
-  competencies: CompetencyType[];
   updateCompetency: (update: (competency: CompetencyType) => void) => void;
-  setCompetencies: React.Dispatch<React.SetStateAction<CompetencyType[]>>;
-  activeIndex: number | null;
 }
 
 const CompetencyName: React.FC<CompetencyNameProps> = ({
-  competencies,
   updateCompetency,
-  setCompetencies,
-  activeIndex,
 }) => {
+  const context = useContext(CompetencyContext);
+  const { competencies, setCompetencies, activeIndex } =
+    context as CompetencyContextType;
+
   useEffect(() => {
     if (activeIndex !== null) {
       setInputValue(competencies[activeIndex].name);
