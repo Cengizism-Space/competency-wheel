@@ -72,7 +72,7 @@ const CompetencyController: React.FC<CompetencyControllerProps> = ({
       {activeIndex === null ? (
         <button
           onClick={handleAdd}
-          className="bg-green-500 text-white px-4 py-2 rounded-md"
+          className={`bg-green-500 text-white px-4 py-2 rounded-md ${competencies.length >= 20 ? "opacity-50 cursor-not-allowed" : ""}`}
         >
           Add Competency
         </button>
