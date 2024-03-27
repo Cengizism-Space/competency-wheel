@@ -21,7 +21,7 @@ const CompetencyController: React.FC<CompetencyControllerProps> = ({
   };
 
   const handleIncrease = () => {
-    if (activeIndex !== null) {
+    if (activeIndex !== null && competencies[activeIndex].value < 10) {
       const updatedCompetencies = [...competencies];
       updatedCompetencies[activeIndex].value++;
       setCompetencies(updatedCompetencies);
@@ -29,7 +29,7 @@ const CompetencyController: React.FC<CompetencyControllerProps> = ({
   };
 
   const handleDecrease = () => {
-    if (activeIndex !== null) {
+    if (activeIndex !== null && competencies[activeIndex].value > 1) {
       const updatedCompetencies = [...competencies];
       updatedCompetencies[activeIndex].value--;
       setCompetencies(updatedCompetencies);
@@ -37,14 +37,14 @@ const CompetencyController: React.FC<CompetencyControllerProps> = ({
   };
 
   const handleAdd = () => {
-    if (inputValue) {
+    if (inputValue && competencies.length < 20) {
       setCompetencies([...competencies, { name: inputValue, value: 5 }]);
       setInputValue("");
     }
   };
 
   const handleRemove = () => {
-    if (activeIndex !== null) {
+    if (activeIndex !== null && competencies.length > 1) {
       const updatedCompetencies = competencies.filter(
         (_, index) => index !== activeIndex
       );
