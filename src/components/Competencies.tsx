@@ -4,10 +4,29 @@ import { competencies, CompetencyType } from "../constants";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Competency from "./Competency";
 
-export default function Chart() {
+export default function Competencies() {
   const svgRef = useRef();
   const dimensions = useWindowDimensions();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        svgRef.current &&
+        (svgRef.current as unknown as HTMLElement).contains(
+          event.target as Node
+        )
+      ) {
+        setActiveIndex(null);
+      }
+    };
+
+    window.addEventListener("click", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     drawChart();
@@ -61,6 +80,8 @@ export default function Chart() {
   };
 
   return (
-    <svg ref={svgRef as unknown as RefObject<SVGSVGElement> | undefined} />
+    <>
+      <svg ref={svgRef as unknown as RefObject<SVGSVGElement> | undefined} />
+    </>
   );
 }
