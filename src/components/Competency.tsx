@@ -19,7 +19,9 @@ const Competency = ({
   const rating = competency.value;
   const radius =
     centerRadius +
-    Math.abs(rating * ((Math.min(centerX, centerY) - centerRadius - padding) / 10));
+    Math.abs(
+      rating * ((Math.min(centerX, centerY) - centerRadius - padding) / 10)
+    );
   const startingAngle = (accumulatedRating / totalRating) * 360;
   const arcSize = (rating / totalRating) * 360;
   const endingAngle = startingAngle + arcSize;
@@ -33,29 +35,35 @@ const Competency = ({
   const endX = centerX + radius * Math.cos(degreesToRadians(endingAngle));
   const endY = centerY + radius * Math.sin(degreesToRadians(endingAngle));
 
-  const d = competencies.length === 1
-    ? `M ${centerX} ${centerY} m -${radius}, 0 a ${radius},${radius} 0 1,0 ${radius * 2},0 a ${radius},${radius} 0 1,0 -${radius * 2},0`
-    : [
-      "M",
-      centerX,
-      centerY,
-      "L",
-      startX,
-      startY,
-      "A",
-      radius,
-      radius,
-      0,
-      largeArcFlag,
-      1,
-      endX,
-      endY,
-      "Z",
-    ].join(" ");
+  const d =
+    competencies.length === 1
+      ? `M ${centerX} ${centerY} m -${radius}, 0 a ${radius},${radius} 0 1,0 ${
+          radius * 2
+        },0 a ${radius},${radius} 0 1,0 -${radius * 2},0`
+      : [
+          "M",
+          centerX,
+          centerY,
+          "L",
+          startX,
+          startY,
+          "A",
+          radius,
+          radius,
+          0,
+          largeArcFlag,
+          1,
+          endX,
+          endY,
+          "Z",
+        ].join(" ");
 
   svg
     .append("path")
-    .attr("class", `arc ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`)
+    .attr(
+      "class",
+      `arc ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`
+    )
     .attr("d", d)
     .attr("fill", colors[i])
     .attr("stroke", "white")
