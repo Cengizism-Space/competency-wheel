@@ -1,5 +1,8 @@
-import React, { useRef, useEffect, RefObject, useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "./CompetenciesContext";
+import React, { useRef, useEffect, useContext } from "react";
+import {
+  CompetenciesContext,
+  CompetencyContextType,
+} from "./CompetenciesContext";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
@@ -7,6 +10,7 @@ import CompetencyValue from "./Competency/CompetencyValue";
 import CompetencyMeta from "./Competency/CompetencyMeta";
 import CompetencyRemoval from "./Competency/CompetencyRemoval";
 import Templates from "./Templates";
+import useExportToPng from "@/hooks/useExportToPng";
 
 const Competencies: React.FC = () => {
   const context = useContext(CompetenciesContext);
@@ -23,6 +27,7 @@ const Competencies: React.FC = () => {
   }, [template, setCompetencies]);
 
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const exportToPng = useExportToPng(svgRef);
   const dimensions = useWindowDimensions();
   const drawChart = useDrawChart({
     svgRef,
@@ -52,7 +57,10 @@ const Competencies: React.FC = () => {
           </>
         )}
       </div>
-      <svg ref={svgRef as unknown as RefObject<SVGSVGElement> | undefined} />
+      <div>
+        <button onClick={exportToPng}>Export to PNG</button>
+      </div>
+      <svg ref={svgRef} />
     </>
   );
 };
