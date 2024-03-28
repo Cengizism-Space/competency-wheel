@@ -138,7 +138,7 @@ const frontend = [
   { name: "Webpack", description: "The ability to configure Webpack.", value: 5 }
 ];
 
-export const Templates = {
+export const templates = {
   ux: ux,
   frontend: frontend
 }

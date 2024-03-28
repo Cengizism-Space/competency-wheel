@@ -1,16 +1,16 @@
 import React, { useState, useContext } from "react";
-import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
-import { Templates } from "@/constants";
+import { CompetenciesContext, CompetencyContextType } from "./CompetenciesContext";
+import { templates } from "@/constants";
 
-const CompetencyTemplates = () => {
-  const context = useContext(CompetencyContext);
+const Templates = () => {
+  const context = useContext(CompetenciesContext);
   const { template, setTemplate } = context as CompetencyContextType;
   const [selectedTemplate, setSelectedTemplate] = useState("default");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (event.target.value !== "default") {
       setSelectedTemplate(event.target.value);
-      setTemplate(Templates[event.target.value as keyof typeof Templates]);
+      setTemplate(templates[event.target.value as keyof typeof templates]);
     }
   };
 
@@ -37,4 +37,4 @@ const CompetencyTemplates = () => {
   );
 };
 
-export default CompetencyTemplates;
+export default Templates;

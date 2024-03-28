@@ -2,16 +2,16 @@
 import React from "react";
 import Competencies from "./Competencies";
 import Header from "./Header";
-import { CompetencyProvider } from "./CompetencyContext";
+import { CompetenciesProvider } from "./CompetenciesContext";
 
 const Main: React.FC = () => {
   return (
-    <CompetencyProvider>
+    <CompetenciesProvider>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <Header />
         <Competencies />
       </main>
-    </CompetencyProvider>
+    </CompetenciesProvider>
   );
 };
 

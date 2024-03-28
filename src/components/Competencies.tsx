@@ -1,12 +1,15 @@
 import React, { useRef, useEffect, RefObject, useContext } from "react";
-import CompetencyController from "./CompetencyController";
-import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
+import { CompetenciesContext, CompetencyContextType } from "./CompetenciesContext";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import CompetencyValue from "./Competency/CompetencyValue";
+import CompetencyMeta from "./Competency/CompetencyMeta";
+import CompetencyRemoval from "./Competency/CompetencyRemoval";
+import Templates from "./Templates";
 
 const Competencies: React.FC = () => {
-  const context = useContext(CompetencyContext);
+  const context = useContext(CompetenciesContext);
   const {
     competencies,
     setCompetencies,
@@ -37,7 +40,18 @@ const Competencies: React.FC = () => {
 
   return (
     <>
-      <CompetencyController />
+      <div className="flex flex-rows items-center space-y-4 mb-8">
+        <div className="columns-2 gap-8">
+          <Templates />
+          <CompetencyMeta />
+        </div>
+        {activeIndex !== null && (
+          <>
+            <CompetencyRemoval />
+            <CompetencyValue />
+          </>
+        )}
+      </div>
       <svg ref={svgRef as unknown as RefObject<SVGSVGElement> | undefined} />
     </>
   );

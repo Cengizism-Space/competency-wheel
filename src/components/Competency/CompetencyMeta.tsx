@@ -5,10 +5,10 @@ import React, {
   useEffect,
   useContext,
 } from "react";
-import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
+import { CompetenciesContext, CompetencyContextType } from "../CompetenciesContext";
 
 const CompetencyMeta: React.FC = () => {
-  const context = useContext(CompetencyContext);
+  const context = useContext(CompetenciesContext);
   const {
     competencies,
     setCompetencies,

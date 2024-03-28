@@ -1,6 +1,6 @@
-import { colors } from "../constants";
+import { colors } from "../../constants";
 import CompetencyLabel from "./CompetencyLabel";
-import { degreesToRadians } from "../utils";
+import { degreesToRadians } from "../../utils";
 
 const CompetencyArc = ({
   competencies,

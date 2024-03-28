@@ -11,11 +11,11 @@ export interface CompetencyContextType {
   updateCompetency: (update: (competency: CompetencyType) => void) => void;
 }
 
-export const CompetencyContext = createContext<
+export const CompetenciesContext = createContext<
   CompetencyContextType | undefined
 >(undefined);
 
-export const CompetencyProvider: FC<{ children: ReactNode }> = ({
+export const CompetenciesProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [competencies, setCompetencies] = useState<CompetencyType[]>([]);
@@ -31,7 +31,7 @@ export const CompetencyProvider: FC<{ children: ReactNode }> = ({
   };
 
   return (
-    <CompetencyContext.Provider
+    <CompetenciesContext.Provider
       value={{
         competencies,
         setCompetencies,
@@ -43,6 +43,6 @@ export const CompetencyProvider: FC<{ children: ReactNode }> = ({
       }}
     >
       {children}
-    </CompetencyContext.Provider>
+    </CompetenciesContext.Provider>
   );
 };

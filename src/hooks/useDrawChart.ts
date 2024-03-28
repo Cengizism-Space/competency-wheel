@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
 import { CompetencyType } from "../constants";
-import CompetencyArc from "../components/CompetencyArc";
+import CompetencyArc from "../components/Competency/CompetencyArc";
 
 interface DrawChartProps {
   svgRef: React.RefObject<SVGSVGElement>;
