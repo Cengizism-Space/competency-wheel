@@ -123,18 +123,19 @@ const ux = [
 ];
 
 const frontend = [
+  { name: "HTML", description: "The ability to write clean, maintainable HTML code.", value: 7 },
+  { name: "CSS", description: "The ability to write clean, maintainable CSS code.", value: 7 },
+  { name: "Sass", description: "The ability to write clean, maintainable Sass code.", value: 6 },
+  { name: "Material Design", description: "The ability to build Google Material Design applications.", value: 5 },
+  { name: "Tailwind CSS", description: "The ability to build Tailwind CSS applications.", value: 6 },
+  { name: "Bootstrap", description: "The ability to build Bootstrap applications.", value: 6 },
   { name: "JavaScript", description: "The ability to write clean, maintainable JavaScript code.", value: 6 },
   { name: "TypeScript", description: "The ability to write clean, maintainable TypeScript code.", value: 7 },
   { name: "React", description: "The ability to build React applications.", value: 8 },
   { name: "Vue", description: "The ability to build Vue applications.", value: 5 },
   { name: "Angular", description: "The ability to build Angular applications.", value: 4 },
-  { name: "Svelte", description: "The ability to build Svelte applications.", value: 3 },
-  { name: "Redux", description: "The ability to manage state with Redux.", value: 6 },
-  { name: "Vuex", description: "The ability to manage state with Vuex.", value: 5 },
-  { name: "NgRx", description: "The ability to manage state with NgRx.", value: 4 },
-  { name: "Sapper", description: "The ability to build Sapper applications.", value: 3 },
+  { name: "Zustand", description: "The ability to manage state with Zustand.", value: 6 },
   { name: "Next.js", description: "The ability to build Next.js applications.", value: 7 },
-  { name: "Gatsby", description: "The ability to build Gatsby applications.", value: 6 },
   { name: "Webpack", description: "The ability to configure Webpack.", value: 5 }
 ];
 
