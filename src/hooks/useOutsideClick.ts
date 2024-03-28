@@ -5,6 +5,16 @@ const useOutsideClick = (
   callback: () => void
 ): void => {
   const handleClick = (e: MouseEvent) => {
+    const targetElement = e.target as Element;
+    if (
+      targetElement.closest('.competency-templates') ||
+      targetElement.closest('.competency-value-controllers') ||
+      targetElement.closest('.competency-remove') ||
+      targetElement.closest('form')
+    ) {
+      return;
+    }
+
     if (ref.current && !ref.current.contains(e.target as Node)) {
       callback();
     }

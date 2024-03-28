@@ -32,7 +32,7 @@ const CompetencyValueController: React.FC = () => {
   }, [activeIndex, competencies]);
 
   return (
-    <>
+    <div className="competency-value-controllers">
       <button
         onClick={handleIncrease}
         className="bg-blue-500 text-white px-4 py-2 rounded-md"
@@ -53,7 +53,7 @@ const CompetencyValueController: React.FC = () => {
       >
         Decrease
       </button>
-    </>
+    </div>
   );
 };
 

@@ -20,7 +20,7 @@ const CompetencyTemplates = () => {
   };
 
   return (
-    <div>
+    <div className="competency-templates">
       <select value={selectedTemplate} onChange={handleChange}>
         <option value="default">
           Choose a template to start or add your own competencies
