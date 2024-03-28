@@ -1,17 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import * as d3 from 'd3';
-import { CompetencyType } from "../constants";
+import { CompetencyType } from "@/constants";
 import CompetencyArc from "../components/Competency/CompetencyArc";
+import {
+  CompetenciesContext,
+  CompetencyContextType,
+} from "../components/CompetenciesContext";
 
 interface DrawChartProps {
   svgRef: React.RefObject<SVGSVGElement>;
   dimensions: { width: number; height: number };
-  competencies: CompetencyType[];
-  activeIndex: number | null;
-  setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-const useDrawChart = ({ svgRef, dimensions, competencies, activeIndex, setActiveIndex }: DrawChartProps) => {
+const useDrawChart = ({
+  svgRef,
+  dimensions
+}: DrawChartProps) => {
+  const context = useContext(CompetenciesContext);
+  const {
+    competencies,
+    activeIndex,
+    setActiveIndex
+  } = context as CompetencyContextType;
+
   useEffect(() => {
     const drawChart = () => {
       const svg = svgRef.current ? d3.select(svgRef.current) : null;

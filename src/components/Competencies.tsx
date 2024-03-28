@@ -6,11 +6,11 @@ import {
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import useExportToPng from "@/hooks/useExportToPng";
 import CompetencyValue from "./Competency/CompetencyValue";
 import CompetencyMeta from "./Competency/CompetencyMeta";
 import CompetencyRemoval from "./Competency/CompetencyRemoval";
 import Templates from "./Templates";
-import useExportToPng from "@/hooks/useExportToPng";
 
 const Competencies: React.FC = () => {
   const context = useContext(CompetenciesContext);
@@ -29,13 +29,7 @@ const Competencies: React.FC = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const exportToPng = useExportToPng(svgRef);
   const dimensions = useWindowDimensions();
-  const drawChart = useDrawChart({
-    svgRef,
-    dimensions,
-    competencies,
-    activeIndex,
-    setActiveIndex,
-  });
+  const drawChart = useDrawChart({ svgRef, dimensions });
 
   useOutsideClick(svgRef, () => setActiveIndex(null));
 
