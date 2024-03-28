@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import CompetencyValueController from "./CompetencyValueController";
-import CompetencyName from "./CompetencyName";
+import CompetencyMeta from "./CompetencyMeta";
 import RemoveButton from "./RemoveButton";
 import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
 import CompetencyTemplates from "./CompetencyTemplates";
@@ -13,7 +13,7 @@ const CompetencyController: React.FC = () => {
     <div className="flex flex-rows items-center space-y-4 mb-8">
       <div className="columns-2 gap-8">
         <CompetencyTemplates />
-        <CompetencyName />
+        <CompetencyMeta />
       </div>
       {activeIndex !== null && (
         <>

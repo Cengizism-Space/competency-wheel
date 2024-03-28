@@ -68,7 +68,9 @@ const CompetencyArc = ({
     .attr("fill", colors[i])
     .attr("stroke", "white")
     .attr("stroke-width", 1)
-    .on("click", () => setActiveIndex(i));
+    .on("click", () => setActiveIndex(i))
+    .append("title")
+    .text(competency.description);
 
   CompetencyLabel({
     svg,
