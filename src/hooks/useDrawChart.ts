@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import * as d3 from 'd3';
 import { CompetencyType } from "../constants";
-import Competency from "../components/Competency";
+import CompetencyArc from "../components/CompetencyArc";
 
 interface DrawChartProps {
   svgRef: React.RefObject<SVGSVGElement>;
@@ -37,7 +37,7 @@ const useDrawChart = ({ svgRef, dimensions, competencies, activeIndex, setActive
       let accumulatedRating = 0;
 
       competencies.forEach((competency: CompetencyType, i: number) => {
-        accumulatedRating = Competency({
+        accumulatedRating = CompetencyArc({
           competencies,
           competency,
           i,
@@ -53,7 +53,7 @@ const useDrawChart = ({ svgRef, dimensions, competencies, activeIndex, setActive
         });
       });
 
-      svg
+      competencies.length > 0 && svg
         .append("circle")
         .attr("cx", centerX)
         .attr("cy", centerY)

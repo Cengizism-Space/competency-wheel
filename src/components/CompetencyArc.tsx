@@ -2,7 +2,7 @@ import { colors } from "../constants";
 import CompetencyLabel from "./CompetencyLabel";
 import { degreesToRadians } from "./utils";
 
-const Competency = ({
+const CompetencyArc = ({
   competencies,
   competency,
   i,
@@ -83,4 +83,4 @@ const Competency = ({
   return accumulatedRating;
 };
 
-export default Competency;
+export default CompetencyArc;

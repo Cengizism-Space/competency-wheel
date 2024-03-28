@@ -1,4 +1,3 @@
-import { CompetencyType } from "@/constants";
 import React, {
   ChangeEvent,
   useCallback,
@@ -8,15 +7,9 @@ import React, {
 } from "react";
 import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
 
-interface CompetencyNameProps {
-  updateCompetency: (update: (competency: CompetencyType) => void) => void;
-}
-
-const CompetencyName: React.FC<CompetencyNameProps> = ({
-  updateCompetency,
-}) => {
+const CompetencyName: React.FC = () => {
   const context = useContext(CompetencyContext);
-  const { competencies, setCompetencies, activeIndex } =
+  const { competencies, setCompetencies, activeIndex, updateCompetency } =
     context as CompetencyContextType;
 
   useEffect(() => {

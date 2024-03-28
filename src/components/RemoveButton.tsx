@@ -1,4 +1,3 @@
-import { CompetencyType } from "@/constants";
 import React, { useCallback, useContext } from "react";
 import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
 
@@ -8,7 +7,7 @@ const RemoveButton: React.FC = () => {
     context as CompetencyContextType;
 
   const handleRemove = useCallback(() => {
-    if (activeIndex !== null && competencies.length > 1) {
+    if (activeIndex !== null && competencies.length > 0) {
       setCompetencies(competencies.filter((_, index) => index !== activeIndex));
       setActiveIndex(null);
     }

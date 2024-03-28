@@ -6,8 +6,17 @@ import useDrawChart from "@/hooks/useDrawChart";
 
 const Competencies: React.FC = () => {
   const context = useContext(CompetencyContext);
-  const { competencies, activeIndex, setActiveIndex } =
-    context as CompetencyContextType;
+  const {
+    competencies,
+    setCompetencies,
+    activeIndex,
+    setActiveIndex,
+    template,
+  } = context as CompetencyContextType;
+
+  useEffect(() => {
+    setCompetencies(template);
+  }, [template, setCompetencies]);
 
   const svgRef = useRef<SVGSVGElement | null>(null);
   const dimensions = useWindowDimensions();
