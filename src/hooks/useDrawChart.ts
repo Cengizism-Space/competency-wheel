@@ -32,6 +32,13 @@ const useDrawChart = ({ svgRef, dimensions, competencies, activeIndex, setActive
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("preserveAspectRatio", "xMidYMid meet");
 
+      svg
+        .append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("fill", "transparent")
+        .on("click", () => setActiveIndex(null));
+
       let totalRating = competencies.reduce((a, b) => a + b.value, 0);
 
       let accumulatedRating = 0;
@@ -58,7 +65,8 @@ const useDrawChart = ({ svgRef, dimensions, competencies, activeIndex, setActive
         .attr("cx", centerX)
         .attr("cy", centerY)
         .attr("r", centerRadius * 0.6)
-        .attr("fill", "rgba(235, 235, 235)");
+        .attr("fill", "rgba(235, 235, 235)")
+        .on("click", () => setActiveIndex(null));
     };
 
     drawChart();
