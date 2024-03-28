@@ -9,6 +9,8 @@ export interface CompetencyContextType {
   template: CompetencyType[];
   setTemplate: React.Dispatch<React.SetStateAction<CompetencyType[]>>;
   updateCompetency: (update: (competency: CompetencyType) => void) => void;
+  title: string;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const CompetenciesContext = createContext<
@@ -21,6 +23,7 @@ export const CompetenciesProvider: FC<{ children: ReactNode }> = ({
   const [competencies, setCompetencies] = useState<CompetencyType[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [template, setTemplate] = useState<CompetencyType[]>([]);
+  const [title, setTitle] = useState("Competency Chart");
 
   const updateCompetency = (update: (competency: CompetencyType) => void) => {
     if (activeIndex !== null) {
@@ -40,6 +43,8 @@ export const CompetenciesProvider: FC<{ children: ReactNode }> = ({
         template,
         setTemplate,
         updateCompetency,
+        title,
+        setTitle,
       }}
     >
       {children}

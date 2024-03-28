@@ -15,6 +15,7 @@ import Templates from "./Templates";
 const Competencies: React.FC = () => {
   const context = useContext(CompetenciesContext);
   const {
+    title,
     competencies,
     setCompetencies,
     activeIndex,
@@ -22,20 +23,22 @@ const Competencies: React.FC = () => {
     template,
   } = context as CompetencyContextType;
 
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const exportToPng = useExportToPng(svgRef);
+  const dimensions = useWindowDimensions();
+  useDrawChart({ svgRef, dimensions });
+  useOutsideClick(svgRef, () => setActiveIndex(null));
+
   useEffect(() => {
     setCompetencies(template);
   }, [template, setCompetencies]);
 
-  const svgRef = useRef<SVGSVGElement | null>(null);
-  const exportToPng = useExportToPng(svgRef);
-  const dimensions = useWindowDimensions();
-  const drawChart = useDrawChart({ svgRef, dimensions });
-
-  useOutsideClick(svgRef, () => setActiveIndex(null));
-
-  useEffect(() => {
-    drawChart;
-  }, [dimensions, activeIndex, competencies, drawChart]);
+  const saveChart = () => {
+    console.log({
+      name: title,
+      competencies,
+    });
+  };
 
   return (
     <>
@@ -53,6 +56,7 @@ const Competencies: React.FC = () => {
       </div>
       <div>
         <button onClick={exportToPng}>Export to PNG</button>
+        <button onClick={saveChart}>Save chart</button>
       </div>
       <svg ref={svgRef} />
     </>

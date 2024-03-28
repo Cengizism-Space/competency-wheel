@@ -1,9 +1,15 @@
-import React, { useState, useRef, FormEvent } from "react";
+import React, { useState, useRef, FormEvent, useContext } from "react";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import {
+  CompetenciesContext,
+  CompetencyContextType,
+} from "./CompetenciesContext";
 
 const Header = () => {
+  const { title, setTitle } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState("Competency Chart");
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick(ref, () => {
