@@ -1,4 +1,4 @@
-import { degreesToRadians } from "./utils";
+import { degreesToRadians } from "../utils";
 
 const CompetencyLabel = ({
   svg,
