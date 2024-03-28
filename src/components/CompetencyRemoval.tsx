@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from "react";
 import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
 
-const RemoveButton: React.FC = () => {
+const CompetencyRemoval: React.FC = () => {
   const context = useContext(CompetencyContext);
   const { competencies, setCompetencies, activeIndex, setActiveIndex } =
     context as CompetencyContextType;
@@ -25,4 +25,4 @@ const RemoveButton: React.FC = () => {
   );
 };
 
-export default RemoveButton;
+export default CompetencyRemoval;

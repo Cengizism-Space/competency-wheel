@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback, useMemo, useContext } from "react";
 import { CompetencyContext, CompetencyContextType } from "./CompetencyContext";
 
-const CompetencyValueController: React.FC = () => {
+const CompetencyValue: React.FC = () => {
   const context = useContext(CompetencyContext);
   const { activeIndex, competencies, updateCompetency } =
     context as CompetencyContextType;
@@ -57,4 +57,4 @@ const CompetencyValueController: React.FC = () => {
   );
 };
 
-export default CompetencyValueController;
+export default CompetencyValue;
