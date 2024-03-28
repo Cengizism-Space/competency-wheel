@@ -169,8 +169,10 @@ const useDrawChart = ({
         .append("circle")
         .attr("cx", centerX)
         .attr("cy", centerY)
-        .attr("r", centerRadius * 0.6)
+        .attr("r", centerRadius * 0.4)
         .attr("fill", "rgba(235, 235, 235)")
+        .attr("stroke", "white")
+        .attr("stroke-width", 1)
         .on("click", () => setActiveIndex(null));
     };
 
