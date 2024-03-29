@@ -102,7 +102,6 @@ const CompetencyMeta: React.FC = () => {
     inputValue,
     description,
     activeIndex,
-    wheel,
     handleAdd,
     setActiveIndex,
     clearMetaForm,
