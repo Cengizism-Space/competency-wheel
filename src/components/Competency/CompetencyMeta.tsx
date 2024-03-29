@@ -12,13 +12,8 @@ import {
 
 const CompetencyMeta: React.FC = () => {
   const context = useContext(CompetenciesContext);
-  const {
-    competencies,
-    setCompetencies,
-    activeIndex,
-    setActiveIndex,
-    updateCompetency,
-  } = context as CompetencyContextType;
+  const { wheel, setWheel, activeIndex, setActiveIndex } =
+    context as CompetencyContextType;
 
   const [hasDescription, setHasDescription] = useState(false);
   const [description, setDescription] = useState("");
@@ -27,9 +22,9 @@ const CompetencyMeta: React.FC = () => {
 
   useEffect(() => {
     if (activeIndex !== null) {
-      setInputValue(competencies[activeIndex].title);
-      setDescription(competencies[activeIndex]?.description || "");
-      if (competencies[activeIndex]?.description?.length) {
+      setInputValue(wheel.competencies[activeIndex].title);
+      setDescription(wheel.competencies[activeIndex]?.description || "");
+      if (wheel.competencies[activeIndex]?.description?.length) {
         setHasDescription(true);
       }
     } else {
@@ -37,7 +32,7 @@ const CompetencyMeta: React.FC = () => {
       setDescription("");
       setHasDescription(false);
     }
-  }, [activeIndex, competencies]);
+  }, [activeIndex, wheel]);
 
   const handleInputChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -67,14 +62,21 @@ const CompetencyMeta: React.FC = () => {
   }, []);
 
   const handleAdd = useCallback(() => {
-    if (inputValue && competencies.length < 20) {
-      setCompetencies([
-        ...competencies,
-        { title: inputValue, description: description, value: 5 },
-      ]);
+    if (inputValue && wheel.competencies.length < 20) {
+      setWheel({
+        ...wheel,
+        competencies: [
+          ...wheel.competencies,
+          {
+            title: inputValue,
+            description,
+            value: 5,
+          },
+        ],
+      });
       clearMetaForm();
     }
-  }, [inputValue, description, competencies, clearMetaForm, setCompetencies]);
+  }, [inputValue, description, wheel, clearMetaForm, setWheel]);
 
   const handleSave = useCallback(() => {
     if (!inputValue.trim()) {
@@ -85,10 +87,12 @@ const CompetencyMeta: React.FC = () => {
     setError("");
 
     if (activeIndex !== null) {
-      updateCompetency((competency) => {
-        competency.title = inputValue;
-        competency.description = description;
-      });
+      const competencies = [...wheel.competencies];
+      competencies[activeIndex].title = inputValue;
+      competencies[activeIndex].description = description;
+      competencies[activeIndex].value = competencies[activeIndex].value;
+      setWheel({ ...wheel, competencies });
+
       clearMetaForm();
       setActiveIndex(null);
     } else if (inputValue) {
@@ -98,7 +102,8 @@ const CompetencyMeta: React.FC = () => {
     inputValue,
     description,
     activeIndex,
-    updateCompetency,
+    wheel,
+    setWheel,
     handleAdd,
     setActiveIndex,
     clearMetaForm,

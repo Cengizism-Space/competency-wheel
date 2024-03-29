@@ -19,7 +19,7 @@ const useDrawChart = ({
 }: DrawChartProps) => {
   const context = useContext(CompetenciesContext);
   const {
-    competencies,
+    wheel,
     activeIndex,
     setActiveIndex
   } = context as CompetencyContextType;
@@ -51,11 +51,11 @@ const useDrawChart = ({
         .attr("fill", "transparent")
         .on("click", () => setActiveIndex(null));
 
-      let totalRating = competencies.reduce((a, b) => a + b.value, 0);
+      let totalRating = wheel.competencies.reduce((a, b) => a + b.value, 0);
 
       let accumulatedRating = 0;
 
-      competencies.forEach((competency: CompetencyType, i: number) => {
+      wheel.competencies.forEach((competency: CompetencyType, i: number) => {
         const rating = competency.value;
         const radius =
           centerRadius +
@@ -76,7 +76,7 @@ const useDrawChart = ({
         const endY = centerY + radius * Math.sin(degreesToRadians(endingAngle));
 
         const d =
-          competencies.length === 1
+          wheel.competencies.length === 1
             ? `M ${centerX} ${centerY} m -${radius}, 0 a ${radius},${radius} 0 1,0 ${radius * 2
             },0 a ${radius},${radius} 0 1,0 -${radius * 2},0`
             : [
@@ -166,7 +166,7 @@ const useDrawChart = ({
           .style("text-anchor", "middle");
       });
 
-      competencies.length > 0 && svg
+      wheel.competencies.length > 0 && svg
         .append("circle")
         .attr("cx", centerX)
         .attr("cy", centerY)
@@ -178,7 +178,7 @@ const useDrawChart = ({
     };
 
     drawChart();
-  }, [svgRef, dimensions, competencies, activeIndex]); // eslint-disable-line
+  }, [svgRef, dimensions, wheel, activeIndex]); // eslint-disable-line
 };
 
 export default useDrawChart;

@@ -6,15 +6,20 @@ import {
 
 const CompetencyRemoval: React.FC = () => {
   const context = useContext(CompetenciesContext);
-  const { competencies, setCompetencies, activeIndex, setActiveIndex } =
+  const { wheel, setWheel, activeIndex, setActiveIndex } =
     context as CompetencyContextType;
 
   const handleRemove = useCallback(() => {
-    if (activeIndex !== null && competencies.length > 0) {
-      setCompetencies(competencies.filter((_, index) => index !== activeIndex));
+    if (activeIndex !== null && wheel.competencies.length > 0) {
+      setWheel({
+        ...wheel,
+        competencies: wheel.competencies.filter(
+          (_, index) => index !== activeIndex
+        ),
+      });
       setActiveIndex(null);
     }
-  }, [activeIndex, competencies, setCompetencies, setActiveIndex]);
+  }, [activeIndex, wheel, setWheel, setActiveIndex]);
 
   return (
     <div className="competency-remove">

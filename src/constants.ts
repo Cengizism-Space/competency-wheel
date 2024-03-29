@@ -23,7 +23,6 @@ export const colors = [
   "#EE3B95", // Hot Pink
   "#FF69B4", // Hot Pink
 ] as const;
-
 export const DEFAULT_TITLE = "Competency Chart" as string;
 
 export const DEFAULT_WHEEL: WheelType = {

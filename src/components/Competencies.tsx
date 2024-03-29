@@ -21,15 +21,8 @@ const query = `*[_type == "wheel" && template == true]{
 const Competencies: React.FC = () => {
   const sanity = useSanityClient();
   const context = useContext(CompetenciesContext);
-  const {
-    title,
-    competencies,
-    setCompetencies,
-    activeIndex,
-    setActiveIndex,
-    wheel,
-    setTemplates,
-  } = context as CompetencyContextType;
+  const { activeIndex, setActiveIndex, wheel, setTemplates } =
+    context as CompetencyContextType;
 
   const svgRef = useRef<SVGSVGElement | null>(null);
   const exportToPng = useExportToPng(svgRef);
@@ -43,15 +36,8 @@ const Competencies: React.FC = () => {
     });
   }, [sanity]); // eslint-disable-line
 
-  useEffect(() => {
-    setCompetencies([...wheel.competencies]);
-  }, [wheel]); // eslint-disable-line
-
   const saveChart = () => {
-    console.log({
-      name: title,
-      competencies,
-    });
+    console.log(wheel);
   };
 
   return (

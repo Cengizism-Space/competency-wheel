@@ -3,11 +3,25 @@ import {
   CompetenciesContext,
   CompetencyContextType,
 } from "../CompetenciesContext";
+import { CompetencyType } from "../../../typings";
 
 const CompetencyValue: React.FC = () => {
   const context = useContext(CompetenciesContext);
-  const { activeIndex, competencies, updateCompetency } =
-    context as CompetencyContextType;
+  const { wheel, setWheel, activeIndex } = context as CompetencyContextType;
+
+  const updateCompetency = useCallback((update: (competency: CompetencyType) => void) => {
+    if (activeIndex !== null) {
+      wheel.competencies.find((competency, index) => {
+        if (index === activeIndex) {
+          update(competency);
+        }
+      });
+
+      const updatedCompetencies = [...wheel.competencies];
+      update(updatedCompetencies[activeIndex]);
+      setWheel({ ...wheel, competencies: updatedCompetencies });
+    }
+  }, [activeIndex, wheel, setWheel]);
 
   const handleValueChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,8 +45,8 @@ const CompetencyValue: React.FC = () => {
   }, [updateCompetency]);
 
   const competencyValue = useMemo(() => {
-    return activeIndex !== null ? competencies[activeIndex].value : "";
-  }, [activeIndex, competencies]);
+    return activeIndex !== null ? wheel.competencies[activeIndex].value : "";
+  }, [activeIndex, wheel]);
 
   return (
     <div className="competency-value-controllers">
