@@ -178,7 +178,7 @@ const useDrawChart = ({
     };
 
     drawChart();
-  }, [svgRef, dimensions, competencies, activeIndex]);
+  }, [svgRef, dimensions, competencies, activeIndex]); // eslint-disable-line
 };
 
 export default useDrawChart;

@@ -41,7 +41,7 @@ const Competencies: React.FC = () => {
     sanity?.fetch(query).then((data) => {
       setTemplates(data);
     });
-  }, [sanity]);
+  }, [sanity]); // eslint-disable-line
 
   useEffect(() => {
     setCompetencies(template);

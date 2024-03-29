@@ -74,7 +74,7 @@ const CompetencyMeta: React.FC = () => {
       ]);
       clearMetaForm();
     }
-  }, [inputValue, description, competencies, setCompetencies]);
+  }, [inputValue, description, competencies, clearMetaForm, setCompetencies]);
 
   const handleSave = useCallback(() => {
     if (!inputValue.trim()) {
@@ -94,7 +94,15 @@ const CompetencyMeta: React.FC = () => {
     } else if (inputValue) {
       handleAdd();
     }
-  }, [inputValue, description, activeIndex, updateCompetency, handleAdd]);
+  }, [
+    inputValue,
+    description,
+    activeIndex,
+    updateCompetency,
+    handleAdd,
+    setActiveIndex,
+    clearMetaForm,
+  ]);
 
   return (
     <form onSubmit={(e) => e.preventDefault()} className="rows gap-4">
