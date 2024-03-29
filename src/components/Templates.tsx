@@ -3,23 +3,24 @@ import {
   CompetenciesContext,
   CompetencyContextType,
 } from "./CompetenciesContext";
+import { DEFAULT_WHEEL } from "@/constants";  
 
 const Templates = () => {
   const context = useContext(CompetenciesContext);
-  const { templates, template, setTemplate } = context as CompetencyContextType;
+  const { templates, wheel, setWheel } = context as CompetencyContextType;
   const [selectedTemplate, setSelectedTemplate] = useState<string>("default");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTemplate(event.target.value);
     templates.forEach((t) => {
       if (t.slug.current === event.target.value) {
-        setTemplate(t.competencies);
+        setWheel(t);
       }
     });
   };
 
   const clearAll = () => {
-    setTemplate([]);
+    setWheel(DEFAULT_WHEEL);
     setSelectedTemplate("default");
   };
 
@@ -36,7 +37,7 @@ const Templates = () => {
         ))}
       </select>
       <span> or add your own competencies</span>
-      {template.length > 0 && (
+      {wheel.competencies.length > 0 && (
         <p>
           <button onClick={clearAll}>Clear all</button>
         </p>

@@ -16,7 +16,7 @@ export type CompetencyType = {
 
 export type WheelType = {
   title: string;
-  template: boolean;
+  template?: boolean;
   slug: {
     _type: "slug";
     current: string;

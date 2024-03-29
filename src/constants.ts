@@ -1,3 +1,6 @@
+import { CompetencyType, WheelType } from "../typings";
+import { createSlug } from "./utils";
+
 export const colors = [
   "#6A2B8B", // Dark Orchid
   "#864C9E", // Medium Purple
@@ -19,4 +22,15 @@ export const colors = [
   "#E50F73", // Deep Pink
   "#EE3B95", // Hot Pink
   "#FF69B4", // Hot Pink
-];
+] as const;
+
+export const DEFAULT_TITLE = "Competency Chart" as string;
+
+export const DEFAULT_WHEEL: WheelType = {
+  title: DEFAULT_TITLE,
+  slug: {
+    _type: "slug",
+    current: createSlug(DEFAULT_TITLE)
+  },
+  competencies: [] as CompetencyType[],
+};

@@ -6,6 +6,7 @@ export default function useSanityClient(): SanityClient | null {
 
   useEffect(() => {
     setClient(createClient({
+      apiVersion: "2024-03-27",
       projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID as string,
       dataset: process.env.NEXT_PUBLIC_SANITY_DATASET as string,
       useCdn: true,

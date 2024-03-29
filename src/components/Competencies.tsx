@@ -27,7 +27,7 @@ const Competencies: React.FC = () => {
     setCompetencies,
     activeIndex,
     setActiveIndex,
-    template,
+    wheel,
     setTemplates,
   } = context as CompetencyContextType;
 
@@ -44,8 +44,8 @@ const Competencies: React.FC = () => {
   }, [sanity]); // eslint-disable-line
 
   useEffect(() => {
-    setCompetencies(template);
-  }, [template, setCompetencies]);
+    setCompetencies([...wheel.competencies]);
+  }, [wheel]); // eslint-disable-line
 
   const saveChart = () => {
     console.log({

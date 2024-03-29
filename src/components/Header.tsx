@@ -6,7 +6,7 @@ import {
 } from "./CompetenciesContext";
 
 const Header = () => {
-  const { title, setTitle } = useContext(
+  const { wheel, setWheel } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
   const [isEditing, setIsEditing] = useState(false);
@@ -27,13 +27,17 @@ const Header = () => {
     setIsEditing(false);
   };
 
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWheel({ ...wheel, title: event.target.value });
+  };
+
   return (
     <div className="text-4xl font-bold text-center text-gray mb-12" ref={ref}>
       {isEditing ? (
         <form onSubmit={handleSubmit}>
           <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={wheel.title}
+            onChange={handleTitleChange}
             onBlur={() => setIsEditing(false)}
             autoFocus
             className="border-b-2 border-gray-600"
@@ -41,7 +45,7 @@ const Header = () => {
         </form>
       ) : (
         <h1 onClick={handleEdit}>
-          {title}
+          {wheel.title}
           <button onClick={handleEdit} className="ml-2 underline text-blue-600">
             edit
           </button>
