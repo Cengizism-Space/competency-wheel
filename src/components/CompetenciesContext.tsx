@@ -1,5 +1,5 @@
-import { createContext, useState, FC, ReactNode } from "react";
-import { WheelType } from "@/../typings";
+import { createContext, useState, FC, ReactNode, useCallback } from "react";
+import { WheelType, CompetencyType } from "@/../typings";
 import { DEFAULT_WHEEL } from "@/constants";
 
 export interface CompetencyContextType {
@@ -9,6 +9,7 @@ export interface CompetencyContextType {
   setWheel: React.Dispatch<React.SetStateAction<WheelType>>;
   templates: WheelType[];
   setTemplates: React.Dispatch<React.SetStateAction<WheelType[]>>;
+  updateCompetency: (update: (competency: CompetencyType) => void) => void;
 }
 
 export const CompetenciesContext = createContext<
@@ -22,6 +23,23 @@ export const CompetenciesProvider: FC<{ children: ReactNode }> = ({
   const [wheel, setWheel] = useState<WheelType>(DEFAULT_WHEEL);
   const [templates, setTemplates] = useState<WheelType[]>([]);
 
+  const updateCompetency = useCallback(
+    (update: (competency: CompetencyType) => void) => {
+      if (activeIndex !== null) {
+        wheel.competencies.find((competency, index) => {
+          if (index === activeIndex) {
+            update(competency);
+          }
+        });
+
+        const updatedCompetencies = [...wheel.competencies];
+        update(updatedCompetencies[activeIndex]);
+        setWheel({ ...wheel, competencies: updatedCompetencies });
+      }
+    },
+    [activeIndex, wheel, setWheel]
+  );
+
   return (
     <CompetenciesContext.Provider
       value={{
@@ -31,6 +49,7 @@ export const CompetenciesProvider: FC<{ children: ReactNode }> = ({
         setWheel,
         templates,
         setTemplates,
+        updateCompetency,
       }}
     >
       {children}

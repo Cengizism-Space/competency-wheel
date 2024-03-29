@@ -12,7 +12,7 @@ import {
 
 const CompetencyMeta: React.FC = () => {
   const context = useContext(CompetenciesContext);
-  const { wheel, setWheel, activeIndex, setActiveIndex } =
+  const { wheel, setWheel, activeIndex, setActiveIndex, updateCompetency } =
     context as CompetencyContextType;
 
   const [hasDescription, setHasDescription] = useState(false);
@@ -87,11 +87,11 @@ const CompetencyMeta: React.FC = () => {
     setError("");
 
     if (activeIndex !== null) {
-      const competencies = [...wheel.competencies];
-      competencies[activeIndex].title = inputValue;
-      competencies[activeIndex].description = description;
-      competencies[activeIndex].value = competencies[activeIndex].value;
-      setWheel({ ...wheel, competencies });
+      updateCompetency((competency) => {
+        competency.title = inputValue;
+        competency.description = description;
+        competency.value = competency.value;
+      });
 
       clearMetaForm();
       setActiveIndex(null);
@@ -103,10 +103,10 @@ const CompetencyMeta: React.FC = () => {
     description,
     activeIndex,
     wheel,
-    setWheel,
     handleAdd,
     setActiveIndex,
     clearMetaForm,
+    updateCompetency,
   ]);
 
   return (

@@ -3,25 +3,11 @@ import {
   CompetenciesContext,
   CompetencyContextType,
 } from "../CompetenciesContext";
-import { CompetencyType } from "../../../typings";
 
 const CompetencyValue: React.FC = () => {
   const context = useContext(CompetenciesContext);
-  const { wheel, setWheel, activeIndex } = context as CompetencyContextType;
-
-  const updateCompetency = useCallback((update: (competency: CompetencyType) => void) => {
-    if (activeIndex !== null) {
-      wheel.competencies.find((competency, index) => {
-        if (index === activeIndex) {
-          update(competency);
-        }
-      });
-
-      const updatedCompetencies = [...wheel.competencies];
-      update(updatedCompetencies[activeIndex]);
-      setWheel({ ...wheel, competencies: updatedCompetencies });
-    }
-  }, [activeIndex, wheel, setWheel]);
+  const { wheel, activeIndex, updateCompetency } =
+    context as CompetencyContextType;
 
   const handleValueChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
