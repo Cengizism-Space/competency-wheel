@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react';
 import * as d3 from 'd3';
-import { CompetencyType } from "@/constants";
+import { CompetencyType } from '@/../typings';
 import { degreesToRadians } from "@/utils";
 import { colors } from "@/constants";
 import {
@@ -119,7 +119,7 @@ const useDrawChart = ({
           centerY +
           labelRadius * Math.sin(degreesToRadians(startingAngle + arcSize / 2));
 
-        const words = competency.name.split(" ");
+        const words = competency.title.split(" ");
         const numLines = words.length;
         const fontSize = 20;
         const lineHeight = 1.2;
@@ -127,9 +127,10 @@ const useDrawChart = ({
         let textWidth = 0;
         let textHeight = numLines * fontSize * lineHeight;
 
-        const group = svg.append("g");
+        const group = svg.append("g")
+          .attr("class", `label ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`)
 
-        const text = group.append("text").attr("x", labelX).attr("class", "label");
+        const text = group.append("text").attr("x", labelX);
 
         words.forEach((word: string, j: number) => {
           const tspan = text

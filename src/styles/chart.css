@@ -1,24 +1,31 @@
 .arc.active {
-  opacity: 1;
+  visibility: visible;
 }
 
-.arc.active + g {
-  opacity: 1;
+.label.active {
+  visibility: visible;
 }
 
 .arc.inactive {
   opacity: 0.2;
 }
 
-.arc.inactive + g {
-  opacity: 0.2;
+.label.inactive {
+  visibility: hidden;
 }
 
 .arc:hover {
-  cursor: pointer;
   opacity: 0.8;
 }
 
-.arc:hover + g {
-  opacity: 1;
+.label:hover {
+  visibility: visible;
+}
+
+.arc:hover + .label {
+  visibility: visible;
+}
+
+.label.inactive:hover {
+  visibility: hidden;
 }

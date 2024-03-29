@@ -11,8 +11,15 @@ import CompetencyValue from "./Competency/CompetencyValue";
 import CompetencyMeta from "./Competency/CompetencyMeta";
 import CompetencyRemoval from "./Competency/CompetencyRemoval";
 import Templates from "./Templates";
+import useSanityClient from "@/hooks/useSanityClient";
+
+const query = `*[_type == "wheel" && template == true]{
+  title, slug,
+    competencies[]->{title, description, value}
+}`;
 
 const Competencies: React.FC = () => {
+  const sanity = useSanityClient();
   const context = useContext(CompetenciesContext);
   const {
     title,
@@ -21,6 +28,7 @@ const Competencies: React.FC = () => {
     activeIndex,
     setActiveIndex,
     template,
+    setTemplates,
   } = context as CompetencyContextType;
 
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -28,6 +36,12 @@ const Competencies: React.FC = () => {
   const dimensions = useWindowDimensions();
   useDrawChart({ svgRef, dimensions });
   useOutsideClick(svgRef, () => setActiveIndex(null));
+
+  useEffect(() => {
+    sanity?.fetch(query).then((data) => {
+      setTemplates(data);
+    });
+  }, [sanity]);
 
   useEffect(() => {
     setCompetencies(template);

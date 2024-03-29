@@ -1,5 +1,8 @@
 import React, { useCallback, useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "../CompetenciesContext";
+import {
+  CompetenciesContext,
+  CompetencyContextType,
+} from "../CompetenciesContext";
 
 const CompetencyRemoval: React.FC = () => {
   const context = useContext(CompetenciesContext);

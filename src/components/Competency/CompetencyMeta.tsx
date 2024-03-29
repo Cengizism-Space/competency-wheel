@@ -5,7 +5,10 @@ import React, {
   useEffect,
   useContext,
 } from "react";
-import { CompetenciesContext, CompetencyContextType } from "../CompetenciesContext";
+import {
+  CompetenciesContext,
+  CompetencyContextType,
+} from "../CompetenciesContext";
 
 const CompetencyMeta: React.FC = () => {
   const context = useContext(CompetenciesContext);
@@ -24,7 +27,7 @@ const CompetencyMeta: React.FC = () => {
 
   useEffect(() => {
     if (activeIndex !== null) {
-      setInputValue(competencies[activeIndex].name);
+      setInputValue(competencies[activeIndex].title);
       setDescription(competencies[activeIndex]?.description || "");
       if (competencies[activeIndex]?.description?.length) {
         setHasDescription(true);
@@ -67,7 +70,7 @@ const CompetencyMeta: React.FC = () => {
     if (inputValue && competencies.length < 20) {
       setCompetencies([
         ...competencies,
-        { name: inputValue, description: description, value: 5 },
+        { title: inputValue, description: description, value: 5 },
       ]);
       clearMetaForm();
     }
@@ -83,7 +86,7 @@ const CompetencyMeta: React.FC = () => {
 
     if (activeIndex !== null) {
       updateCompetency((competency) => {
-        competency.name = inputValue;
+        competency.title = inputValue;
         competency.description = description;
       });
       clearMetaForm();

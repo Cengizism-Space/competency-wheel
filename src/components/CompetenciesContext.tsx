@@ -1,5 +1,5 @@
 import { createContext, useState, FC, ReactNode } from "react";
-import { CompetencyType } from "../constants";
+import { WheelType, CompetencyType } from "@/../typings";
 
 export interface CompetencyContextType {
   competencies: CompetencyType[];
@@ -11,6 +11,8 @@ export interface CompetencyContextType {
   updateCompetency: (update: (competency: CompetencyType) => void) => void;
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
+  templates: WheelType[];
+  setTemplates: React.Dispatch<React.SetStateAction<WheelType[]>>;
 }
 
 export const CompetenciesContext = createContext<
@@ -24,6 +26,7 @@ export const CompetenciesProvider: FC<{ children: ReactNode }> = ({
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [template, setTemplate] = useState<CompetencyType[]>([]);
   const [title, setTitle] = useState("Competency Chart");
+  const [templates, setTemplates] = useState<WheelType[]>([]);
 
   const updateCompetency = (update: (competency: CompetencyType) => void) => {
     if (activeIndex !== null) {
@@ -45,6 +48,8 @@ export const CompetenciesProvider: FC<{ children: ReactNode }> = ({
         updateCompetency,
         title,
         setTitle,
+        templates,
+        setTemplates,
       }}
     >
       {children}
