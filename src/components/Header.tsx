@@ -3,7 +3,7 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import {
   CompetenciesContext,
   CompetencyContextType,
-} from "./CompetenciesContext";
+} from "../context";
 import { createSlug } from "@/utils";
 
 const Header = () => {

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback, useMemo, useContext } from "react";
 import {
   CompetenciesContext,
   CompetencyContextType,
-} from "../CompetenciesContext";
+} from "../../context";
 
 const CompetencyValue: React.FC = () => {
   const context = useContext(CompetenciesContext);

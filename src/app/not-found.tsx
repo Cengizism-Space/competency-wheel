@@ -1,10 +1,11 @@
-import React from "react";
-import Main from "../components/Main";
+import Link from "next/link";
 
-export default function App() {
+export default function NotFound() {
   return (
-    <>
-      <Main />
-    </>
+    <div>
+      <h2>Not Found</h2>
+      <p>Could not find requested resource</p>
+      <Link href="/">Return Home</Link>
+    </div>
   );
 }

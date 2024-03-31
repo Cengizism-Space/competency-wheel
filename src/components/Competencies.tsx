@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useContext, useState } from "react";
 import {
   CompetenciesContext,
   CompetencyContextType,
-} from "./CompetenciesContext";
+} from "../context";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";

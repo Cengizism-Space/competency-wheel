@@ -1,27 +1,30 @@
-import { createContext, useState, FC, ReactNode, useCallback } from "react";
-import { WheelType, CompetencyType } from "@/../typings";
+"use client";
+import React, { useEffect, useState, useCallback } from "react";
+import Competencies from "./Competencies";
+import Header from "./Header";
+import { CompetenciesContext } from "../context";
+import { fetchWheel } from "@/sanity";
+import { CompetencyType, WheelType } from "../../typings";
 import { DEFAULT_WHEEL } from "@/constants";
 
-export interface CompetencyContextType {
-  activeIndex: number | null;
-  setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
-  wheel: WheelType;
-  setWheel: React.Dispatch<React.SetStateAction<WheelType>>;
-  templates: WheelType[];
-  setTemplates: React.Dispatch<React.SetStateAction<WheelType[]>>;
-  updateCompetency: (update: (competency: CompetencyType) => void) => void;
-}
-
-export const CompetenciesContext = createContext<
-  CompetencyContextType | undefined
->(undefined);
-
-export const CompetenciesProvider: FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+const App: React.FC<{ slug?: string | null }> = ({ slug }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [wheel, setWheel] = useState<WheelType>(DEFAULT_WHEEL);
   const [templates, setTemplates] = useState<WheelType[]>([]);
+  const [notFound, setNotFound] = useState(false);
+
+  useEffect(() => {
+    if (slug) {
+      (async () => {
+        const wheel = await fetchWheel(slug);
+        if (wheel) {
+          setWheel(wheel);
+        } else {
+          setNotFound(true);
+        }
+      })();
+    }
+  }, [slug]);
 
   const updateCompetency = useCallback(
     (update: (competency: CompetencyType) => void) => {
@@ -52,7 +55,11 @@ export const CompetenciesProvider: FC<{ children: ReactNode }> = ({
         updateCompetency,
       }}
     >
-      {children}
+      <Header />
+      {notFound && <div>Wheel not found</div>}
+      <Competencies />
     </CompetenciesContext.Provider>
   );
 };
+
+export default App;

@@ -8,7 +8,7 @@ import React, {
 import {
   CompetenciesContext,
   CompetencyContextType,
-} from "../CompetenciesContext";
+} from "../../context";
 import { createSlug } from "@/utils";
 
 const CompetencyMeta: React.FC = () => {

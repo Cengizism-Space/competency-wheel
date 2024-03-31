@@ -6,7 +6,7 @@ import { colors } from "@/constants";
 import {
   CompetenciesContext,
   CompetencyContextType,
-} from "../components/CompetenciesContext";
+} from "../context";
 
 interface DrawChartProps {
   svgRef: React.RefObject<SVGSVGElement>;

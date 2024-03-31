@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import {
   CompetenciesContext,
   CompetencyContextType,
-} from "./CompetenciesContext";
+} from "../context";
 import { createSlug } from "@/utils";
 
 const Templates = () => {
