@@ -5,7 +5,6 @@ export default function App() {
   return (
     <>
       <Main />
-      <div className="blurred-bg"></div>
     </>
   );
 }

@@ -7,10 +7,8 @@ import { CompetenciesProvider } from "./CompetenciesContext";
 const Main: React.FC = () => {
   return (
     <CompetenciesProvider>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <Header />
-        <Competencies />
-      </main>
+      <Header />
+      <Competencies />
     </CompetenciesProvider>
   );
 };

@@ -23,6 +23,17 @@ export async function fetchTemplates() {
   }
 }
 
+export async function fetchWheel(slug: string) {
+  try {
+    return await sanity.fetch(`*[_type == "wheel" && slug.current == $slug]{
+      title, slug,
+      competencies[]->{_key, title, description, value}
+    }[0]`, { slug });
+  } catch (error) {
+    console.error("Could not fetch wheel", error);
+  }
+}
+
 export async function saveWheel(wheel: WheelType) {
   try {
     const response = await sanity.create({
