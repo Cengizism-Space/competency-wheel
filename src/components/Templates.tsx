@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   CompetenciesContext,
   CompetencyContextType,
 } from "./CompetenciesContext";
-import { DEFAULT_WHEEL } from "@/constants";  
+import { createSlug } from "@/utils";
 
 const Templates = () => {
   const context = useContext(CompetenciesContext);
@@ -14,15 +14,22 @@ const Templates = () => {
     setSelectedTemplate(event.target.value);
     templates.forEach((t) => {
       if (t.slug.current === event.target.value) {
-        setWheel(t);
+        setWheel({
+          ...t,
+          slug: {
+            _type: "slug",
+            current: createSlug(t.title),
+          },
+        });
       }
     });
   };
 
-  const clearAll = () => {
-    setWheel(DEFAULT_WHEEL);
-    setSelectedTemplate("default");
-  };
+  useEffect(() => {
+    if (wheel && wheel.competencies.length > 0) {
+      setSelectedTemplate("default");
+    }
+  }, [wheel]);
 
   return (
     <div className="competency-templates">
@@ -37,11 +44,6 @@ const Templates = () => {
         ))}
       </select>
       <span> or add your own competencies</span>
-      {wheel.competencies.length > 0 && (
-        <p>
-          <button onClick={clearAll}>Clear all</button>
-        </p>
-      )}
     </div>
   );
 };

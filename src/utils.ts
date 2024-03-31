@@ -1,7 +1,7 @@
 import slugify from 'slugify';
 
 export const createSlug = (input: string): string => {
-  const now = Date.now();
+  const now = Math.floor(Date.now() / 1000);
   const slug = slugify(input, {
     lower: true,
     strict: true,

@@ -4,6 +4,7 @@ import {
   CompetenciesContext,
   CompetencyContextType,
 } from "./CompetenciesContext";
+import { createSlug } from "@/utils";
 
 const Header = () => {
   const { wheel, setWheel } = useContext(
@@ -28,7 +29,14 @@ const Header = () => {
   };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWheel({ ...wheel, title: event.target.value });
+    setWheel({
+      ...wheel,
+      title: event.target.value,
+      slug: {
+        ...wheel.slug,
+        current: createSlug(event.target.value),
+      },
+    });
   };
 
   return (

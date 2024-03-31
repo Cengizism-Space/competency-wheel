@@ -9,6 +9,7 @@ import {
   CompetenciesContext,
   CompetencyContextType,
 } from "../CompetenciesContext";
+import { createSlug } from "@/utils";
 
 const CompetencyMeta: React.FC = () => {
   const context = useContext(CompetenciesContext);
@@ -68,6 +69,7 @@ const CompetencyMeta: React.FC = () => {
         competencies: [
           ...wheel.competencies,
           {
+            _key: createSlug(inputValue),
             title: inputValue,
             description,
             value: 5,
