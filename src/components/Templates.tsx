@@ -17,9 +17,10 @@ const Templates = () => {
         setWheel({
           ...t,
           slug: {
-            _type: "slug",
+            ...t.slug,
             current: createSlug(t.title),
           },
+          competencies: t.competencies.map(competency => ({ ...competency })),
         });
       }
     });
