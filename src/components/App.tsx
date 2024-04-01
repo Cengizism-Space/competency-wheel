@@ -19,6 +19,10 @@ const App: React.FC<{ slug?: string | null }> = ({ slug }) => {
       (async () => {
         const wheel = await fetchWheel(slug);
         if (wheel) {
+          if (!wheel.competencies) {
+            wheel.competencies = [];
+          }
+          
           setWheel(wheel);
           setFetchedWheel(wheel);
         } else {

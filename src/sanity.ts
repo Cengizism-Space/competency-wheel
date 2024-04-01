@@ -47,73 +47,73 @@ export async function saveWheel(wheel: WheelType) {
       },
     });
 
-    const competencies = await Promise.all(
-      wheel.competencies.map(competency =>
-        sanity.create({
-          _type: "competency",
-          title: competency.title,
-          description: competency.description,
-          value: competency.value,
-        })
-      )
-    );
-    const referenceKeys = competencies.map(competency => ({ _type: 'reference', _ref: competency._id }));
-    const wheelWithCompetencies = await sanity
-      .patch(response._id)
-      .setIfMissing({ competencies: [] })
-      .append('competencies', referenceKeys)
-      .commit({ autoGenerateArrayKeys: true });
-
-    return wheelWithCompetencies;
+    return await createCompetenciesAndAppendToWheel(wheel, response._id);
   } catch (error) {
     console.error("Could not create document", error);
   }
 }
 
-export async function updateWheel(wheel: WheelType, savedDocument: WheelType | null) {
+async function createCompetenciesAndAppendToWheel(wheel: WheelType, wheelId: string) {
+  const competencies = await Promise.all(
+    wheel.competencies.map(competency =>
+      sanity.create({
+        _type: "competency",
+        title: competency.title,
+        description: competency.description,
+        value: competency.value,
+      })
+    )
+  );
 
+  const referenceKeys = competencies.map(competency => ({ _type: 'reference', _ref: competency._id }));
+  const wheelWithCompetencies = await sanity
+    .patch(wheelId)
+    .setIfMissing({ competencies: [] })
+    .append('competencies', referenceKeys)
+    .commit({ autoGenerateArrayKeys: true });
+
+  return wheelWithCompetencies;
+}
+
+export async function updateWheel(wheel: WheelType, savedDocument: WheelType | null) {
   try {
     if (savedDocument?._id) {
-      await sanity
-        .patch(savedDocument._id || '')
-        .unset(['competencies'])
-        .commit();
-      const deleteReferencePromises = savedDocument.competencies.map((competency: CompetencyType) => {
-        if (competency._id) {
-          return sanity.delete(competency._id);
-        }
-      });
-      await Promise.all(deleteReferencePromises);
+      await unsetAndDeleteAllReferences(savedDocument);
+      await createCompetenciesAndAppendToWheel(wheel, savedDocument._id);
 
-      const competencies = await Promise.all(
-        wheel.competencies.map(competency =>
-          sanity.create({
-            _type: "competency",
-            title: competency.title,
-            description: competency.description,
-            value: competency.value,
+      if (wheel.title !== savedDocument.title || wheel.slug.current !== savedDocument.slug.current) {
+        await sanity
+          .patch(savedDocument._id)
+          .set({
+            title: wheel.title,
+            slug: {
+              _type: "slug",
+              current: wheel.slug.current,
+            }
           })
-        )
-      );
+          .commit();
+      }
 
-      const referenceKeys = competencies.map(competency => ({ _type: 'reference', _ref: competency._id }));
-      await sanity
-        .patch(savedDocument._id)
-        .set({
-          title: wheel.title,
-          slug: {
-            _type: "slug",
-            current: wheel.slug.current,
-          }
-        })
-        .setIfMissing({ competencies: [] })
-        .append('competencies', referenceKeys)
-        .commit({ autoGenerateArrayKeys: true });
     }
   } catch (error) {
     console.error("Could not update document", error);
   }
+}
 
+async function unsetAndDeleteAllReferences(wheel: WheelType) {
+  if (wheel._id) {
+    await sanity
+      .patch(wheel._id)
+      .unset(['competencies'])
+      .commit();
+
+    const deleteReferencePromises = wheel.competencies.map((competency: CompetencyType) => {
+      if (competency._id) {
+        return sanity.delete(competency._id);
+      }
+    });
+    await Promise.all(deleteReferencePromises);
+  }
 }
 
 export async function deleteWheel(slug: string) {
@@ -128,12 +128,7 @@ export async function deleteWheel(slug: string) {
       return;
     }
 
-    await sanity
-      .patch(wheel._id)
-      .unset(['competencies'])
-      .commit();
-    const deleteReferencePromises = wheel.competencies.map((competency: { _id: string; }) => sanity.delete(competency._id));
-    await Promise.all(deleteReferencePromises);
+    await unsetAndDeleteAllReferences(wheel);
 
     await sanity.delete(wheel._id);
   } catch (error) {
