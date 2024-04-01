@@ -33,31 +33,44 @@ const Competencies: React.FC = () => {
   const { isCopied, copyToClipboard } = useClipboard();
   const { share } = useWebShare();
 
+  const [saving, setSaving] = useState(false);
+  const [savedLink, setSavedLink] = useState<string | undefined>(undefined);
+  const [deleting, setDeleting] = useState(false);
+
   useEffect(() => {
     (async () => {
       const templates = await fetchTemplates();
       setTemplates(templates);
     })();
+
+    setSavedLink(undefined);
   }, []);
 
   useEffect(() => {
-    setSavedLink(`${window.location.origin}/${wheel?.slug.current}`);
-  }, [wheel._id]);
-
-  const [saving, setSaving] = useState(false);
-  const [savedLink, setSavedLink] = useState<string | undefined>(undefined);
-  const [deleting, setDeleting] = useState(false);
+    if (wheel.hasOwnProperty("_id")) {
+      setSavedLink(`${window.location.origin}/${wheel?.slug.current}`);
+    }
+  }, [wheel]);
 
   const saveChart = async () => {
     setSaving(true);
     if (!wheel._id) {
       await saveWheel(wheel);
+      setSavedLink(`${window.location.origin}/${wheel?.slug.current}`);
     } else {
       await updateWheel(wheel, fetchedWheel);
+
+      if (fetchedWheel?.slug.current !== wheel.slug.current) {
+        setSavedLink(`${window.location.origin}/${wheel?.slug.current}`);
+      }
     }
     setSaving(false);
     if (typeof window !== "undefined" && wheel) {
-      window.location.href = `${window.location.origin}/${wheel.slug.current}`;
+      history.replaceState(
+        {},
+        "",
+        `${window.location.origin}/${wheel.slug.current}`
+      );
     }
   };
 
@@ -66,6 +79,9 @@ const Competencies: React.FC = () => {
     setActiveIndex(null);
     setSavedLink(undefined);
     setSaving(false);
+    if (typeof window !== "undefined") {
+      history.replaceState({}, "", `${window.location.origin}/`);
+    }
   };
 
   const handleDeleteWheel = async () => {
@@ -74,7 +90,7 @@ const Competencies: React.FC = () => {
     setDeleting(false);
     clearAll();
     if (typeof window !== "undefined") {
-      window.location.href = `${window.location.origin}/`;
+      history.replaceState({}, "", `${window.location.origin}/`);
     }
   };
 
@@ -85,7 +101,7 @@ const Competencies: React.FC = () => {
     wheel.competencies.length > 0 &&
     !saving &&
     !deleting;
-  const isWheelSavedPreviously = wheel._id;
+  const isWheelSaved = wheel._id;
 
   return (
     <>
@@ -124,11 +140,11 @@ const Competencies: React.FC = () => {
               className="bg-green-500 text-white px-4 py-2 rounded-md"
               onClick={saveChart}
             >
-              {isWheelSavedPreviously ? "Update wheel" : "Save wheel"}
+              {isWheelSaved ? "Update wheel" : "Save wheel"}
             </button>
           </>
         )}
-        {isWheelSavedPreviously && !deleting && (
+        {isWheelSaved && !deleting && (
           <>
             &nbsp;|&nbsp;
             <button
@@ -141,31 +157,42 @@ const Competencies: React.FC = () => {
         )}
       </div>
       {saving && <div>{saving && <p>Saving...</p>}</div>}
-      {isWheelSavedPreviously && (
+      {savedLink && !saving && (
         <p>
-          <span>Link:</span>
+          <br />
           <a href={savedLink}>{savedLink}</a>
-          {isCopied ? (
-            <span>Copied to clipboard</span>
-          ) : (
-            <button onClick={() => copyToClipboard(savedLink ?? "")}>
-              Copy link
-            </button>
-          )}
-          {typeof navigator.share !== "undefined" && (
-            <button
-              onClick={() =>
-                share({
-                  title: "Wheel",
-                  text: "Check out this wheel",
-                  url: savedLink ?? "",
-                })
-              }
-            >
-              Share link
-            </button>
-          )}
         </p>
+      )}
+      {isWheelSaved && (
+        <>
+          <br />
+          <p>
+            &nbsp;|&nbsp;
+            {isCopied ? (
+              <span>Copied to clipboard</span>
+            ) : (
+              <button onClick={() => copyToClipboard(savedLink ?? "")}>
+                Copy link
+              </button>
+            )}
+            {typeof navigator.share !== "undefined" && (
+              <>
+                &nbsp;|&nbsp;
+                <button
+                  onClick={() =>
+                    share({
+                      title: "Wheel",
+                      text: "Check out this wheel",
+                      url: savedLink ?? "",
+                    })
+                  }
+                >
+                  Share link
+                </button>
+              </>
+            )}
+          </p>
+        </>
       )}
       {deleting && <p>Deleting...</p>}
       <svg ref={svgRef} />
