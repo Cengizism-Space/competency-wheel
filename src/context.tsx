@@ -6,6 +6,8 @@ export interface CompetencyContextType {
   setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
   wheel: WheelType;
   setWheel: React.Dispatch<React.SetStateAction<WheelType>>;
+  fetchedWheel: WheelType | null;
+  setFetchedWheel: React.Dispatch<React.SetStateAction<WheelType | null>>;
   templates: WheelType[];
   setTemplates: React.Dispatch<React.SetStateAction<WheelType[]>>;
   updateCompetency: (update: (competency: CompetencyType) => void) => void;

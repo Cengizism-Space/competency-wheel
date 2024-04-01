@@ -10,6 +10,7 @@ import { DEFAULT_WHEEL } from "@/constants";
 const App: React.FC<{ slug?: string | null }> = ({ slug }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [wheel, setWheel] = useState<WheelType>(DEFAULT_WHEEL);
+  const [fetchedWheel, setFetchedWheel] = useState<WheelType | null>(null);
   const [templates, setTemplates] = useState<WheelType[]>([]);
   const [notFound, setNotFound] = useState(false);
 
@@ -19,6 +20,7 @@ const App: React.FC<{ slug?: string | null }> = ({ slug }) => {
         const wheel = await fetchWheel(slug);
         if (wheel) {
           setWheel(wheel);
+          setFetchedWheel(wheel);
         } else {
           setNotFound(true);
         }
@@ -50,6 +52,8 @@ const App: React.FC<{ slug?: string | null }> = ({ slug }) => {
         setActiveIndex,
         wheel,
         setWheel,
+        fetchedWheel,
+        setFetchedWheel,
         templates,
         setTemplates,
         updateCompetency,
