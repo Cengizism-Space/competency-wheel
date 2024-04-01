@@ -13,7 +13,7 @@ const sanity = createClient(config);
 
 const templatesQuery = `*[_type == "wheel" && template == true]{
   title, slug,
-    competencies[]->{_key, title, description, value}
+    competencies[]->{title, description, value}
 }`;
 
 export async function fetchTemplates() {
@@ -28,7 +28,7 @@ export async function fetchWheel(slug: string) {
   try {
     return await sanity.fetch(`*[_type == "wheel" && slug.current == $slug]{
       _id, title, slug,
-      competencies[]->{_id, _key, title, description, value}
+      competencies[]->{_id, title, description, value}
     }[0]`, { slug });
   } catch (error) {
     console.error("Could not fetch wheel", error);

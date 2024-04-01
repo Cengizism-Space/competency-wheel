@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
-import Competencies from "./Competencies";
+import Wheel from "./Wheel/Wheel";
 import Header from "./Header";
 import { CompetenciesContext } from "../context";
 import { fetchWheel } from "@/sanity";
@@ -59,7 +59,7 @@ const App: React.FC<{ slug?: string | null }> = ({ slug }) => {
     >
       <Header />
       {notFound && <div>Wheel not found</div>}
-      <Competencies />
+      <Wheel />
     </CompetenciesContext.Provider>
   );
 };

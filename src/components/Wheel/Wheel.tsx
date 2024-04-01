@@ -1,19 +1,25 @@
-import React, { useRef, useEffect, useContext, useState } from "react";
-import { CompetenciesContext, CompetencyContextType } from "../context";
+import React, {
+  useRef,
+  useEffect,
+  useContext,
+  useState,
+  useCallback,
+} from "react";
+import { CompetenciesContext, CompetencyContextType } from "../../context";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import useExportToPng from "@/hooks/useExportToPng";
-import CompetencyValue from "./Competency/CompetencyValue";
-import CompetencyMeta from "./Competency/CompetencyMeta";
-import CompetencyRemoval from "./Competency/CompetencyRemoval";
-import Templates from "./Templates";
+import CompetencyValue from "../Competency/CompetencyValue";
+import CompetencyMeta from "../Competency/CompetencyMeta";
+import CompetencyRemoval from "../Competency/CompetencyRemoval";
+import Templates from "../Templates";
 import { fetchTemplates, saveWheel, updateWheel, deleteWheel } from "@/sanity";
 import { DEFAULT_WHEEL, DEFAULT_TITLE } from "@/constants";
 import { useClipboard } from "@/hooks/useClipboard";
 import { useWebShare } from "@/hooks/useWebShare";
 
-const Competencies: React.FC = () => {
+const Wheel: React.FC = () => {
   const context = useContext(CompetenciesContext);
   const {
     activeIndex,
@@ -52,7 +58,7 @@ const Competencies: React.FC = () => {
     }
   }, [wheel]);
 
-  const saveChart = async () => {
+  const saveChart = useCallback(async () => {
     setSaving(true);
     if (!wheel._id) {
       await saveWheel(wheel);
@@ -72,9 +78,9 @@ const Competencies: React.FC = () => {
         `${window.location.origin}/${wheel.slug.current}`
       );
     }
-  };
+  }, [wheel, fetchedWheel]);
 
-  const clearAll = () => {
+  const clearAll = useCallback(() => {
     setWheel(DEFAULT_WHEEL);
     setActiveIndex(null);
     setSavedLink(undefined);
@@ -82,9 +88,9 @@ const Competencies: React.FC = () => {
     if (typeof window !== "undefined") {
       history.replaceState({}, "", `${window.location.origin}/`);
     }
-  };
+  }, [setWheel, setActiveIndex]);
 
-  const handleDeleteWheel = async () => {
+  const handleDeleteWheel = useCallback(async () => {
     setDeleting(true);
     await deleteWheel(wheel.slug.current);
     setDeleting(false);
@@ -92,7 +98,7 @@ const Competencies: React.FC = () => {
     if (typeof window !== "undefined") {
       history.replaceState({}, "", `${window.location.origin}/`);
     }
-  };
+  }, [wheel, clearAll]);
 
   const isUserEnteredWheel =
     wheel.title !== DEFAULT_TITLE || wheel.competencies.length > 0;
@@ -200,4 +206,4 @@ const Competencies: React.FC = () => {
   );
 };
 
-export default Competencies;
+export default Wheel;
