@@ -31,18 +31,12 @@ const App: React.FC<{ slug?: string | null }> = ({ slug }) => {
   const updateCompetency = useCallback(
     (update: (competency: CompetencyType) => void) => {
       if (activeIndex !== null) {
-        wheel.competencies.find((competency, index) => {
-          if (index === activeIndex) {
-            update(competency);
-          }
-        });
-
         const updatedCompetencies = [...wheel.competencies];
         update(updatedCompetencies[activeIndex]);
         setWheel({ ...wheel, competencies: updatedCompetencies });
       }
     },
-    [activeIndex, wheel, setWheel]
+    [activeIndex, wheel]
   );
 
   return (
