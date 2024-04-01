@@ -7,6 +7,7 @@ const config = {
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET as string,
   useCdn: true,
   token: process.env.NEXT_PUBLIC_SANITY_API_TOKEN as string,
+  ignoreBrowserTokenWarning: true
 };
 const sanity = createClient(config);
 
@@ -69,5 +70,30 @@ export async function saveWheel(wheel: WheelType) {
 
   } catch (error) {
     console.error("Could not create document", error);
+  }
+}
+
+export async function deleteWheel(slug: string) {
+  try {
+    const wheel = await sanity.fetch(`*[_type == "wheel" && template != true && slug.current == $slug]{
+      _id,
+      competencies[]->{_id}
+    }[0]`, { slug });
+
+    if (!wheel) {
+      console.error("Could not find wheel to delete. Possibly it is a template");
+      return;
+    }
+
+    await sanity
+      .patch(wheel._id)
+      .unset(['competencies'])
+      .commit();
+    const deleteReferencePromises = wheel.competencies.map((competency: { _id: string; }) => sanity.delete(competency._id));
+    await Promise.all(deleteReferencePromises);
+
+    await sanity.delete(wheel._id);
+  } catch (error) {
+    console.error("Could not delete wheel", error);
   }
 }
