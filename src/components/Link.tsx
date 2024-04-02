@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
+import { CompetenciesContext } from "@/context";
+import { CompetencyContextType } from "../../typings";
 import CopyLinkButton from "./CopyLinkButton";
 import ShareButton from "./ShareButton";
 
-import {} from "@/context";
 const Link = () => {
   const { savedLink } = useContext(
     CompetenciesContext

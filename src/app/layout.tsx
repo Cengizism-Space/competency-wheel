@@ -1,14 +1,9 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../styles/globals.css";
-import "../styles/chart.css";
+import "@/styles/globals.css";
+import "@/styles/chart.css";
+// import { metadata } from "@/constants";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Competency wheel app",
-  description: "Made for company intern evaluation",
-};
 
 export default function RootLayout({
   children,

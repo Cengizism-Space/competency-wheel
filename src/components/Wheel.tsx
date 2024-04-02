@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
+import { CompetenciesContext } from "@/context";
+import { CompetencyContextType } from "../../typings";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";

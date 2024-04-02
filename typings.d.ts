@@ -1,3 +1,31 @@
+export type State = {
+  activeIndex: number | null;
+  wheel: WheelType;
+  fetchedWheel: WheelType | null;
+  templates: WheelType[];
+  svgRef: React.MutableRefObject<SVGSVGElement | null>;
+  saving: boolean;
+  savedLink: string | undefined;
+  deleting: boolean;
+};
+
+export type Action =
+  | { type: 'setState'; payload: Partial<State> }
+  | { type: 'updateCompetency'; payload: (competency: CompetencyType) => number }
+  | { type: 'reset' };
+
+export interface CompetencyContextType {
+  activeIndex: number | null;
+  wheel: WheelType;
+  fetchedWheel: WheelType | null;
+  templates: WheelType[];
+  svgRef: React.MutableRefObject<SVGSVGElement | null>;
+  saving: boolean;
+  savedLink: string | undefined;
+  deleting: boolean;
+  dispatch: React.Dispatch<any>;
+}
+
 type SanityBase = {
   _id?: string;
   _rev?: string;
@@ -23,3 +51,9 @@ export type WheelType = {
   };
   competencies: CompetencyType[];
 } & SanityBase;
+
+export interface ShareData {
+  title: string;
+  text: string;
+  url: string;
+}

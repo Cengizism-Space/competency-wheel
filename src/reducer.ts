@@ -1,22 +1,6 @@
 import { produce } from "immer";
-import { CompetencyType, WheelType } from "../typings";
 import { DEFAULT_WHEEL } from "./constants";
-
-export type State = {
-  activeIndex: number | null;
-  wheel: WheelType;
-  fetchedWheel: WheelType | null;
-  templates: WheelType[];
-  svgRef: React.MutableRefObject<SVGSVGElement | null>;
-  saving: boolean;
-  savedLink: string | undefined;
-  deleting: boolean;
-};
-
-export type Action =
-  | { type: 'setState'; payload: Partial<State> }
-  | { type: 'updateCompetency'; payload: (competency: CompetencyType) => number }
-  | { type: 'reset' };
+import { Action, State } from "../typings";
 
 export const CompetenciesReducer = produce((draft: State, action: Action) => {
   switch (action.type) {

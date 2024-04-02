@@ -1,19 +1,17 @@
 import { useEffect, useContext } from 'react';
 import * as d3 from 'd3';
-import { CompetencyType } from '@/../typings';
+import { CompetencyType, CompetencyContextType } from '@/../typings';
 import { degreesToRadians } from "@/utils";
 import { colors } from "@/constants";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
-
-interface DrawChartProps {
-  svgRef: React.RefObject<SVGSVGElement>;
-  dimensions: { width: number; height: number };
-}
+import { CompetenciesContext } from "@/context";
 
 const useDrawChart = ({
   svgRef,
   dimensions
-}: DrawChartProps) => {
+}: {
+  svgRef: React.RefObject<SVGSVGElement>;
+  dimensions: { width: number; height: number };
+}) => {
   const { wheel, activeIndex, dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import React, { useState, useRef, FormEvent, useContext } from "react";
 import useOutsideClick from "@/hooks/useOutsideClick";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
+import { CompetenciesContext } from "@/context";
+import { CompetencyContextType } from "../../typings";
 import { createSlug } from "@/utils";
 
 const Title = () => {

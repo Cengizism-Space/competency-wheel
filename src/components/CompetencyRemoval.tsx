@@ -1,5 +1,6 @@
 import React, { useCallback, useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
+import { CompetenciesContext } from "@/context";
+import { CompetencyContextType } from "../../typings";
 
 const CompetencyRemoval: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(

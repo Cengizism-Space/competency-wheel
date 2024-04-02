@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
+import { CompetenciesContext } from "@/context";
+import { CompetencyContextType } from "../../typings";
 import useExportToPng from "@/hooks/useExportToPng";
 
 const PNGExportButton = () => {

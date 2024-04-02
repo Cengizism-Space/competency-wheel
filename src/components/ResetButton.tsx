@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "../context";
+import { CompetenciesContext } from "@/context";
+import { CompetencyContextType } from "../../typings";
 
 const ResetButton = () => {
   const { dispatch } = useContext(CompetenciesContext) as CompetencyContextType;

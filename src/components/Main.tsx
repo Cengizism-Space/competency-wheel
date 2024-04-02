@@ -12,7 +12,8 @@ import CompetencyValue from "./CompetencyValue";
 import CompetencyMeta from "./CompetencyMeta";
 import CompetencyRemoval from "./CompetencyRemoval";
 import TemplatesMenu from "./TemplatesMenu";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
+import { CompetenciesContext } from "@/context";
+import { CompetencyContextType } from "../../typings";
 
 const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
   const { activeIndex, wheel, saving, savedLink, deleting, dispatch } =
