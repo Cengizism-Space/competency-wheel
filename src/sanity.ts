@@ -1,8 +1,15 @@
 import { createClient } from "next-sanity";
 import { CompetencyType, WheelType } from "../typings";
-import { sanityConfig } from "./constants";
+import { apiVersion, projectId, dataset, token } from "../sanity/env";
 
-const sanity = createClient(sanityConfig);
+const sanity = createClient({
+  apiVersion: apiVersion as string,
+  projectId: projectId as string,
+  dataset: dataset as string,
+  useCdn: true,
+  token: token as string,
+  ignoreBrowserTokenWarning: true
+});
 
 const templatesQuery = `*[_type == "wheel" && template == true]{
   title, slug,
