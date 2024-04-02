@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { CompetenciesContext } from "../../context";
+import { CompetenciesContext } from "../context";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";

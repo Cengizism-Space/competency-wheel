@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useContext,
 } from "react";
-import { CompetenciesContext } from "../../context";
+import { CompetenciesContext } from "../context";
 
 const CompetencyMeta: React.FC = () => {
   const context = useContext(CompetenciesContext);
