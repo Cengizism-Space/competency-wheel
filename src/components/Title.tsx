@@ -1,14 +1,12 @@
 import React, { useState, useRef, FormEvent, useContext } from "react";
 import useOutsideClick from "@/hooks/useOutsideClick";
-import { CompetenciesContext } from "../context";
+import { CompetenciesContext, CompetencyContextType } from "@/context";
 import { createSlug } from "@/utils";
 
 const Title = () => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { wheel, dispatch } = context;
+  const { wheel, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   const [isEditing, setIsEditing] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);

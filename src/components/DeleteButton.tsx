@@ -1,19 +1,20 @@
 import React, { useContext, useCallback } from "react";
-import { CompetenciesContext } from "@/context";
+import { CompetenciesContext, CompetencyContextType } from "@/context";
 import { deleteWheel } from "@/sanity";
 
 const DeleteButton = () => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { wheel, dispatch } = context;
+  const { wheel, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   const handleDeleteWheel = useCallback(async () => {
-    dispatch({ type: "setState", payload: { deleting: true } });
-    await deleteWheel(wheel.slug.current);
-    dispatch({ type: "setState", payload: { deleting: false } });
-    dispatch({ type: "reset" });
+    try {
+      dispatch({ type: "setState", payload: { deleting: true } });
+      await deleteWheel(wheel.slug.current);
+    } finally {
+      dispatch({ type: "setState", payload: { deleting: false } });
+      dispatch({ type: "reset" });
+    }
   }, [wheel, dispatch]);
 
   return (

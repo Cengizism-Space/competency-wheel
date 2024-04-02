@@ -5,15 +5,13 @@ import React, {
   useEffect,
   useContext,
 } from "react";
-import { CompetenciesContext } from "../context";
+import { CompetenciesContext, CompetencyContextType } from "../context";
 import { CompetencyType } from "../../typings";
 
 const CompetencyMeta: React.FC = () => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { wheel, activeIndex, dispatch } = context;
+  const { wheel, activeIndex, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   const [hasDescription, setHasDescription] = useState(false);
   const [description, setDescription] = useState("");
@@ -57,28 +55,6 @@ const CompetencyMeta: React.FC = () => {
     setHasDescription(false);
   }, []);
 
-  const handleAdd = useCallback(() => {
-    if (inputValue && wheel.competencies.length < 20) {
-      dispatch({
-        type: "setState",
-        payload: {
-          wheel: {
-            ...wheel,
-            competencies: [
-              ...wheel.competencies,
-              {
-                title: inputValue,
-                description,
-                value: 5,
-              },
-            ],
-          },
-        },
-      });
-      clearMetaForm();
-    }
-  }, [inputValue, description, wheel, clearMetaForm, dispatch]);
-
   const handleSave = useCallback(() => {
     if (!inputValue.trim()) {
       setError("Competency name cannot be empty");
@@ -98,17 +74,26 @@ const CompetencyMeta: React.FC = () => {
 
       clearMetaForm();
       dispatch({ type: "setState", payload: { activeIndex: null } });
-    } else if (inputValue) {
-      handleAdd();
+    } else if (inputValue && wheel.competencies.length < 20) {
+      dispatch({
+        type: "setState",
+        payload: {
+          wheel: {
+            ...wheel,
+            competencies: [
+              ...wheel.competencies,
+              {
+                title: inputValue,
+                description,
+                value: 5,
+              },
+            ],
+          },
+        },
+      });
+      clearMetaForm();
     }
-  }, [
-    inputValue,
-    description,
-    activeIndex,
-    handleAdd,
-    dispatch,
-    clearMetaForm,
-  ]);
+  }, [inputValue, description, activeIndex, wheel, clearMetaForm, dispatch]);
 
   return (
     <form onSubmit={(e) => e.preventDefault()} className="rows gap-4">

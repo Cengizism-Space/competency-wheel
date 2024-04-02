@@ -1,12 +1,8 @@
 import React, { useContext } from "react";
-import { CompetenciesContext } from "../context";
+import { CompetenciesContext, CompetencyContextType } from "../context";
 
 const ResetButton = () => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { dispatch } = context;
+  const { dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
 
   return (
     <button

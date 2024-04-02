@@ -10,5 +10,4 @@ export const createSlug = (input: string): string => {
   return `${now}-${slug}`;
 }
 
-
 export const degreesToRadians = (degrees: number) => (degrees * Math.PI) / 180;

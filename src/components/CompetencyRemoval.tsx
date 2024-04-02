@@ -1,12 +1,10 @@
 import React, { useCallback, useContext } from "react";
-import { CompetenciesContext } from "../context";
+import { CompetenciesContext, CompetencyContextType } from "@/context";
 
 const CompetencyRemoval: React.FC = () => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { wheel, activeIndex, dispatch } = context;
+  const { wheel, activeIndex, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   const handleRemove = useCallback(() => {
     if (activeIndex !== null && wheel.competencies.length > 0) {
@@ -19,9 +17,9 @@ const CompetencyRemoval: React.FC = () => {
               (_, index) => index !== activeIndex
             ),
           },
+          activeIndex: null,
         },
       });
-      dispatch({ type: "setState", payload: { activeIndex: null } });
     }
   }, [activeIndex, wheel, dispatch]);
 

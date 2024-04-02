@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { CompetencyType } from '@/../typings';
 import { degreesToRadians } from "@/utils";
 import { colors } from "@/constants";
-import { CompetenciesContext } from "../context";
+import { CompetenciesContext, CompetencyContextType } from "@/context";
 
 interface DrawChartProps {
   svgRef: React.RefObject<SVGSVGElement>;
@@ -14,11 +14,7 @@ const useDrawChart = ({
   svgRef,
   dimensions
 }: DrawChartProps) => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { wheel, activeIndex, dispatch } = context;
+  const { wheel, activeIndex, dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
 
   useEffect(() => {
     const drawChart = () => {

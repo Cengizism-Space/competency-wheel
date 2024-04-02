@@ -1,29 +1,25 @@
-import React, { useContext } from "react";
-import { CompetenciesContext } from "@/context";
+import React, { useContext, useCallback } from "react";
+import { CompetenciesContext, CompetencyContextType } from "@/context";
 import { useWebShare } from "@/hooks/useWebShare";
 
 const ShareButton = () => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { savedLink } = context;
+  const { savedLink } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   const { share } = useWebShare();
 
+  const handleShare = useCallback(() => {
+    share({
+      title: "Wheel",
+      text: "Check out this wheel",
+      url: savedLink ?? "",
+    });
+  }, [share, savedLink]);
+
   return (
     typeof navigator.share !== "undefined" && (
-      <button
-        onClick={() =>
-          share({
-            title: "Wheel",
-            text: "Check out this wheel",
-            url: savedLink ?? "",
-          })
-        }
-      >
-        Share link
-      </button>
+      <button onClick={handleShare}>Share link</button>
     )
   );
 };

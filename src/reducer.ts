@@ -14,16 +14,12 @@ export type State = {
 };
 
 export type Action =
-  | { type: 'setActiveIndex'; payload: number | null }
   | { type: 'setState'; payload: Partial<State> }
   | { type: 'updateCompetency'; payload: (competency: CompetencyType) => number }
   | { type: 'reset' };
 
 export const CompetenciesReducer = produce((draft: State, action: Action) => {
   switch (action.type) {
-    case 'setActiveIndex':
-      draft.activeIndex = action.payload;
-      break;
     case 'setState':
       return { ...draft, ...action.payload };
     case 'updateCompetency':

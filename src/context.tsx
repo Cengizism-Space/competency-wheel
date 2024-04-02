@@ -10,7 +10,7 @@ import { CompetenciesReducer } from "./reducer";
 import { DEFAULT_WHEEL } from "./constants";
 import { fetchTemplates } from "@/sanity";
 
-interface CompetencyContextType {
+export interface CompetencyContextType {
   activeIndex: number | null;
   wheel: WheelType;
   fetchedWheel: WheelType | null;

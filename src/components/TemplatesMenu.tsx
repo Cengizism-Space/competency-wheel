@@ -1,13 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { CompetenciesContext } from "../context";
 import { createSlug } from "@/utils";
+import { CompetencyContextType } from "../context";
 
 const TemplatesMenu = () => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { wheel, templates, dispatch } = context;
+  const { wheel, templates, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   const [selectedTemplate, setSelectedTemplate] = useState<string>("default");
 

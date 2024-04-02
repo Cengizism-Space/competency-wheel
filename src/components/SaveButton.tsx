@@ -1,43 +1,39 @@
 import React, { useContext, useCallback } from "react";
-import { CompetenciesContext } from "@/context";
+import { CompetenciesContext, CompetencyContextType } from "@/context";
 import { saveWheel, updateWheel } from "@/sanity";
 
 const SaveButton = () => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { wheel, fetchedWheel, savedLink, dispatch } = context;
+  const { wheel, fetchedWheel, savedLink, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
+
+  const urlWithSlug = `${window.location.origin}/${wheel?.slug.current}`;
+  const updateSavedLink = () => {
+    dispatch({
+      type: "setState",
+      payload: {
+        savedLink: urlWithSlug,
+      },
+    });
+  };
 
   const saveChart = useCallback(async () => {
     dispatch({ type: "setSaving", payload: true });
+
     if (!savedLink) {
       await saveWheel(wheel);
-      dispatch({
-        type: "setState",
-        payload: {
-          savedLink: `${window.location.origin}/${wheel?.slug.current}`,
-        },
-      });
+      updateSavedLink();
     } else {
       await updateWheel(wheel, fetchedWheel);
 
       if (fetchedWheel?.slug.current !== wheel.slug.current) {
-        dispatch({
-          type: "setState",
-          payload: {
-            savedLink: `${window.location.origin}/${wheel?.slug.current}`,
-          },
-        });
+        updateSavedLink();
       }
     }
+
     dispatch({ type: "setState", payload: { saving: false } });
     if (typeof window !== "undefined" && wheel) {
-      history.replaceState(
-        {},
-        "",
-        `${window.location.origin}/${wheel.slug.current}`
-      );
+      history.replaceState({}, "", urlWithSlug);
     }
   }, [savedLink, wheel, fetchedWheel, dispatch]);
 

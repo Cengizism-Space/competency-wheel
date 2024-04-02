@@ -1,13 +1,11 @@
 import React, { ChangeEvent, useCallback, useMemo, useContext } from "react";
-import { CompetenciesContext } from "../context";
+import { CompetenciesContext, CompetencyContextType } from "../context";
 import { CompetencyType } from "../../typings";
 
 const CompetencyValue: React.FC = () => {
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { activeIndex, wheel, dispatch } = context;
+  const { activeIndex, wheel, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   const handleValueChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,21 +18,19 @@ const CompetencyValue: React.FC = () => {
     [dispatch]
   );
 
-  const handleIncrease = useCallback(() => {
-    dispatch({
-      type: "updateCompetency",
-      payload: (competency: CompetencyType) =>
-        Math.min(10, competency.value + 1),
-    });
-  }, [dispatch]);
-  
-  const handleDecrease = useCallback(() => {
-    dispatch({
-      type: "updateCompetency",
-      payload: (competency: CompetencyType) =>
-        Math.max(1, competency.value - 1),
-    });
-  }, [dispatch]);
+  const handleValueAdjust = useCallback(
+    (adjustment: number) => {
+      dispatch({
+        type: "updateCompetency",
+        payload: (competency: CompetencyType) =>
+          (competency.value = Math.min(
+            10,
+            Math.max(1, competency.value + adjustment)
+          )),
+      });
+    },
+    [dispatch]
+  );
 
   const competencyValue = useMemo(() => {
     return activeIndex !== null ? wheel.competencies[activeIndex].value : "";
@@ -43,7 +39,7 @@ const CompetencyValue: React.FC = () => {
   return (
     <div className="competency-value-controllers">
       <button
-        onClick={handleIncrease}
+        onClick={() => handleValueAdjust(1)}
         className="bg-blue-500 text-white px-4 py-2 rounded-md"
       >
         Increase
@@ -57,7 +53,7 @@ const CompetencyValue: React.FC = () => {
         max="10"
       />
       <button
-        onClick={handleDecrease}
+        onClick={() => handleValueAdjust(-1)}
         className="bg-blue-500 text-white px-4 py-2 rounded-md"
       >
         Decrease

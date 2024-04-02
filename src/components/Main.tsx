@@ -12,16 +12,13 @@ import CompetencyValue from "./CompetencyValue";
 import CompetencyMeta from "./CompetencyMeta";
 import CompetencyRemoval from "./CompetencyRemoval";
 import TemplatesMenu from "./TemplatesMenu";
-import { CompetenciesContext } from "@/context";
+import { CompetenciesContext, CompetencyContextType } from "@/context";
 
 const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
-  const [notFound, setNotFound] = useState(false);
+  const { activeIndex, wheel, saving, savedLink, deleting, dispatch } =
+    useContext(CompetenciesContext) as CompetencyContextType;
 
-  const context = useContext(CompetenciesContext);
-  if (!context) {
-    throw new Error("Component must be used within a CompetenciesProvider");
-  }
-  const { activeIndex, wheel, saving, savedLink, deleting, dispatch } = context;
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     if (wheel.hasOwnProperty("_id")) {
@@ -32,25 +29,27 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
         },
       });
     }
-  }, [wheel]);
+  }, [wheel, dispatch]);
 
   useEffect(() => {
     if (slug) {
       (async () => {
-        const wheel = await fetchWheel(slug);
-        if (wheel) {
-          if (!wheel.competencies) {
-            wheel.competencies = [];
+        const fetchedWheel = await fetchWheel(slug);
+        if (fetchedWheel) {
+          if (!fetchedWheel.competencies) {
+            fetchedWheel.competencies = [];
           }
 
-          dispatch({ type: "setState", payload: { wheel: wheel } });
-          dispatch({ type: "setState", payload: { fetchedWheel: wheel } });
+          dispatch({
+            type: "setState",
+            payload: { wheel: fetchedWheel, fetchedWheel },
+          });
         } else {
           setNotFound(true);
         }
       })();
     }
-  }, [slug]);
+  }, [slug, dispatch]);
 
   const isUserEnteredWheel =
     wheel.title !== DEFAULT_TITLE || wheel.competencies.length > 0;
