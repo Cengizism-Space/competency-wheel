@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
+import { CompetenciesContext } from "@/context";
 import useExportToPng from "@/hooks/useExportToPng";
 
 const PNGExportButton = () => {
   const context = useContext(CompetenciesContext);
-  const { svgRef } = context as CompetencyContextType;
+  if (!context) {
+    throw new Error("Component must be used within a CompetenciesProvider");
+  }
+  const { svgRef } = context;
+
   const exportToPng = useExportToPng(svgRef);
 
   return (

@@ -1,33 +1,37 @@
 import React, { useCallback, useContext } from "react";
-import {
-  CompetenciesContext,
-  CompetencyContextType,
-} from "../../context";
+import { CompetenciesContext } from "../../context";
 
 const CompetencyRemoval: React.FC = () => {
   const context = useContext(CompetenciesContext);
-  const { wheel, setWheel, activeIndex, setActiveIndex } =
-    context as CompetencyContextType;
+  if (!context) {
+    throw new Error("Component must be used within a CompetenciesProvider");
+  }
+  const { wheel, activeIndex, dispatch } = context;
 
   const handleRemove = useCallback(() => {
     if (activeIndex !== null && wheel.competencies.length > 0) {
-      setWheel({
-        ...wheel,
-        competencies: wheel.competencies.filter(
-          (_, index) => index !== activeIndex
-        ),
+      dispatch({
+        type: "setWheel",
+        payload: {
+          ...wheel,
+          competencies: wheel.competencies.filter(
+            (_, index) => index !== activeIndex
+          ),
+        },
       });
-      setActiveIndex(null);
+      dispatch({ type: "setActiveIndex", payload: null });
     }
-  }, [activeIndex, wheel, setWheel, setActiveIndex]);
+  }, [activeIndex, wheel, dispatch]);
 
   return (
-    <button
-      onClick={handleRemove}
-      className="bg-red-500 text-white px-4 py-2 rounded-md"
-    >
-      Remove
-    </button>
+    <div className="competency-remove">
+      <button
+        onClick={handleRemove}
+        className="bg-red-500 text-white px-4 py-2 rounded-md"
+      >
+        Remove
+      </button>
+    </div>
   );
 };
 

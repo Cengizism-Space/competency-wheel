@@ -3,10 +3,7 @@ import * as d3 from 'd3';
 import { CompetencyType } from '@/../typings';
 import { degreesToRadians } from "@/utils";
 import { colors } from "@/constants";
-import {
-  CompetenciesContext,
-  CompetencyContextType,
-} from "../context";
+import { CompetenciesContext } from "../context";
 
 interface DrawChartProps {
   svgRef: React.RefObject<SVGSVGElement>;
@@ -18,11 +15,10 @@ const useDrawChart = ({
   dimensions
 }: DrawChartProps) => {
   const context = useContext(CompetenciesContext);
-  const {
-    wheel,
-    activeIndex,
-    setActiveIndex
-  } = context as CompetencyContextType;
+  if (!context) {
+    throw new Error("Component must be used within a CompetenciesProvider");
+  }
+  const { wheel, activeIndex, dispatch } = context;
 
   useEffect(() => {
     const drawChart = () => {
@@ -49,7 +45,7 @@ const useDrawChart = ({
         .attr("width", width)
         .attr("height", height)
         .attr("fill", "transparent")
-        .on("click", () => setActiveIndex(null));
+        .on("click", () => dispatch({ type: "setActiveIndex", payload: null }));
 
       let totalRating = wheel.competencies.reduce((a, b) => a + b.value, 0);
 
@@ -107,7 +103,7 @@ const useDrawChart = ({
           .attr("fill", colors[i])
           .attr("stroke", "white")
           .attr("stroke-width", 1)
-          .on("click", () => setActiveIndex(i))
+          .on("click", () => dispatch({ type: "setActiveIndex", payload: i }))
           .append("title")
           .text(competency.description || "");
 
@@ -174,11 +170,11 @@ const useDrawChart = ({
         .attr("fill", "rgba(235, 235, 235)")
         .attr("stroke", "white")
         .attr("stroke-width", 1)
-        .on("click", () => setActiveIndex(null));
+        .on("click", () => dispatch({ type: "setActiveIndex", payload: null }));
     };
 
     drawChart();
-  }, [svgRef, dimensions, wheel, activeIndex]); // eslint-disable-line
+  }, [svgRef, dimensions, wheel, activeIndex, dispatch]); // eslint-disable-line
 };
 
 export default useDrawChart;

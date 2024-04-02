@@ -1,26 +1,32 @@
 import React, { useState, useContext, useEffect } from "react";
-import {
-  CompetenciesContext,
-  CompetencyContextType,
-} from "../context";
+import { CompetenciesContext } from "../context";
 import { createSlug } from "@/utils";
 
 const TemplatesMenu = () => {
   const context = useContext(CompetenciesContext);
-  const { templates, wheel, setWheel } = context as CompetencyContextType;
+  if (!context) {
+    throw new Error("Component must be used within a CompetenciesProvider");
+  }
+  const { wheel, templates, dispatch } = context;
+
   const [selectedTemplate, setSelectedTemplate] = useState<string>("default");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTemplate(event.target.value);
     templates.forEach((t) => {
       if (t.slug.current === event.target.value) {
-        setWheel({
-          ...t,
-          slug: {
-            ...t.slug,
-            current: createSlug(t.title),
+        dispatch({
+          type: "setWheel",
+          payload: {
+            ...t,
+            slug: {
+              ...t.slug,
+              current: createSlug(t.title),
+            },
+            competencies: t.competencies.map((competency) => ({
+              ...competency,
+            })),
           },
-          competencies: t.competencies.map(competency => ({ ...competency })),
         });
       }
     });

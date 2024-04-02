@@ -5,16 +5,14 @@ import React, {
   useEffect,
   useContext,
 } from "react";
-import {
-  CompetenciesContext,
-  CompetencyContextType,
-} from "../../context";
-import { createSlug } from "@/utils";
+import { CompetenciesContext } from "../../context";
 
 const CompetencyMeta: React.FC = () => {
   const context = useContext(CompetenciesContext);
-  const { wheel, setWheel, activeIndex, setActiveIndex, updateCompetency } =
-    context as CompetencyContextType;
+  if (!context) {
+    throw new Error("Component must be used within a CompetenciesProvider");
+  }
+  const { wheel, activeIndex, dispatch, updateCompetency } = context;
 
   const [hasDescription, setHasDescription] = useState(false);
   const [description, setDescription] = useState("");
@@ -64,20 +62,23 @@ const CompetencyMeta: React.FC = () => {
 
   const handleAdd = useCallback(() => {
     if (inputValue && wheel.competencies.length < 20) {
-      setWheel({
-        ...wheel,
-        competencies: [
-          ...wheel.competencies,
-          {
-            title: inputValue,
-            description,
-            value: 5,
-          },
-        ],
+      dispatch({
+        type: "setWheel",
+        payload: {
+          ...wheel,
+          competencies: [
+            ...wheel.competencies,
+            {
+              title: inputValue,
+              description,
+              value: 5,
+            },
+          ],
+        },
       });
       clearMetaForm();
     }
-  }, [inputValue, description, wheel, clearMetaForm, setWheel]);
+  }, [inputValue, description, wheel, clearMetaForm, dispatch]);
 
   const handleSave = useCallback(() => {
     if (!inputValue.trim()) {
@@ -95,7 +96,7 @@ const CompetencyMeta: React.FC = () => {
       });
 
       clearMetaForm();
-      setActiveIndex(null);
+      dispatch({ type: "setActiveIndex", payload: null });
     } else if (inputValue) {
       handleAdd();
     }
@@ -104,7 +105,7 @@ const CompetencyMeta: React.FC = () => {
     description,
     activeIndex,
     handleAdd,
-    setActiveIndex,
+    dispatch,
     clearMetaForm,
     updateCompetency,
   ]);

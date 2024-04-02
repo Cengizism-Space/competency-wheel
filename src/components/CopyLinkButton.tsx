@@ -1,11 +1,15 @@
 import React, { useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
+import { CompetenciesContext } from "@/context";
 import { useClipboard } from "@/hooks/useClipboard";
 
 const CopyLinkButton = () => {
-  const { isCopied, copyToClipboard } = useClipboard();
   const context = useContext(CompetenciesContext);
-  const { savedLink } = context as CompetencyContextType;
+  if (!context) {
+    throw new Error("Component must be used within a CompetenciesProvider");
+  }
+  const { savedLink } = context;
+
+  const { isCopied, copyToClipboard } = useClipboard();
 
   return isCopied ? (
     <span>Copied to clipboard</span>

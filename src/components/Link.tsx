@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "@/context";
+import { CompetenciesContext } from "@/context";
 import CopyLinkButton from "./CopyLinkButton";
 import ShareButton from "./ShareButton";
 
 const Link = () => {
   const context = useContext(CompetenciesContext);
-  const { savedLink } = context as CompetencyContextType;
+  if (!context) {
+    throw new Error("Component must be used within a CompetenciesProvider");
+  }
+  const { savedLink } = context;
 
   return (
     <div className="flex flex-row items-center space-x-4 mr-4">

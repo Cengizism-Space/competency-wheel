@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useCallback, useMemo, useContext } from "react";
-import { CompetenciesContext, CompetencyContextType } from "../../context";
+import { CompetenciesContext } from "../../context";
 
 const CompetencyValue: React.FC = () => {
   const context = useContext(CompetenciesContext);
-  const { wheel, activeIndex, updateCompetency } =
-    context as CompetencyContextType;
+  if (!context) {
+    throw new Error("Component must be used within a CompetenciesProvider");
+  }
+  const { activeIndex, wheel, updateCompetency } = context;
 
   const handleValueChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +34,7 @@ const CompetencyValue: React.FC = () => {
   }, [activeIndex, wheel]);
 
   return (
-    <>
+    <div className="competency-value-controllers">
       <button
         onClick={handleIncrease}
         className="bg-blue-500 text-white px-4 py-2 rounded-md"
@@ -53,7 +55,7 @@ const CompetencyValue: React.FC = () => {
       >
         Decrease
       </button>
-    </>
+    </div>
   );
 };
 

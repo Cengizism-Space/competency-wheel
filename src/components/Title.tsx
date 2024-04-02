@@ -1,15 +1,15 @@
 import React, { useState, useRef, FormEvent, useContext } from "react";
 import useOutsideClick from "@/hooks/useOutsideClick";
-import {
-  CompetenciesContext,
-  CompetencyContextType,
-} from "../context";
+import { CompetenciesContext } from "../context";
 import { createSlug } from "@/utils";
 
 const Title = () => {
-  const { wheel, setWheel } = useContext(
-    CompetenciesContext
-  ) as CompetencyContextType;
+  const context = useContext(CompetenciesContext);
+  if (!context) {
+    throw new Error("Component must be used within a CompetenciesProvider");
+  }
+  const { wheel, dispatch } = context;
+
   const [isEditing, setIsEditing] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -29,12 +29,15 @@ const Title = () => {
   };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setWheel({
-      ...wheel,
-      title: event.target.value,
-      slug: {
-        ...wheel.slug,
-        current: createSlug(event.target.value),
+    dispatch({
+      type: "setWheel",
+      payload: {
+        ...wheel,
+        title: event.target.value,
+        slug: {
+          ...wheel.slug,
+          current: createSlug(event.target.value),
+        },
       },
     });
   };
