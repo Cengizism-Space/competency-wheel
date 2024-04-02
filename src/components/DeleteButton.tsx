@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import { deleteWheel } from "@/sanity";
@@ -8,12 +8,14 @@ const DeleteButton = () => {
     CompetenciesContext
   ) as CompetencyContextType;
 
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const handleDeleteWheel = useCallback(async () => {
     try {
-      dispatch({ type: "setState", payload: { deleting: true } });
+      setIsDeleting(true);
       await deleteWheel(wheel.slug.current);
     } finally {
-      dispatch({ type: "setState", payload: { deleting: false } });
+      setIsDeleting(false);
       dispatch({ type: "reset" });
     }
   }, [wheel, dispatch]);
@@ -23,7 +25,7 @@ const DeleteButton = () => {
       className="bg-red-500 text-white px-4 py-2 rounded-md"
       onClick={handleDeleteWheel}
     >
-      Delete wheel
+      {isDeleting ? "Deleting..." : "Delete wheel"}
     </button>
   );
 };
