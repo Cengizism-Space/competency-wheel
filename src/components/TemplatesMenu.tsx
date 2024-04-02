@@ -16,16 +16,18 @@ const TemplatesMenu = () => {
     templates.forEach((t) => {
       if (t.slug.current === event.target.value) {
         dispatch({
-          type: "setWheel",
+          type: "setState",
           payload: {
-            ...t,
-            slug: {
-              ...t.slug,
-              current: createSlug(t.title),
+            wheel: {
+              ...t,
+              slug: {
+                ...t.slug,
+                current: createSlug(t.title),
+              },
+              competencies: t.competencies.map((competency) => ({
+                ...competency,
+              })),
             },
-            competencies: t.competencies.map((competency) => ({
-              ...competency,
-            })),
           },
         });
       }

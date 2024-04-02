@@ -35,23 +35,19 @@ const CompetencyMeta: React.FC = () => {
   }, [activeIndex, wheel]);
 
   const handleInputChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setInputValue(event.target.value);
-    },
+    (event: ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value),
     []
   );
 
   const handleDescriptionChange = useCallback(
-    (event: ChangeEvent<HTMLTextAreaElement>) => {
-      setDescription(() => event.target.value);
-    },
+    (event: ChangeEvent<HTMLTextAreaElement>) =>
+      setDescription(() => event.target.value),
     []
   );
 
   const handleCheckboxChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setHasDescription(event.target.checked);
-    },
+    (event: ChangeEvent<HTMLInputElement>) =>
+      setHasDescription(event.target.checked),
     []
   );
 
@@ -64,17 +60,19 @@ const CompetencyMeta: React.FC = () => {
   const handleAdd = useCallback(() => {
     if (inputValue && wheel.competencies.length < 20) {
       dispatch({
-        type: "setWheel",
+        type: "setState",
         payload: {
-          ...wheel,
-          competencies: [
-            ...wheel.competencies,
-            {
-              title: inputValue,
-              description,
-              value: 5,
-            },
-          ],
+          wheel: {
+            ...wheel,
+            competencies: [
+              ...wheel.competencies,
+              {
+                title: inputValue,
+                description,
+                value: 5,
+              },
+            ],
+          },
         },
       });
       clearMetaForm();
@@ -86,7 +84,6 @@ const CompetencyMeta: React.FC = () => {
       setError("Competency name cannot be empty");
       return;
     }
-
     setError("");
 
     if (activeIndex !== null) {
@@ -100,7 +97,7 @@ const CompetencyMeta: React.FC = () => {
       });
 
       clearMetaForm();
-      dispatch({ type: "setActiveIndex", payload: null });
+      dispatch({ type: "setState", payload: { activeIndex: null } });
     } else if (inputValue) {
       handleAdd();
     }

@@ -30,13 +30,15 @@ const Title = () => {
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
-      type: "setWheel",
+      type: "setState",
       payload: {
-        ...wheel,
-        title: event.target.value,
-        slug: {
-          ...wheel.slug,
-          current: createSlug(event.target.value),
+        wheel: {
+          ...wheel,
+          title: event.target.value,
+          slug: {
+            ...wheel.slug,
+            current: createSlug(event.target.value),
+          },
         },
       },
     });

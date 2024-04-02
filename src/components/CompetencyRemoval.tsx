@@ -11,15 +11,17 @@ const CompetencyRemoval: React.FC = () => {
   const handleRemove = useCallback(() => {
     if (activeIndex !== null && wheel.competencies.length > 0) {
       dispatch({
-        type: "setWheel",
+        type: "setState",
         payload: {
-          ...wheel,
-          competencies: wheel.competencies.filter(
-            (_, index) => index !== activeIndex
-          ),
+          wheel: {
+            ...wheel,
+            competencies: wheel.competencies.filter(
+              (_, index) => index !== activeIndex
+            ),
+          },
         },
       });
-      dispatch({ type: "setActiveIndex", payload: null });
+      dispatch({ type: "setState", payload: { activeIndex: null } });
     }
   }, [activeIndex, wheel, dispatch]);
 

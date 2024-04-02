@@ -24,15 +24,15 @@ const CompetencyValue: React.FC = () => {
     dispatch({
       type: "updateCompetency",
       payload: (competency: CompetencyType) =>
-        (competency.value = Math.min(10, competency.value + 1)),
+        Math.min(10, competency.value + 1),
     });
   }, [dispatch]);
-
+  
   const handleDecrease = useCallback(() => {
     dispatch({
       type: "updateCompetency",
       payload: (competency: CompetencyType) =>
-        (competency.value = Math.min(10, competency.value - 1)),
+        Math.max(1, competency.value - 1),
     });
   }, [dispatch]);
 

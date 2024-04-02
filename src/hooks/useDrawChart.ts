@@ -45,7 +45,7 @@ const useDrawChart = ({
         .attr("width", width)
         .attr("height", height)
         .attr("fill", "transparent")
-        .on("click", () => dispatch({ type: "setActiveIndex", payload: null }));
+        .on("click", () => dispatch({ type: "setState", payload: { activeIndex: null } }));
 
       let totalRating = wheel.competencies.reduce((a, b) => a + b.value, 0);
 
@@ -103,7 +103,7 @@ const useDrawChart = ({
           .attr("fill", colors[i])
           .attr("stroke", "white")
           .attr("stroke-width", 1)
-          .on("click", () => dispatch({ type: "setActiveIndex", payload: i }))
+          .on("click", () => dispatch({ type: "setState", payload: { activeIndex: i } }))
           .append("title")
           .text(competency.description || "");
 
@@ -170,7 +170,7 @@ const useDrawChart = ({
         .attr("fill", "rgba(235, 235, 235)")
         .attr("stroke", "white")
         .attr("stroke-width", 1)
-        .on("click", () => dispatch({ type: "setActiveIndex", payload: null }));
+        .on("click", () => dispatch({ type: "setState", payload: { activeIndex: null } }));
     };
 
     drawChart();

@@ -14,20 +14,24 @@ const SaveButton = () => {
     if (!savedLink) {
       await saveWheel(wheel);
       dispatch({
-        type: "setSavedLink",
-        payload: `${window.location.origin}/${wheel?.slug.current}`,
+        type: "setState",
+        payload: {
+          savedLink: `${window.location.origin}/${wheel?.slug.current}`,
+        },
       });
     } else {
       await updateWheel(wheel, fetchedWheel);
 
       if (fetchedWheel?.slug.current !== wheel.slug.current) {
         dispatch({
-          type: "setSavedLink",
-          payload: `${window.location.origin}/${wheel?.slug.current}`,
+          type: "setState",
+          payload: {
+            savedLink: `${window.location.origin}/${wheel?.slug.current}`,
+          },
         });
       }
     }
-    dispatch({ type: "setSaving", payload: false });
+    dispatch({ type: "setState", payload: { saving: false } });
     if (typeof window !== "undefined" && wheel) {
       history.replaceState(
         {},

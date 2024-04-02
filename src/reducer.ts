@@ -1,3 +1,4 @@
+import { produce } from "immer";
 import { CompetencyType, WheelType } from "../typings";
 import { DEFAULT_WHEEL } from "./constants";
 
@@ -14,51 +15,33 @@ export type State = {
 
 export type Action =
   | { type: 'setActiveIndex'; payload: number | null }
-  | { type: 'setWheel'; payload: WheelType }
-  | { type: 'setFetchedWheel'; payload: WheelType | null }
-  | { type: 'setTemplates'; payload: WheelType[] }
-  | { type: 'setSvgRef'; payload: React.MutableRefObject<SVGSVGElement | null> }
-  | { type: 'setSaving'; payload: boolean }
-  | { type: 'setSavedLink'; payload: string | undefined }
-  | { type: 'setDeleting'; payload: boolean }
-  | { type: 'updateCompetency'; payload: (competency: CompetencyType) => void }
+  | { type: 'setState'; payload: Partial<State> }
+  | { type: 'updateCompetency'; payload: (competency: CompetencyType) => number }
   | { type: 'reset' };
 
-export const CompetenciesReducer = (state: State, action: Action): State => {
+export const CompetenciesReducer = produce((draft: State, action: Action) => {
   switch (action.type) {
     case 'setActiveIndex':
-      return { ...state, activeIndex: action.payload };
-    case 'setWheel':
-      return { ...state, wheel: action.payload };
-    case 'setFetchedWheel':
-      return { ...state, fetchedWheel: action.payload };
-    case 'setTemplates':
-      return { ...state, templates: action.payload };
-    case 'setSvgRef':
-      return { ...state, svgRef: action.payload };
-    case 'setSaving':
-      return { ...state, saving: action.payload };
-    case 'setSavedLink':
-      return { ...state, savedLink: action.payload };
-    case 'setDeleting':
-      return { ...state, deleting: action.payload };
+      draft.activeIndex = action.payload;
+      break;
+    case 'setState':
+      return { ...draft, ...action.payload };
     case 'updateCompetency':
-      if (state.activeIndex !== null) {
-        const updatedCompetencies = [...state.wheel.competencies];
-        action.payload(updatedCompetencies[state.activeIndex]);
-        return {
-          ...state,
-          wheel: { ...state.wheel, competencies: updatedCompetencies },
-        };
+      if (draft.activeIndex !== null) {
+        draft.wheel.competencies[draft.activeIndex].value = action.payload(draft.wheel.competencies[draft.activeIndex]);
       }
-      return state;
+      break;
     case 'reset':
+      if (typeof window !== "undefined") {
+        history.replaceState({}, "", `${window.location.origin}/`);
+      }
+
       return {
         activeIndex: null,
         wheel: DEFAULT_WHEEL,
         fetchedWheel: null,
         templates: [],
-        svgRef: state.svgRef,
+        svgRef: draft.svgRef,
         saving: false,
         savedLink: undefined,
         deleting: false,
@@ -66,4 +49,4 @@ export const CompetenciesReducer = (state: State, action: Action): State => {
     default:
       throw new Error();
   }
-};
+});

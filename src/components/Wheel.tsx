@@ -14,7 +14,7 @@ const Wheel: React.FC = () => {
   const dimensions = useWindowDimensions();
   useDrawChart({ svgRef, dimensions });
   useOutsideClick(svgRef, () => {
-    dispatch({ type: "setActiveIndex", payload: null });
+    dispatch({ type: "setState", payload: { activeIndex: null } });
   });
 
   return <svg ref={svgRef} />;

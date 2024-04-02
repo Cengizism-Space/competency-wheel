@@ -10,13 +10,10 @@ const DeleteButton = () => {
   const { wheel, dispatch } = context;
 
   const handleDeleteWheel = useCallback(async () => {
-    dispatch({ type: "setDeleting", payload: true });
+    dispatch({ type: "setState", payload: { deleting: true } });
     await deleteWheel(wheel.slug.current);
-    dispatch({ type: "setDeleting", payload: false });
+    dispatch({ type: "setState", payload: { deleting: false } });
     dispatch({ type: "reset" });
-    if (typeof window !== "undefined") {
-      history.replaceState({}, "", `${window.location.origin}/`);
-    }
   }, [wheel, dispatch]);
 
   return (
