@@ -38,7 +38,7 @@ const SaveButton = () => {
     if (typeof window !== "undefined" && wheel) {
       history.replaceState({}, "", urlWithSlug);
     }
-  }, [savedLink, wheel, fetchedWheel, dispatch]);
+  }, [savedLink, wheel, fetchedWheel, dispatch, updateSavedLink, urlWithSlug]);
 
   return (
     <button

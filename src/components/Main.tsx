@@ -16,8 +16,9 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 
 const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
-  const { activeIndex, wheel, saving, savedLink, deleting, dispatch } =
-    useContext(CompetenciesContext) as CompetencyContextType;
+  const { activeIndex, wheel, savedLink, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   const [notFound, setNotFound] = useState(false);
 
@@ -55,18 +56,13 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
   const isUserEnteredWheel =
     wheel.title !== DEFAULT_TITLE || wheel.competencies.length > 0;
   const isWheelExportable =
-    wheel.title.length > 0 &&
-    wheel.competencies.length > 0 &&
-    !saving &&
-    !deleting;
+    wheel.title.length > 0 && wheel.competencies.length > 0;
 
   return (
     <div className="flex flex-col items-center space-y-4 mb-4">
       <Title />
       {notFound && <p>Wheel not found</p>}
-      {saving && <p>Saving...</p>}
-      {deleting && <p>Deleting...</p>}
-      {savedLink && !saving && <Link />}
+      {savedLink && <Link />}
       <div className="flex flex-row items-center space-x-4 mr-4">
         <TemplatesMenu />
         <CompetencyMeta />
@@ -78,7 +74,7 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
           {isUserEnteredWheel && <ResetButton />}
           <PNGExportButton />
           <SaveButton />
-          {savedLink && !deleting && <DeleteButton />}
+          {savedLink && <DeleteButton />}
         </div>
       )}
       <Wheel />
