@@ -11,29 +11,30 @@ const CompetencyValue: React.FC = () => {
     (event: ChangeEvent<HTMLInputElement>) => {
       dispatch({
         type: "updateCompetency",
-        payload: (competency: CompetencyType) =>
-          (competency.value = Number(event.target.value)),
+        payload: (competency: CompetencyType) => ({
+          ...competency,
+          value: Number(event.target.value),
+        }),
       });
     },
     [dispatch]
   );
-
+  
   const handleValueAdjust = useCallback(
     (adjustment: number) => {
       dispatch({
         type: "updateCompetency",
-        payload: (competency: CompetencyType) =>
-          (competency.value = Math.min(
-            10,
-            Math.max(1, competency.value + adjustment)
-          )),
+        payload: (competency: CompetencyType) => ({
+          ...competency,
+          value: Math.min(10, Math.max(1, competency.value + adjustment)),
+        }),
       });
     },
     [dispatch]
   );
 
   const competencyValue = useMemo(() => {
-    return activeIndex !== null ? wheel.competencies[activeIndex].value : "";
+    return activeIndex !== null ? wheel.competencies[activeIndex].value : 5;
   }, [activeIndex, wheel]);
 
   return (

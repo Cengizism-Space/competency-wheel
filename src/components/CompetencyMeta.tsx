@@ -65,11 +65,11 @@ const CompetencyMeta: React.FC = () => {
     if (activeIndex !== null) {
       dispatch({
         type: "updateCompetency",
-        payload: (competency: CompetencyType) => {
-          competency.title = inputValue;
-          competency.description = description;
-          competency.value = competency.value;
-        },
+        payload: (competency: CompetencyType) => ({
+          ...competency,
+          title: inputValue,
+          description: description,
+        }),
       });
 
       clearMetaForm();

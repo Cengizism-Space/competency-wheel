@@ -9,7 +9,7 @@ export type State = {
 
 export type Action =
   | { type: 'setState'; payload: Partial<State> }
-  | { type: 'updateCompetency'; payload: (competency: CompetencyType) => number }
+  | { type: 'updateCompetency'; payload: (competency: CompetencyType) => CompetencyType }
   | { type: 'reset' };
 
 export interface CompetencyContextType {
