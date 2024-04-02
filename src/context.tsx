@@ -1,14 +1,11 @@
 import {
   createContext,
   useReducer,
-  useRef,
-  useEffect,
-  useCallback,
+  useRef
 } from "react";
 import { CompetencyContextType } from "@/../typings";
 import { CompetenciesReducer } from "./reducer";
 import { DEFAULT_WHEEL } from "./constants";
-import { fetchTemplates } from "@/sanity";
 
 export const CompetenciesContext = createContext<
   CompetencyContextType | undefined
@@ -27,15 +24,6 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     savedLink: undefined,
     deleting: false,
   });
-
-  const fetchAndSetTemplates = useCallback(async () => {
-    const templates = await fetchTemplates();
-    dispatch({ type: "setState", payload: { templates: templates } });
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchAndSetTemplates();
-  }, [fetchAndSetTemplates]);
 
   return (
     <CompetenciesContext.Provider value={{ ...state, dispatch }}>

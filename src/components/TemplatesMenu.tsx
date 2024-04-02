@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import { createSlug } from "@/utils";
+import { fetchTemplates } from "@/sanity";
 
 const TemplatesMenu = () => {
   const { wheel, templates, dispatch } = useContext(
@@ -32,6 +33,23 @@ const TemplatesMenu = () => {
       }
     });
   };
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchAndSetTemplates = async () => {
+      const templates = await fetchTemplates();
+      if (isMounted) {
+        dispatch({ type: "setState", payload: { templates: templates } });
+      }
+    };
+
+    fetchAndSetTemplates();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [dispatch]);
 
   useEffect(() => {
     if (wheel && wheel.competencies.length > 0) {

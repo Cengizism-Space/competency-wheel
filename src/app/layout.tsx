@@ -1,7 +1,13 @@
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import "@/styles/chart.css";
+import type { Metadata } from "next";
 // import { metadata } from "@/constants";
+
+export const metadata: Metadata = {
+  title: "Competency wheel app",
+  description: "Made for company intern evaluation",
+};
 
 const inter = Inter({ subsets: ["latin"] });
 

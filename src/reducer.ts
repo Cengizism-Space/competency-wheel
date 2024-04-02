@@ -15,17 +15,14 @@ export const CompetenciesReducer = produce((draft: State, action: Action) => {
       if (typeof window !== "undefined") {
         history.replaceState({}, "", `${window.location.origin}/`);
       }
-
-      return {
-        activeIndex: null,
-        wheel: DEFAULT_WHEEL,
-        fetchedWheel: null,
-        templates: [],
-        svgRef: draft.svgRef,
-        saving: false,
-        savedLink: undefined,
-        deleting: false,
-      };
+      draft.activeIndex = null;
+      draft.wheel = DEFAULT_WHEEL;
+      draft.fetchedWheel = null;
+      draft.templates = [];
+      draft.saving = false;
+      draft.savedLink = undefined;
+      draft.deleting = false;
+      break;
     default:
       throw new Error();
   }
