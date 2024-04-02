@@ -7,17 +7,17 @@ const DeleteButton = () => {
   if (!context) {
     throw new Error("Component must be used within a CompetenciesProvider");
   }
-  const { wheel, dispatch, reset } = context;
+  const { wheel, dispatch } = context;
 
   const handleDeleteWheel = useCallback(async () => {
     dispatch({ type: "setDeleting", payload: true });
     await deleteWheel(wheel.slug.current);
     dispatch({ type: "setDeleting", payload: false });
-    reset();
+    dispatch({ type: "reset" });
     if (typeof window !== "undefined") {
       history.replaceState({}, "", `${window.location.origin}/`);
     }
-  }, [wheel, dispatch, reset]);
+  }, [wheel, dispatch]);
 
   return (
     <button

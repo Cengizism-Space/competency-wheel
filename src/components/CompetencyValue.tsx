@@ -1,33 +1,40 @@
 import React, { ChangeEvent, useCallback, useMemo, useContext } from "react";
 import { CompetenciesContext } from "../context";
+import { CompetencyType } from "../../typings";
 
 const CompetencyValue: React.FC = () => {
   const context = useContext(CompetenciesContext);
   if (!context) {
     throw new Error("Component must be used within a CompetenciesProvider");
   }
-  const { activeIndex, wheel, updateCompetency } = context;
+  const { activeIndex, wheel, dispatch } = context;
 
   const handleValueChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      updateCompetency(
-        (competency) => (competency.value = Number(event.target.value))
-      );
+      dispatch({
+        type: "updateCompetency",
+        payload: (competency: CompetencyType) =>
+          (competency.value = Number(event.target.value)),
+      });
     },
-    [updateCompetency]
+    [dispatch]
   );
 
   const handleIncrease = useCallback(() => {
-    updateCompetency(
-      (competency) => (competency.value = Math.min(10, competency.value + 1))
-    );
-  }, [updateCompetency]);
+    dispatch({
+      type: "updateCompetency",
+      payload: (competency: CompetencyType) =>
+        (competency.value = Math.min(10, competency.value + 1)),
+    });
+  }, [dispatch]);
 
   const handleDecrease = useCallback(() => {
-    updateCompetency(
-      (competency) => (competency.value = Math.max(1, competency.value - 1))
-    );
-  }, [updateCompetency]);
+    dispatch({
+      type: "updateCompetency",
+      payload: (competency: CompetencyType) =>
+        (competency.value = Math.min(10, competency.value - 1)),
+    });
+  }, [dispatch]);
 
   const competencyValue = useMemo(() => {
     return activeIndex !== null ? wheel.competencies[activeIndex].value : "";

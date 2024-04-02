@@ -6,13 +6,14 @@ import React, {
   useContext,
 } from "react";
 import { CompetenciesContext } from "../context";
+import { CompetencyType } from "../../typings";
 
 const CompetencyMeta: React.FC = () => {
   const context = useContext(CompetenciesContext);
   if (!context) {
     throw new Error("Component must be used within a CompetenciesProvider");
   }
-  const { wheel, activeIndex, dispatch, updateCompetency } = context;
+  const { wheel, activeIndex, dispatch } = context;
 
   const [hasDescription, setHasDescription] = useState(false);
   const [description, setDescription] = useState("");
@@ -89,10 +90,13 @@ const CompetencyMeta: React.FC = () => {
     setError("");
 
     if (activeIndex !== null) {
-      updateCompetency((competency) => {
-        competency.title = inputValue;
-        competency.description = description;
-        competency.value = competency.value;
+      dispatch({
+        type: "updateCompetency",
+        payload: (competency: CompetencyType) => {
+          competency.title = inputValue;
+          competency.description = description;
+          competency.value = competency.value;
+        },
       });
 
       clearMetaForm();
@@ -107,7 +111,6 @@ const CompetencyMeta: React.FC = () => {
     handleAdd,
     dispatch,
     clearMetaForm,
-    updateCompetency,
   ]);
 
   return (

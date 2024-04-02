@@ -31,7 +31,7 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
     })();
 
     dispatch({ type: "setSavedLink", payload: undefined });
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (wheel.hasOwnProperty("_id")) {
@@ -40,7 +40,7 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
         payload: `${window.location.origin}/${wheel?.slug.current}`,
       });
     }
-  }, [wheel]);
+  }, [wheel, dispatch]);
 
   useEffect(() => {
     if (slug) {
@@ -58,7 +58,7 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
         }
       })();
     }
-  }, [slug]);
+  }, [slug, dispatch]);
 
   const isUserEnteredWheel =
     wheel.title !== DEFAULT_TITLE || wheel.competencies.length > 0;

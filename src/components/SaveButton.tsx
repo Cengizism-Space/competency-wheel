@@ -35,7 +35,7 @@ const SaveButton = () => {
         `${window.location.origin}/${wheel.slug.current}`
       );
     }
-  }, [savedLink, wheel, fetchedWheel]);
+  }, [savedLink, wheel, fetchedWheel, dispatch]);
 
   return (
     <button

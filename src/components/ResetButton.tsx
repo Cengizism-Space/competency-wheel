@@ -6,12 +6,12 @@ const ResetButton = () => {
   if (!context) {
     throw new Error("Component must be used within a CompetenciesProvider");
   }
-  const { reset } = context;
+  const { dispatch } = context;
 
   return (
     <button
       className="bg-red-500 text-white px-4 py-2 rounded-md"
-      onClick={reset}
+      onClick={() => dispatch({ type: "reset" })}
     >
       Reset
     </button>

@@ -1,4 +1,5 @@
-import { WheelType } from "../typings";
+import { CompetencyType, WheelType } from "../typings";
+import { DEFAULT_WHEEL } from "./constants";
 
 export type State = {
   activeIndex: number | null;
@@ -19,7 +20,9 @@ export type Action =
   | { type: 'setSvgRef'; payload: React.MutableRefObject<SVGSVGElement | null> }
   | { type: 'setSaving'; payload: boolean }
   | { type: 'setSavedLink'; payload: string | undefined }
-  | { type: 'setDeleting'; payload: boolean };
+  | { type: 'setDeleting'; payload: boolean }
+  | { type: 'updateCompetency'; payload: (competency: CompetencyType) => void }
+  | { type: 'reset' };
 
 export const CompetenciesReducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -39,7 +42,28 @@ export const CompetenciesReducer = (state: State, action: Action): State => {
       return { ...state, savedLink: action.payload };
     case 'setDeleting':
       return { ...state, deleting: action.payload };
+    case 'updateCompetency':
+      if (state.activeIndex !== null) {
+        const updatedCompetencies = [...state.wheel.competencies];
+        action.payload(updatedCompetencies[state.activeIndex]);
+        return {
+          ...state,
+          wheel: { ...state.wheel, competencies: updatedCompetencies },
+        };
+      }
+      return state;
+    case 'reset':
+      return {
+        activeIndex: null,
+        wheel: DEFAULT_WHEEL,
+        fetchedWheel: null,
+        templates: [],
+        svgRef: state.svgRef,
+        saving: false,
+        savedLink: undefined,
+        deleting: false,
+      };
     default:
       throw new Error();
   }
-}
+};
