@@ -5,7 +5,7 @@ import {
 } from "../context";
 import { createSlug } from "@/utils";
 
-const Templates = () => {
+const TemplatesMenu = () => {
   const context = useContext(CompetenciesContext);
   const { templates, wheel, setWheel } = context as CompetencyContextType;
   const [selectedTemplate, setSelectedTemplate] = useState<string>("default");
@@ -44,9 +44,8 @@ const Templates = () => {
           </option>
         ))}
       </select>
-      <span> or add your own competencies</span>
     </div>
   );
 };
 
-export default Templates;
+export default TemplatesMenu;

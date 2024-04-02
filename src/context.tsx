@@ -7,10 +7,17 @@ export interface CompetencyContextType {
   wheel: WheelType;
   setWheel: React.Dispatch<React.SetStateAction<WheelType>>;
   fetchedWheel: WheelType | null;
-  setFetchedWheel: React.Dispatch<React.SetStateAction<WheelType | null>>;
   templates: WheelType[];
   setTemplates: React.Dispatch<React.SetStateAction<WheelType[]>>;
+  svgRef: React.MutableRefObject<SVGSVGElement | null>;
+  saving: boolean;
+  setSaving: React.Dispatch<React.SetStateAction<boolean>>;
+  savedLink: string | undefined;
+  setSavedLink: React.Dispatch<React.SetStateAction<string | undefined>>;
+  deleting: boolean;
+  setDeleting: React.Dispatch<React.SetStateAction<boolean>>;
   updateCompetency: (update: (competency: CompetencyType) => void) => void;
+  reset: () => void;
 }
 
 export const CompetenciesContext = createContext<

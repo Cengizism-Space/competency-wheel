@@ -6,7 +6,7 @@ import {
 } from "../context";
 import { createSlug } from "@/utils";
 
-const Header = () => {
+const Title = () => {
   const { wheel, setWheel } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
@@ -63,4 +63,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Title;
