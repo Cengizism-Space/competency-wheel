@@ -5,6 +5,8 @@
 - Data Driven Documents (D3)
 - Sanity.io
 - React
+- Immer
+- Lodash
 - Webpack
 - Babel
 - ESLint
