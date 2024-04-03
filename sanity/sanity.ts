@@ -1,6 +1,6 @@
 import { createClient } from "next-sanity";
 import { CompetencyType, WheelType } from "../typings";
-import { apiVersion, projectId, dataset, token } from "../sanity/env";
+import { apiVersion, projectId, dataset, token } from "./env";
 
 const sanity = createClient({
   apiVersion: apiVersion as string,

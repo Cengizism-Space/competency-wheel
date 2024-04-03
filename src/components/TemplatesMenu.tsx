@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import { createSlug } from "@/utils";
-import { fetchTemplates } from "@/sanity";
+import { fetchTemplates } from "../../sanity/sanity";
 
 const TemplatesMenu = () => {
   const { wheel, templates, dispatch } = useContext(

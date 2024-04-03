@@ -1,7 +1,7 @@
 import React, { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
-import { deleteWheel } from "@/sanity";
+import { deleteWheel } from "../../sanity/sanity";
 
 const DeleteButton = () => {
   const { wheel, dispatch } = useContext(

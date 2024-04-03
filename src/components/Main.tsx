@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import Wheel from "./Wheel";
 import Title from "./Title";
-import { fetchWheel } from "@/sanity";
+import { fetchWheel } from "../../sanity/sanity";
 import { DEFAULT_TITLE } from "@/constants";
 import ResetButton from "./ResetButton";
 import PNGExportButton from "./PNGExportButton";

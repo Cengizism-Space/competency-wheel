@@ -1,7 +1,7 @@
 import { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
-import { saveWheel, updateWheel } from "@/sanity";
+import { saveWheel, updateWheel } from "../../sanity/sanity";
 
 const SaveButton = () => {
   const { wheel, fetchedWheel, savedLink, dispatch } = useContext(
