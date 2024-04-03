@@ -2,16 +2,19 @@ import React, { useContext, useCallback } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import { useWebShare } from "@/hooks/useWebShare";
+import { DEFAULT_CHECKOUT_MY_WHEEL } from "@/constants";
 
 const ShareButton = () => {
-  const { link } = useContext(CompetenciesContext) as CompetencyContextType;
+  const { wheel, link } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   const { share } = useWebShare();
 
   const handleShare = useCallback(() => {
     share({
-      title: "Wheel",
-      text: "Check out this wheel",
+      title: wheel?.title ?? "",
+      text: DEFAULT_CHECKOUT_MY_WHEEL,
       url: link ?? "",
     });
   }, [share, link]);

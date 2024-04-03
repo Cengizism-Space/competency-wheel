@@ -39,3 +39,5 @@ export const DEFAULT_WHEEL: WheelType = {
   },
   competencies: [] as CompetencyType[],
 };
+
+export const DEFAULT_CHECKOUT_MY_WHEEL = "Check out my competency wheel" as string;
