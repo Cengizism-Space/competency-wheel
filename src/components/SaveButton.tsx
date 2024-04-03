@@ -4,18 +4,18 @@ import { CompetencyContextType } from "../../typings";
 import { saveWheel, updateWheel } from "../../sanity/sanity";
 
 const SaveButton = () => {
-  const { wheel, fetchedWheel, savedLink, dispatch } = useContext(
+  const { wheel, fetchedWheel, link, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
   const [isSaving, setIsSaving] = useState(false);
 
   const urlWithSlug = `${window.location.origin}/${wheel?.slug.current}`;
-  const updateSavedLink = () => {
+  const updateLink = () => {
     dispatch({
       type: "setState",
       payload: {
-        savedLink: urlWithSlug,
+        link: urlWithSlug,
       },
     });
   };
@@ -23,14 +23,14 @@ const SaveButton = () => {
   const saveChart = useCallback(async () => {
     setIsSaving(true);
 
-    if (!savedLink) {
+    if (!link) {
       await saveWheel(wheel);
-      updateSavedLink();
+      updateLink();
     } else {
       await updateWheel(wheel, fetchedWheel);
 
       if (fetchedWheel?.slug.current !== wheel.slug.current) {
-        updateSavedLink();
+        updateLink();
       }
     }
 
@@ -38,14 +38,14 @@ const SaveButton = () => {
     if (typeof window !== "undefined" && wheel) {
       history.replaceState({}, "", urlWithSlug);
     }
-  }, [savedLink, wheel, fetchedWheel, dispatch, updateSavedLink, urlWithSlug]);
+  }, [link, wheel, fetchedWheel, dispatch, updateLink, urlWithSlug]);
 
   return (
     <button
       className="bg-green-500 text-white px-4 py-2 rounded-md"
       onClick={saveChart}
     >
-      {isSaving ? "Saving..." : savedLink ? "Update wheel" : "Save wheel"}
+      {isSaving ? "Saving..." : link ? "Update wheel" : "Save wheel"}
     </button>
   );
 };

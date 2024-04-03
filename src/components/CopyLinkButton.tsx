@@ -4,15 +4,13 @@ import { CompetencyContextType } from "../../typings";
 import { useClipboard } from "@/hooks/useClipboard";
 
 const CopyLinkButton = () => {
-  const { savedLink } = useContext(
-    CompetenciesContext
-  ) as CompetencyContextType;
+  const { link } = useContext(CompetenciesContext) as CompetencyContextType;
 
   const { isCopied, copyToClipboard } = useClipboard();
 
   const handleCopy = useCallback(() => {
-    copyToClipboard(savedLink ?? "");
-  }, [copyToClipboard, savedLink]);
+    copyToClipboard(link ?? "");
+  }, [copyToClipboard, link]);
 
   return isCopied ? (
     <span>Copied to clipboard</span>

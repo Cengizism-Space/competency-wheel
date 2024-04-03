@@ -4,9 +4,7 @@ import { CompetencyContextType } from "../../typings";
 import { useWebShare } from "@/hooks/useWebShare";
 
 const ShareButton = () => {
-  const { savedLink } = useContext(
-    CompetenciesContext
-  ) as CompetencyContextType;
+  const { link } = useContext(CompetenciesContext) as CompetencyContextType;
 
   const { share } = useWebShare();
 
@@ -14,9 +12,9 @@ const ShareButton = () => {
     share({
       title: "Wheel",
       text: "Check out this wheel",
-      url: savedLink ?? "",
+      url: link ?? "",
     });
-  }, [share, savedLink]);
+  }, [share, link]);
 
   return (
     typeof navigator.share !== "undefined" && (

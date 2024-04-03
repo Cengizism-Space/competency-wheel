@@ -4,7 +4,7 @@ export type State = {
   fetchedWheel: WheelType | null;
   templates: WheelType[];
   svgRef: React.MutableRefObject<SVGSVGElement | null>;
-  savedLink: string | undefined;
+  link: string | undefined;
 };
 
 export type Action =
@@ -18,7 +18,7 @@ export interface CompetencyContextType {
   fetchedWheel: WheelType | null;
   templates: WheelType[];
   svgRef: React.MutableRefObject<SVGSVGElement | null>;
-  savedLink: string | undefined;
+  link: string | undefined;
   dispatch: React.Dispatch<any>;
 }
 

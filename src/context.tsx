@@ -20,7 +20,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     fetchedWheel: null,
     templates: [],
     svgRef: useRef<SVGSVGElement | null>(null),
-    savedLink: undefined
+    link: undefined
   });
 
   return (

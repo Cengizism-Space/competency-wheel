@@ -16,7 +16,7 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 
 const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
-  const { activeIndex, wheel, savedLink, dispatch } = useContext(
+  const { activeIndex, wheel, link, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
@@ -27,7 +27,7 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
       dispatch({
         type: "setState",
         payload: {
-          savedLink: `${window.location.origin}/${wheel?.slug.current}`,
+          link: `${window.location.origin}/${wheel?.slug.current}`,
         },
       });
     }
@@ -62,7 +62,7 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
     <div className="flex flex-col items-center space-y-4 mb-4">
       <Title />
       {notFound && <p>Wheel not found</p>}
-      {savedLink && <Link />}
+      {link && <Link />}
       <div className="flex flex-row items-center space-x-4 mr-4">
         <TemplatesMenu />
         <CompetencyMeta />
@@ -74,7 +74,7 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
           {isUserEnteredWheel && <ResetButton />}
           <PNGExportButton />
           <SaveButton />
-          {savedLink && <DeleteButton />}
+          {link && <DeleteButton />}
         </div>
       )}
       <Wheel />
