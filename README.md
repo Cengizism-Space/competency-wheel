@@ -12,5 +12,7 @@
 - ESLint
 - Prettier
 - TailwindCSS
+- HeadlessUI
+- Heroicons
 - Slugify
 - Next.js
