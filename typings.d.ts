@@ -1,7 +1,7 @@
 export type State = {
   activeIndex: number | null;
   wheel: WheelType;
-  fetchedWheel: WheelType | null;
+  initialWheel: WheelType | null;
   templates: WheelType[];
   svgRef: React.MutableRefObject<SVGSVGElement | null>;
   link: string | undefined;
@@ -15,7 +15,7 @@ export type Action =
 export interface CompetencyContextType {
   activeIndex: number | null;
   wheel: WheelType;
-  fetchedWheel: WheelType | null;
+  initialWheel: WheelType | null;
   templates: WheelType[];
   svgRef: React.MutableRefObject<SVGSVGElement | null>;
   link: string | undefined;

@@ -36,15 +36,15 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
   useEffect(() => {
     if (slug) {
       (async () => {
-        const fetchedWheel = await fetchWheel(slug);
-        if (fetchedWheel) {
-          if (!fetchedWheel.competencies) {
-            fetchedWheel.competencies = [];
+        const initialWheel = await fetchWheel(slug);
+        if (initialWheel) {
+          if (!initialWheel.competencies) {
+            initialWheel.competencies = [];
           }
 
           dispatch({
             type: "setState",
-            payload: { wheel: fetchedWheel, fetchedWheel },
+            payload: { wheel: initialWheel, initialWheel },
           });
         } else {
           setNotFound(true);

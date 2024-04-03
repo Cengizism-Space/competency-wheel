@@ -4,7 +4,7 @@ import { CompetencyContextType } from "../../typings";
 import { saveWheel, updateWheel } from "../../sanity/sanity";
 
 const SaveButton = () => {
-  const { wheel, fetchedWheel, link, dispatch } = useContext(
+  const { wheel, initialWheel, link, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
@@ -27,9 +27,9 @@ const SaveButton = () => {
       await saveWheel(wheel);
       updateLink();
     } else {
-      await updateWheel(wheel, fetchedWheel);
+      await updateWheel(wheel, initialWheel);
 
-      if (fetchedWheel?.slug.current !== wheel.slug.current) {
+      if (initialWheel?.slug.current !== wheel.slug.current) {
         updateLink();
       }
     }
@@ -38,7 +38,7 @@ const SaveButton = () => {
     if (typeof window !== "undefined" && wheel) {
       history.replaceState({}, "", urlWithSlug);
     }
-  }, [link, wheel, fetchedWheel, dispatch, updateLink, urlWithSlug]);
+  }, [link, wheel, initialWheel, dispatch, updateLink, urlWithSlug]);
 
   return (
     <button

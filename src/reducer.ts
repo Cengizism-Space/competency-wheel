@@ -18,7 +18,7 @@ export const CompetenciesReducer = produce((draft: State, action: Action) => {
       }
       draft.activeIndex = null;
       draft.wheel = DEFAULT_WHEEL;
-      draft.fetchedWheel = null;
+      draft.initialWheel = null;
       draft.templates = [];
       draft.link = undefined;
       break;

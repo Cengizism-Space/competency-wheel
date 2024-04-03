@@ -17,7 +17,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
   const [state, dispatch] = useReducer(CompetenciesReducer, {
     activeIndex: null,
     wheel: DEFAULT_WHEEL,
-    fetchedWheel: null,
+    initialWheel: null,
     templates: [],
     svgRef: useRef<SVGSVGElement | null>(null),
     link: undefined
