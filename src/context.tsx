@@ -24,31 +24,19 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
   });
 
   useEffect(() => {
-    if (
+    const isAdjusted =
       state.wheel.title !== DEFAULT_TITLE ||
-      state.wheel.competencies.length > 0
-    ) {
-      dispatch({
-        type: "setState",
-        payload: {
-          isAdjusted: true,
-        },
-      });
-    }
-
-    if (state.wheel.title.length > 0 && state.wheel.competencies.length > 0) {
-      dispatch({
-        type: "setState",
-        payload: {
-          isExportable: true,
-        },
-      });
-    }
+      state.wheel.competencies.length > 0;
+    const isExportable =
+      state.wheel.title.length > 0 && state.wheel.competencies.length > 0;
+    const isInitial = isEqual(state.wheel, state.initialWheel);
 
     dispatch({
       type: "setState",
       payload: {
-        isInitial: isEqual(state.wheel, state.initialWheel),
+        isAdjusted,
+        isExportable,
+        isInitial,
       },
     });
   }, [state.wheel]);

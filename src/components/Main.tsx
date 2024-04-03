@@ -72,7 +72,7 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
       <div className="flex flex-row items-center space-x-4 mr-4">
         {isAdjusted && <ResetButton />}
         {isExportable && <PNGExportButton />}
-        {!isInitial && <SaveButton />}
+        {!isInitial && isExportable && <SaveButton />}
         {link && <DeleteButton />}
       </div>
       <Wheel />
