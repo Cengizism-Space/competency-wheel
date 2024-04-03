@@ -30,6 +30,9 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     const isExportable =
       state.wheel.title.length > 0 && state.wheel.competencies.length > 0;
     const isInitial = isEqual(state.wheel, state.initialWheel);
+    const link = state.wheel.hasOwnProperty("_id")
+      ? `${window.location.origin}/${state.wheel?.slug.current}`
+      : state.link;
 
     dispatch({
       type: "setState",
@@ -37,6 +40,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
         isAdjusted,
         isExportable,
         isInitial,
+        link,
       },
     });
   }, [state.wheel]);

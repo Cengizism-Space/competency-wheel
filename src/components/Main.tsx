@@ -15,28 +15,10 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 
 const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
-  const {
-    activeIndex,
-    wheel,
-    link,
-    isAdjusted,
-    isExportable,
-    isInitial,
-    dispatch,
-  } = useContext(CompetenciesContext) as CompetencyContextType;
+  const { activeIndex, link, isAdjusted, isExportable, isInitial, dispatch } =
+    useContext(CompetenciesContext) as CompetencyContextType;
 
   const [notFound, setNotFound] = useState(false);
-
-  useEffect(() => {
-    if (wheel.hasOwnProperty("_id")) {
-      dispatch({
-        type: "setState",
-        payload: {
-          link: `${window.location.origin}/${wheel?.slug.current}`,
-        },
-      });
-    }
-  }, [wheel, dispatch]);
 
   useEffect(() => {
     if (slug) {
