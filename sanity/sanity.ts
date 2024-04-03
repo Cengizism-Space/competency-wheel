@@ -6,7 +6,7 @@ const sanity = createClient({
   apiVersion: apiVersion as string,
   projectId: projectId as string,
   dataset: dataset as string,
-  useCdn: true,
+  useCdn: false,
   token: token as string,
   ignoreBrowserTokenWarning: true
 });

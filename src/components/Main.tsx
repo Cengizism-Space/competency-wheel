@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import Wheel from "./Wheel";
 import Title from "./Title";
 import { fetchWheel } from "../../sanity/sanity";
-import { DEFAULT_TITLE } from "@/constants";
 import ResetButton from "./ResetButton";
 import PNGExportButton from "./PNGExportButton";
 import SaveButton from "./SaveButton";
@@ -16,9 +15,15 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 
 const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
-  const { activeIndex, wheel, link, dispatch } = useContext(
-    CompetenciesContext
-  ) as CompetencyContextType;
+  const {
+    activeIndex,
+    wheel,
+    link,
+    isAdjusted,
+    isExportable,
+    isInitial,
+    dispatch,
+  } = useContext(CompetenciesContext) as CompetencyContextType;
 
   const [notFound, setNotFound] = useState(false);
 
@@ -53,11 +58,6 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
     }
   }, [slug, dispatch]);
 
-  const isUserEnteredWheel =
-    wheel.title !== DEFAULT_TITLE || wheel.competencies.length > 0;
-  const isWheelExportable =
-    wheel.title.length > 0 && wheel.competencies.length > 0;
-
   return (
     <div className="flex flex-col items-center space-y-4 mb-4">
       <Title />
@@ -69,14 +69,12 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
       </div>
       {activeIndex !== null && <CompetencyRemoval />}
       {activeIndex !== null && <CompetencyValue />}
-      {isWheelExportable && (
-        <div className="flex flex-row items-center space-x-4 mr-4">
-          {isUserEnteredWheel && <ResetButton />}
-          <PNGExportButton />
-          <SaveButton />
-          {link && <DeleteButton />}
-        </div>
-      )}
+      <div className="flex flex-row items-center space-x-4 mr-4">
+        {isAdjusted && <ResetButton />}
+        {isExportable && <PNGExportButton />}
+        {!isInitial && <SaveButton />}
+        {link && <DeleteButton />}
+      </div>
       <Wheel />
     </div>
   );

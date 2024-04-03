@@ -6,12 +6,14 @@ export const CompetenciesReducer = produce((draft: State, action: Action) => {
   switch (action.type) {
     case 'setState':
       return { ...draft, ...action.payload };
-      case 'updateCompetency':
-        if (draft.activeIndex !== null) {
-          const updatedCompetency = action.payload(draft.wheel.competencies[draft.activeIndex]);
-          draft.wheel.competencies[draft.activeIndex] = updatedCompetency;
-        }
-        break;
+
+    case 'updateCompetency':
+      if (draft.activeIndex !== null) {
+        const updatedCompetency = action.payload(draft.wheel.competencies[draft.activeIndex]);
+        draft.wheel.competencies[draft.activeIndex] = updatedCompetency;
+      }
+      break;
+
     case 'reset':
       if (typeof window !== "undefined") {
         history.replaceState({}, "", `${window.location.origin}/`);
@@ -22,6 +24,7 @@ export const CompetenciesReducer = produce((draft: State, action: Action) => {
       draft.templates = [];
       draft.link = undefined;
       break;
+
     default:
       throw new Error();
   }
