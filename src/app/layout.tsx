@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <main className="flex min-h-screen flex-col items-center justify-between pl-20 pr-20">
           {children}
-          <div className="blurred-bg"></div>
+          {/* <div className="blurred-bg"></div> */}
         </main>
       </body>
     </html>

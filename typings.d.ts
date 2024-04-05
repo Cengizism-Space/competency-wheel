@@ -5,9 +5,9 @@ export type State = {
   templates: WheelType[];
   svgRef: React.MutableRefObject<SVGSVGElement | null>;
   link: string | undefined;
-  isAdjusted: boolean;
   isExportable: boolean;
   isInitial: boolean;
+  isBootstrapped: boolean;
 };
 
 export type Action =
@@ -22,9 +22,9 @@ export interface CompetencyContextType {
   templates: WheelType[];
   svgRef: React.MutableRefObject<SVGSVGElement | null>;
   link: string | undefined;
-  isAdjusted: boolean;
   isExportable: boolean;
   isInitial: boolean;
+  isBootstrapped: boolean;
   dispatch: React.Dispatch<any>;
 }
 

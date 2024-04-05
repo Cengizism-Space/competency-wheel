@@ -13,7 +13,6 @@ const CompetencyMeta: React.FC = () => {
     CompetenciesContext
   ) as CompetencyContextType;
 
-  const [hasDescription, setHasDescription] = useState(false);
   const [description, setDescription] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
@@ -22,13 +21,9 @@ const CompetencyMeta: React.FC = () => {
     if (activeIndex !== null) {
       setInputValue(wheel.competencies[activeIndex].title);
       setDescription(wheel.competencies[activeIndex]?.description || "");
-      if (wheel.competencies[activeIndex]?.description?.length) {
-        setHasDescription(true);
-      }
     } else {
       setInputValue("");
       setDescription("");
-      setHasDescription(false);
     }
   }, [activeIndex, wheel]);
 
@@ -38,21 +33,14 @@ const CompetencyMeta: React.FC = () => {
   );
 
   const handleDescriptionChange = useCallback(
-    (event: ChangeEvent<HTMLTextAreaElement>) =>
-      setDescription(() => event.target.value),
-    []
-  );
-
-  const handleCheckboxChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) =>
-      setHasDescription(event.target.checked),
+      setDescription(() => event.target.value),
     []
   );
 
   const clearMetaForm = useCallback(() => {
     setInputValue("");
     setDescription("");
-    setHasDescription(false);
   }, []);
 
   const handleSave = useCallback(() => {
@@ -96,29 +84,39 @@ const CompetencyMeta: React.FC = () => {
   }, [inputValue, description, activeIndex, wheel, clearMetaForm, dispatch]);
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="rows gap-4">
-      <input
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-        className="border-2 border-gray-300 rounded-md p-2"
-      />
-      <div className="flex items-center space-x-2">
+    <form onSubmit={(e) => e.preventDefault()} className="flex flex-row gap-4">
+      <label
+        htmlFor="competencyTitle"
+        className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+      >
+        <span className="text-xs font-medium text-gray-700"> Title </span>
+
         <input
-          type="checkbox"
-          checked={hasDescription}
-          onChange={handleCheckboxChange}
-          className="form-checkbox h-5 w-5 text-blue-600"
+          type="text"
+          id="competencyTitle"
+          placeholder="JavaScript, User research, ..."
+          className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+          value={inputValue}
+          onChange={handleInputChange}
         />
-        <label className="text-gray-700">Has a description</label>
-      </div>
-      {hasDescription && (
-        <textarea
+      </label>
+
+      <label
+        htmlFor="competencyDescription"
+        className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+      >
+        <span className="text-xs font-medium text-gray-700"> Description </span>
+
+        <input
+          type="text"
+          id="competencyDescription"
+          placeholder="Ability to write clean code, ..."
+          className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
           value={description}
           onChange={handleDescriptionChange}
-          className="border-2 border-gray-300 rounded-md p-2"
         />
-      )}
+      </label>
+
       {error && <p className="text-red-500">{error}</p>}
       <button
         onClick={handleSave}

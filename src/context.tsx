@@ -1,7 +1,7 @@
 import { createContext, useReducer, useRef, useEffect } from "react";
 import { CompetencyContextType } from "@/../typings";
 import { CompetenciesReducer } from "./reducer";
-import { DEFAULT_TITLE, DEFAULT_WHEEL } from "./constants";
+import { DEFAULT_WHEEL } from "./constants";
 import { isEqual } from "lodash";
 
 export const CompetenciesContext = createContext<
@@ -18,15 +18,12 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     templates: [],
     svgRef: useRef<SVGSVGElement | null>(null),
     link: undefined,
-    isAdjusted: false,
     isExportable: false,
     isInitial: true,
+    isBootstrapped: false,
   });
 
   useEffect(() => {
-    const isAdjusted =
-      state.wheel.title !== DEFAULT_TITLE ||
-      state.wheel.competencies.length > 0;
     const isExportable =
       state.wheel.title.length > 0 && state.wheel.competencies.length > 0;
     const isInitial = isEqual(state.wheel, state.initialWheel);
@@ -34,15 +31,20 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
       ? `${window.location.origin}/${state.wheel?.slug.current}`
       : state.link;
 
-    dispatch({
-      type: "setState",
-      payload: {
-        isAdjusted,
-        isExportable,
-        isInitial,
-        link,
-      },
-    });
+    if (
+      isExportable !== state.isExportable ||
+      isInitial !== state.isInitial ||
+      link !== state.link
+    ) {
+      dispatch({
+        type: "setState",
+        payload: {
+          isExportable,
+          isInitial,
+          link,
+        },
+      });
+    }
   }, [state.wheel]);
 
   return (

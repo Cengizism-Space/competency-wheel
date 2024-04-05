@@ -13,7 +13,9 @@ import {
 
 const Page = () => {
   return (
-    <section className="flex flex-col gap-12 mx-auto w-full px-4 py-16 lg:flex lg:h-screen lg:items-center text-center">
+    <section className="flex flex-col gap-12 mx-auto w-full px-4 py-12 lg:flex lg:h-screen lg:items-center text-center">
+
+
       <div className="flex flex-row justify-center items-center">
         <h1 className="text-3xl font-bold sm:text-5xl text-gray-600 mr-8">
           Wheel title
@@ -23,6 +25,8 @@ const Page = () => {
           Edit title
         </button>
       </div>
+
+
 
       <div className="flex flex-row gap-12 justify-center items-center rounded bg-slate-600 text-white px-8 py-6">
         <div className="text-left">
@@ -40,6 +44,8 @@ const Page = () => {
           Share
         </button>
       </div>
+
+
 
       <div className="w-full flex flex-row gap-12 justify-center items-center text-left rounded bg-slate-50 px-8 py-6">
         <p className="text-lg font-medium">Competency</p>
@@ -102,6 +108,8 @@ const Page = () => {
         </div>
       </div>
 
+
+
       <div className="w-full flex flex-row items-center gap-12 rounded bg-slate-50 px-8 py-6">
         <div className="flex flex-row items-center gap-6">
           <button className="flex flex-row items-center text-gray-500 hover:text-red-700">
@@ -116,7 +124,7 @@ const Page = () => {
         </div>
         <div className="flex-grow"></div>
         <div className="flex flex-row items-center gap-6">
-          <button className="flex flex-row items-center w-full rounded px-8 py-3 text-sm font-medium text-red-600 bg-white shadow hover:bg-slate-50 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
+          <button className="flex flex-row items-center w-full rounded px-8 py-3 text-sm font-medium text-slate-600 bg-white shadow hover:bg-slate-50 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
             <PhotoIcon className="h-6 w-6 mr-2" />
             Export to PNG
           </button>
@@ -126,6 +134,8 @@ const Page = () => {
           </button>
         </div>
       </div>
+
+      
     </section>
   );
 };

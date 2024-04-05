@@ -15,8 +15,14 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 
 const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
-  const { activeIndex, link, isAdjusted, isExportable, isInitial, dispatch } =
-    useContext(CompetenciesContext) as CompetencyContextType;
+  const {
+    activeIndex,
+    link,
+    isExportable,
+    isInitial,
+    isBootstrapped,
+    dispatch,
+  } = useContext(CompetenciesContext) as CompetencyContextType;
 
   const [notFound, setNotFound] = useState(false);
 
@@ -41,24 +47,41 @@ const Main: React.FC<{ slug?: string | null }> = ({ slug }) => {
   }, [slug, dispatch]);
 
   return (
-    <div className="flex flex-col items-center space-y-4 mb-4">
+    <section className="flex flex-col gap-12 mx-auto w-full px-4 py-12 lg:flex lg:h-screen lg:items-center text-center">
       <Title />
       {notFound && <p>Wheel not found</p>}
       {link && <Link />}
-      <div className="flex flex-row items-center space-x-4 mr-4">
-        <TemplatesMenu />
-        <CompetencyMeta />
-      </div>
-      {activeIndex !== null && <CompetencyRemoval />}
-      {activeIndex !== null && <CompetencyValue />}
-      <div className="flex flex-row items-center space-x-4 mr-4">
-        {isAdjusted && <ResetButton />}
-        {isExportable && <PNGExportButton />}
-        {!isInitial && isExportable && <SaveButton />}
-        {link && <DeleteButton />}
-      </div>
+      {isBootstrapped && (
+        <div className="w-full flex flex-row gap-12 justify-center items-center text-left rounded bg-slate-50 px-8 py-6">
+          <p className="text-lg font-medium">Competency</p>
+          <div className="flex flex-row gap-4">
+            <CompetencyMeta />
+            {activeIndex !== null && <CompetencyValue />}
+            {activeIndex !== null && <CompetencyRemoval />}
+          </div>
+        </div>
+      )}
+      {!isBootstrapped && <TemplatesMenu />}
       <Wheel />
-    </div>
+      {isBootstrapped && (
+        <div className="w-full flex flex-row items-center gap-12 rounded bg-slate-50 px-8 py-6">
+          <div className="flex flex-row items-center gap-6">
+            <ResetButton />
+            {link && (
+              <>
+                |
+                <DeleteButton />
+              </>
+            )}
+          </div>
+          <div className="flex-grow"></div>
+          <div className="flex flex-row items-center gap-6">
+            {isExportable && <PNGExportButton />}
+            {!isInitial && isExportable && <SaveButton />}
+          </div>
+        </div>
+      )}
+    </section>
   );
 };
 

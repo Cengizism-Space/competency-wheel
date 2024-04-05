@@ -3,6 +3,7 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import { useWebShare } from "@/hooks/useWebShare";
 import { DEFAULT_CHECKOUT_MY_WHEEL } from "@/constants";
+import { ShareIcon } from "@heroicons/react/24/outline";
 
 const ShareButton = () => {
   const { wheel, link } = useContext(
@@ -21,7 +22,13 @@ const ShareButton = () => {
 
   return (
     typeof navigator.share !== "undefined" && (
-      <button onClick={handleShare}>Share link</button>
+      <button
+        className="flex flex-row items-center hover:text-slate-900"
+        onClick={handleShare}
+      >
+        <ShareIcon className="h-6 w-6 mr-2" />
+        Share
+      </button>
     )
   );
 };

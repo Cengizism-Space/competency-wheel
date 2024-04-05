@@ -3,9 +3,10 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import { createSlug } from "@/utils";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 const Title = () => {
-  const { wheel, dispatch } = useContext(
+  const { wheel, isBootstrapped, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
@@ -43,8 +44,8 @@ const Title = () => {
     });
   };
 
-  return (
-    <div className="text-4xl font-bold text-center text-gray mb-12" ref={ref}>
+  return isBootstrapped ? (
+    <div className="flex flex-row justify-center items-center" ref={ref}>
       {isEditing ? (
         <form onSubmit={handleSubmit}>
           <input
@@ -52,17 +53,40 @@ const Title = () => {
             onChange={handleTitleChange}
             onBlur={() => setIsEditing(false)}
             autoFocus
-            className="border-b-2 border-gray-600"
+            className="text-3xl font-bold sm:text-5xl text-gray-600 mr-8 bg-transparent focus:outline-none focus:ring-0 border-b border-gray-600"
           />
         </form>
       ) : (
-        <h1 onClick={handleEdit}>
-          {wheel.title}
-          <button onClick={handleEdit} className="ml-2 underline text-blue-600">
-            edit
+        <>
+          <h1
+            className="text-3xl font-bold sm:text-5xl text-gray-600 mr-8"
+            onClick={handleEdit}
+          >
+            {wheel.title}
+          </h1>
+          <button
+            className="flex flex-row items-center text-gray-500 hover:text-red-700"
+            onClick={handleEdit}
+          >
+            <PencilSquareIcon className="h-6 w-6 mr-2" />
+            Edit title
           </button>
-        </h1>
+        </>
       )}
+    </div>
+  ) : (
+    <div className="mb-10">
+      <h1 className="text-3xl font-bold sm:text-5xl mb-4 text-gray-600">
+        Create your own
+        <strong className="font-extrabold text-red-700 sm:block mt-2">
+          Competency Wheel
+        </strong>
+      </h1>
+
+      <p className="mt-8 sm:text-xl/relaxed max-w-xl text-center mx-auto">
+        You can use this tool to create your own competency wheel. It is a great
+        way to visualize your skills and competencies.
+      </p>
     </div>
   );
 };

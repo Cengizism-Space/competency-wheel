@@ -8,8 +8,13 @@ const Link = () => {
   const { link } = useContext(CompetenciesContext) as CompetencyContextType;
 
   return (
-    <div className="flex flex-row items-center space-x-4 mr-4">
-      <a href={link}>{link}</a>
+    <div className="flex flex-row gap-12 justify-center items-center rounded bg-slate-600 text-white px-8 py-6">
+      <div className="text-left">
+        <p className="text-lg font-medium">Link to your wheel</p>
+        <a className="hover:text-slate-900" href={link}>
+          {link}
+        </a>
+      </div>
       <CopyLinkButton />
       <ShareButton />
     </div>
