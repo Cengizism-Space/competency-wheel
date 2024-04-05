@@ -54,6 +54,10 @@ export type WheelType = {
   competencies: CompetencyType[];
 } & SanityBase;
 
+export type TemplateWithRandomCompetenciesType = WheelType & {
+  randomCompetencies: string;
+};
+
 export interface ShareData {
   title: string;
   text: string;

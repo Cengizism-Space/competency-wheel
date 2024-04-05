@@ -75,7 +75,7 @@ const Title = () => {
       )}
     </div>
   ) : (
-    <div className="mb-10">
+    <div className="mt-6 mb-6">
       <h1 className="text-3xl font-bold sm:text-5xl mb-4 text-gray-600">
         Create your own
         <strong className="font-extrabold text-red-700 sm:block mt-2">

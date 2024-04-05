@@ -1,5 +1,5 @@
 import { createClient } from "next-sanity";
-import { CompetencyType, WheelType } from "../typings";
+import { CompetencyType, TemplateWithRandomCompetenciesType, WheelType } from "../typings";
 import { apiVersion, projectId, dataset, token } from "./env";
 
 const sanity = createClient({
@@ -16,11 +16,12 @@ const templatesQuery = `*[_type == "wheel" && template == true]{
     competencies[]->{title, description, value}
 }`;
 
-export async function fetchTemplates() {
+export const fetchTemplates = async (): Promise<TemplateWithRandomCompetenciesType[]> => {
   try {
     return await sanity.fetch(templatesQuery);
   } catch (error) {
     console.error("Could not fetch templates", error);
+    return [];
   }
 }
 
