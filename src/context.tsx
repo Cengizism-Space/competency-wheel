@@ -45,7 +45,13 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
         },
       });
     }
-  }, [state.wheel]);
+  }, [
+    state.wheel,
+    state.initialWheel,
+    state.isExportable,
+    state.isInitial,
+    state.link,
+  ]);
 
   return (
     <CompetenciesContext.Provider value={{ ...state, dispatch }}>

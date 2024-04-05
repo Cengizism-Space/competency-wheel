@@ -6,7 +6,7 @@ import { createSlug } from "@/utils";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 const Title = () => {
-  const { wheel, isBootstrapped, dispatch } = useContext(
+  const { wheel, link, isBootstrapped, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
@@ -44,7 +44,7 @@ const Title = () => {
     });
   };
 
-  return isBootstrapped ? (
+  return isBootstrapped || link ? (
     <div className="flex flex-row justify-center items-center" ref={ref}>
       {isEditing ? (
         <form onSubmit={handleSubmit}>

@@ -9,7 +9,7 @@ import { createSlug } from "@/utils";
 import { fetchTemplates } from "../../sanity/sanity";
 
 const TemplatesMenu = () => {
-  const { templates, dispatch } = useContext(
+  const { templates, isBootstrapped, link, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType & {
     templates: TemplateWithRandomCompetenciesType[];
@@ -42,12 +42,12 @@ const TemplatesMenu = () => {
     };
   }, [dispatch]);
 
-  const getTemplate = (slug: string) => {
+  const getTemplate = useCallback((slug: string) => {
     const t = templates.find((t) => t.slug.current === slug);
     if (t) {
       return t;
     }
-  };
+  }, [templates]);
 
   const setTemplate = useCallback(
     (slug: string) => {
@@ -87,7 +87,7 @@ const TemplatesMenu = () => {
     return shuffled.slice(0, n);
   };
 
-  return (
+  return !isBootstrapped && !link && (
     <div className="mt-6 flex flex-wrap items-center justify-center gap-8">
       <button className="primary button" onClick={toggleBootstrapped}>
         Start Fresh

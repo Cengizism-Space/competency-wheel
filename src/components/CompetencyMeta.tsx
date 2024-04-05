@@ -84,7 +84,7 @@ const CompetencyMeta: React.FC = () => {
   }, [inputValue, description, activeIndex, wheel, clearMetaForm, dispatch]);
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="flex flex-row gap-4">
+    <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
       <label
         htmlFor="competencyTitle"
         className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"

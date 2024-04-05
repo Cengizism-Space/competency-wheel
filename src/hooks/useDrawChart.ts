@@ -1,18 +1,20 @@
 import { useEffect, useContext } from 'react';
 import * as d3 from 'd3';
-import { CompetencyType, CompetencyContextType } from '@/../typings';
+import { CompetencyType, CompetencyContextType, WheelType } from '@/../typings';
 import { degreesToRadians } from "@/utils";
 import { colors } from "@/constants";
 import { CompetenciesContext } from "@/context";
 
 const useDrawChart = ({
+  wheel,
   svgRef,
   dimensions
 }: {
+  wheel: WheelType;
   svgRef: React.RefObject<SVGSVGElement>;
   dimensions: { width: number; height: number };
 }) => {
-  const { wheel, activeIndex, dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
+  const { activeIndex, dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
 
   useEffect(() => {
     const drawChart = () => {

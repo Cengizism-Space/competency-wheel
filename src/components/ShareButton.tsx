@@ -18,7 +18,7 @@ const ShareButton = () => {
       text: DEFAULT_CHECKOUT_MY_WHEEL,
       url: link ?? "",
     });
-  }, [share, link]);
+  }, [wheel, share, link]);
 
   return (
     typeof navigator.share !== "undefined" && (

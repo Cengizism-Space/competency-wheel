@@ -1,4 +1,4 @@
-import { useEffect, useContext, MutableRefObject } from 'react';
+import { useEffect, useContext, MutableRefObject, useCallback } from 'react';
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from '../../typings';
 
@@ -8,7 +8,7 @@ const useOutsideClick = (
 ): void => {
   const { isBootstrapped } = useContext(CompetenciesContext) as CompetencyContextType;
 
-  const handleClick = (e: MouseEvent) => {
+  const handleClick = useCallback((e: MouseEvent) => {
     const targetElement = e.target as Element;
 
     if (
@@ -22,7 +22,7 @@ const useOutsideClick = (
     if (ref.current && !ref.current.contains(e.target as Node)) {
       callback();
     }
-  };
+  }, [ref, callback]);
 
   useEffect(() => {
     if (isBootstrapped) {

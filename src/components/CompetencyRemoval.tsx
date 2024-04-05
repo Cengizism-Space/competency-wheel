@@ -25,14 +25,16 @@ const CompetencyRemoval: React.FC = () => {
   }, [activeIndex, wheel, dispatch]);
 
   return (
-    <div className="competency-remove">
-      <button
-        onClick={handleRemove}
-        className="bg-red-500 text-white px-4 py-2 rounded-md"
-      >
-        Remove
-      </button>
-    </div>
+    activeIndex !== null && (
+      <div className="competency-remove">
+        <button
+          onClick={handleRemove}
+          className="bg-red-500 text-white px-4 py-2 rounded-md"
+        >
+          Remove
+        </button>
+      </div>
+    )
   );
 };
 
