@@ -1,9 +1,9 @@
 import React from "react";
 import Title from "./Title";
 import Link from "./Link/Link";
-import TemplatesMenu from "./TemplatesMenu";
+import Landing from "./Landing";
 import useFetchWheel from "@/hooks/useFetchWheel";
-import Competency from "./Competency/Competency";
+import CompetencyCard from "./Competency/CompetencyCard";
 import Wheel from "./Wheel/Wheel";
 
 const Main: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
@@ -14,11 +14,10 @@ const Main: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
       <Title />
       <Link />
       <div className="grid grid-cols-12 gap-4 grow">
-        <Competency />
+        <Landing />
+        <CompetencyCard />
         <Wheel />
       </div>
-
-      <TemplatesMenu />
     </section>
   );
 };
