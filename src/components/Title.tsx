@@ -45,7 +45,12 @@ const Title = () => {
   };
 
   return isBootstrapped || link ? (
-    <div className="flex flex-row justify-center items-center" ref={ref}>
+    <div
+      className="relative flex flex-row justify-center items-center"
+      ref={ref}
+    >
+      <div className="absolute inset-x-0 top-20 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-75"></div>
+
       {isEditing ? (
         <form onSubmit={handleSubmit}>
           <input
@@ -57,7 +62,7 @@ const Title = () => {
           />
         </form>
       ) : (
-        <>
+        <div className="mb-8">
           <h1
             className="text-3xl font-bold sm:text-5xl text-gray-600 mr-8"
             onClick={handleEdit}
@@ -71,7 +76,7 @@ const Title = () => {
             <PencilSquareIcon className="h-6 w-6 mr-2" />
             Edit title
           </button>
-        </>
+        </div>
       )}
     </div>
   ) : (
