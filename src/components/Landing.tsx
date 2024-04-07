@@ -4,7 +4,7 @@ import {
   CompetencyContextType,
   TemplateWithRandomCompetenciesType,
 } from "../../typings";
-import { createSlug } from "@/utils";
+import { createSlug, randomizeCompetencies } from "@/utils";
 import { fetchTemplates } from "../../sanity/sanity";
 
 const Landing = () => {
@@ -28,25 +28,7 @@ const Landing = () => {
     }
 
     fetchAndSetTemplates();
-  }, [dispatch, isBootstrapped]);
-
-  const randomizeCompetencies = useCallback(
-    (templates: TemplateWithRandomCompetenciesType[]) => {
-      return templates.map((template) => {
-        const toShuffle = [...template.competencies];
-        const shuffled = toShuffle.sort(() => 0.5 - Math.random());
-        const selected = shuffled
-          .slice(0, 4)
-          .map((c) => c.title)
-          .join(", ");
-        return {
-          ...template,
-          randomCompetencies: selected,
-        };
-      });
-    },
-    []
-  );
+  }, [dispatch, link, isBootstrapped]);
 
   const fetchAndSetTemplates = useCallback(async () => {
     const fetchedTemplates: TemplateWithRandomCompetenciesType[] =
