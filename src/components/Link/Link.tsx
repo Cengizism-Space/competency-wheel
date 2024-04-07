@@ -1,11 +1,17 @@
 import React, { useContext } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import { CompetencyContextType } from "../../../typings";
 import CopyLinkButton from "./CopyLinkButton";
 import ShareButton from "./ShareButton";
 
 const Link = () => {
-  const { link } = useContext(CompetenciesContext) as CompetencyContextType;
+  const { link, isFound } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
+
+  if (!isFound) {
+    return <p className="flex flex-row gap-12 justify-center items-center rounded bg-slate-600 text-white px-8 py-6 text-lg font-medium">Wheel not found!</p>;
+  }
 
   return (
     <div className="flex flex-row gap-12 justify-center items-center rounded bg-slate-600 text-white px-8 py-6">

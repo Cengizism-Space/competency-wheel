@@ -5,7 +5,8 @@ import { Action, State } from "../typings";
 export const CompetenciesReducer = produce((draft: State, action: Action) => {
   switch (action.type) {
     case 'setState':
-      return { ...draft, ...action.payload };
+      Object.assign(draft, action.payload);
+      break;
 
     case 'updateCompetency':
       if (draft.activeIndex !== null) {
@@ -23,6 +24,7 @@ export const CompetenciesReducer = produce((draft: State, action: Action) => {
       draft.initialWheel = null;
       draft.templates = [];
       draft.link = undefined;
+      draft.isFound = false;
       draft.isExportable = false;
       draft.isInitial = true;
       draft.isBootstrapped = false;

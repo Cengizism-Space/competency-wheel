@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import { CompetencyContextType } from "../../../typings";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
 
-const Wheel: React.FC<{ dimensions: { width: number; height: number } }> = ({
+const Pie: React.FC<{ dimensions: { width: number; height: number } }> = ({
   dimensions,
 }) => {
   const { wheel, svgRef, dispatch } = useContext(
@@ -27,4 +27,4 @@ const Wheel: React.FC<{ dimensions: { width: number; height: number } }> = ({
   );
 };
 
-export default Wheel;
+export default Pie;

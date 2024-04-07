@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import { CompetencyContextType } from "../../../typings";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 
 const ResetButton = () => {

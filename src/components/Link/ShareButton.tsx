@@ -1,6 +1,6 @@
 import React, { useContext, useCallback } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import { CompetencyContextType } from "../../../typings";
 import { useWebShare } from "@/hooks/useWebShare";
 import { DEFAULT_CHECKOUT_MY_WHEEL } from "@/constants";
 import { ShareIcon } from "@heroicons/react/24/outline";

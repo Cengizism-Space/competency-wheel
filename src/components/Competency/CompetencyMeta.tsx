@@ -6,7 +6,7 @@ import React, {
   useContext,
 } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyType, CompetencyContextType } from "../../typings";
+import { CompetencyType, CompetencyContextType } from "../../../typings";
 
 const CompetencyMeta: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(

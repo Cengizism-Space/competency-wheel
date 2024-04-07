@@ -18,6 +18,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     templates: [],
     svgRef: useRef<SVGSVGElement | null>(null),
     link: undefined,
+    isFound: false,
     isExportable: false,
     isInitial: true,
     isBootstrapped: false,
