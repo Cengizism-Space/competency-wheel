@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../../typings";
+import { CompetencyContextType } from "../../../../typings";
 import useExportToPng from "@/hooks/useExportToPng";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 

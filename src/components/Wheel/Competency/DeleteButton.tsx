@@ -1,7 +1,7 @@
 import React, { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../../typings";
-import { deleteWheel } from "../../../sanity/sanity";
+import { CompetencyContextType } from "../../../../typings";
+import { deleteWheel } from "../../../../sanity/sanity";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
 const DeleteButton = () => {

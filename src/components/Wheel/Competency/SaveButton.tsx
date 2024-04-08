@@ -1,7 +1,7 @@
 import { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../../typings";
-import { saveWheel, updateWheel } from "../../../sanity/sanity";
+import { CompetencyContextType } from "../../../../typings";
+import { saveWheel, updateWheel } from "../../../../sanity/sanity";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
 
 const SaveButton = () => {

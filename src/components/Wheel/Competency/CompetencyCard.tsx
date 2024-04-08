@@ -7,7 +7,7 @@ import CompetencyValue from "./CompetencyValue";
 import CompetencyMeta from "./CompetencyMeta";
 import CompetencyRemoval from "./CompetencyRemoval";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../../typings";
+import { CompetencyContextType } from "../../../../typings";
 
 const CompetencyCard = () => {
   const { link } = React.useContext(

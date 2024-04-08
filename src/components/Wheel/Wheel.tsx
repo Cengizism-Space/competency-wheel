@@ -1,8 +1,8 @@
 import React from "react";
 import Title from "./Title";
-import Link from "../Link/Link";
+import Link from "./Link/Link";
 import useFetchWheel from "@/hooks/useFetchWheel";
-import CompetencyCard from "../Competency/CompetencyCard";
+import CompetencyCard from "./Competency/CompetencyCard";
 import Pie from "./Pie";
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {

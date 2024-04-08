@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useMemo, useContext } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyType, CompetencyContextType } from "../../../typings";
+import { CompetencyType, CompetencyContextType } from "../../../../typings";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
