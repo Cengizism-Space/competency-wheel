@@ -10,11 +10,11 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../../typings";
 
 const CompetencyCard = () => {
-  const { link, isBootstrapped } = React.useContext(
+  const { link } = React.useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
-  return isBootstrapped || link ? (
+  return (
     <div className="col-span-2 grow">
       <div className="w-full flex flex-col gap-4 justify-center items-center text-left rounded bg-slate-50 px-8 py-6">
         <p className="text-lg font-medium">Competency</p>
@@ -29,7 +29,7 @@ const CompetencyCard = () => {
         </div>
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default CompetencyCard;

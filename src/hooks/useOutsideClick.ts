@@ -1,13 +1,9 @@
-import { useEffect, useContext, MutableRefObject, useCallback } from 'react';
-import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from '../../typings';
+import { useEffect, MutableRefObject, useCallback } from 'react';
 
 const useOutsideClick = (
   ref: MutableRefObject<SVGSVGElement | HTMLDivElement | null>,
   callback: () => void
 ): void => {
-  const { isBootstrapped } = useContext(CompetenciesContext) as CompetencyContextType;
-
   const handleClick = useCallback((e: MouseEvent) => {
     const targetElement = e.target as Element;
 
@@ -25,14 +21,12 @@ const useOutsideClick = (
   }, [ref, callback]);
 
   useEffect(() => {
-    if (isBootstrapped) {
-      document.addEventListener('mousedown', handleClick);
+    document.addEventListener('mousedown', handleClick);
 
-      return () => {
-        document.removeEventListener('mousedown', handleClick);
-      };
-    }
-  }, [isBootstrapped, handleClick]);
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, [handleClick]);
 };
 
 export default useOutsideClick;

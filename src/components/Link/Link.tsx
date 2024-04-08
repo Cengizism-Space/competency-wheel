@@ -5,7 +5,7 @@ import CopyLinkButton from "./CopyLinkButton";
 import ShareButton from "./ShareButton";
 
 const Link = () => {
-  const { link, isFound, isBootstrapped } = useContext(
+  const { link, isFound } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
@@ -13,17 +13,19 @@ const Link = () => {
   //   return <p className="flex flex-row gap-12 justify-center items-center rounded bg-slate-600 text-white px-8 py-6 text-lg font-medium">Wheel not found!</p>;
   // }
 
-  return link && (
-    <div className="flex flex-row gap-12 justify-center items-center rounded bg-slate-600 text-white px-8 py-6">
-      <div className="text-left">
-        <p className="text-lg font-medium">Link to your wheel</p>
-        <a className="hover:text-slate-900" href={link}>
-          {link}
-        </a>
+  return (
+    link && (
+      <div className="flex flex-row gap-12 justify-center items-center rounded bg-slate-600 text-white px-8 py-6">
+        <div className="text-left">
+          <p className="text-lg font-medium">Link to your wheel</p>
+          <a className="hover:text-slate-900" href={link}>
+            {link}
+          </a>
+        </div>
+        <CopyLinkButton />
+        <ShareButton />
       </div>
-      <CopyLinkButton />
-      <ShareButton />
-    </div>
+    )
   );
 };
 

@@ -1,14 +1,22 @@
 import React from "react";
+import Title from "./Title";
+import Link from "../Link/Link";
+import useFetchWheel from "@/hooks/useFetchWheel";
+import CompetencyCard from "../Competency/CompetencyCard";
 import Pie from "./Pie";
-import useContainerDimensions from "@/hooks/useContainerDimensions";
 
-const Wheel = () => {
-  const [containerRef, containerDimensions] = useContainerDimensions();
+const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
+  useFetchWheel(slug);
 
   return (
-    <div className="col-span-10 grow" ref={containerRef}>
-      <Pie dimensions={containerDimensions} />
-    </div>
+    <section className="flex flex-col gap-8 mx-auto w-full px-4 lg:flex lg:h-screen lg:items-center text-center">
+      <Title />
+      <Link />
+      <div className="grid grid-cols-12 gap-4 grow">
+        <CompetencyCard />
+        <Pie />
+      </div>
+    </section>
   );
 };
 

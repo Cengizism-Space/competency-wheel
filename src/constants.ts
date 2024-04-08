@@ -5,6 +5,9 @@ import { createSlug } from "./utils";
 export const metadata: Metadata = {
   title: "Competency wheel app",
   description: "Made for company intern evaluation",
+} as {
+  title: string;
+  description: string;
 };
 
 export const colors = [

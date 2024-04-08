@@ -21,7 +21,6 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     isFound: false,
     isExportable: false,
     isInitial: true,
-    isBootstrapped: false,
   });
 
   useEffect(() => {
@@ -29,7 +28,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
       state.wheel.title.length > 0 && state.wheel.competencies.length > 0;
     const isInitial = isEqual(state.wheel, state.initialWheel);
     const link = state.wheel.hasOwnProperty("_id")
-      ? `${window.location.origin}/${state.wheel?.slug.current}`
+      ? `${window.location.origin}/wheel/${state.wheel?.slug.current}`
       : state.link;
 
     if (

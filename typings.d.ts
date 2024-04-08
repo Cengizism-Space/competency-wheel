@@ -8,7 +8,6 @@ export type State = {
   isFound: boolean;
   isExportable: boolean;
   isInitial: boolean;
-  isBootstrapped: boolean;
 };
 
 export type Action =
@@ -26,7 +25,6 @@ export interface CompetencyContextType {
   isFound: boolean;
   isExportable: boolean;
   isInitial: boolean;
-  isBootstrapped: boolean;
   dispatch: React.Dispatch<any>;
 }
 

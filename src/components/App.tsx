@@ -2,12 +2,12 @@
 
 import React from "react";
 import { CompetenciesProvider } from "@/context";
-import Main from "./Main";
+import Wheel from "./Wheel/Wheel";
 
 const App: React.FC<{ slug?: string | null }> = ({ slug }) => {
   return (
     <CompetenciesProvider>
-      <Main slug={slug} />
+      <Wheel slug={slug} />
     </CompetenciesProvider>
   );
 };

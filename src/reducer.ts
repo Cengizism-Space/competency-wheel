@@ -27,7 +27,6 @@ export const CompetenciesReducer = produce((draft: State, action: Action) => {
       draft.isFound = false;
       draft.isExportable = false;
       draft.isInitial = true;
-      draft.isBootstrapped = false;
       break;
 
     default:

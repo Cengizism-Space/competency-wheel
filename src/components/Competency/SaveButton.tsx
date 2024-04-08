@@ -12,7 +12,7 @@ const SaveButton = () => {
 
   const urlWithSlug =
     typeof window !== "undefined"
-      ? `${window.location.origin}/${wheel?.slug.current}`
+      ? `${window.location.origin}/wheel/${wheel?.slug.current}`
       : "";
 
   const saveChart = useCallback(async () => {
