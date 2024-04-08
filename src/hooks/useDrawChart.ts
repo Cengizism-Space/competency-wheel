@@ -28,7 +28,7 @@ const useDrawChart = ({
       const centerX = width / 2;
       const centerY = height / 2;
       const centerRadius = Math.max(0, Math.min(centerX, centerY) / 3 - 10);
-      const padding = 30;
+      const padding = 50;
 
       svg
         .attr("width", width)

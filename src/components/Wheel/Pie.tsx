@@ -17,7 +17,7 @@ const Pie: React.FC = () => {
   });
 
   return (
-    <div className="col-span-10 grow" ref={containerRef}>
+    <div className="col-span-9 grow" ref={containerRef}>
       <svg
         height="100%"
         width="100%"

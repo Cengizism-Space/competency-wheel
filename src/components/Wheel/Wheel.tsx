@@ -46,7 +46,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
   }, [slug, dispatch]);
 
   return (
-    <section className="flex flex-col gap-8 mx-auto w-full px-4 lg:flex lg:h-screen lg:items-center text-center">
+    <section className="flex flex-col gap-8 mx-auto px-4 lg:flex lg:h-screen lg:items-center text-center">
       {!isFound && <NotFound />}
       <Title />
       <Link />

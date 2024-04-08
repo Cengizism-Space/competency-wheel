@@ -118,10 +118,7 @@ const CompetencyMeta: React.FC = () => {
       </label>
 
       {error && <p className="text-red-500">{error}</p>}
-      <button
-        onClick={handleSave}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md"
-      >
+      <button onClick={handleSave} className="primary button">
         {activeIndex !== null ? "Update" : "Add new"}
       </button>
     </form>

@@ -5,7 +5,9 @@ import CopyLinkButton from "./CopyLinkButton";
 import ShareButton from "./ShareButton";
 
 const Link = () => {
-  const { link } = useContext(CompetenciesContext) as CompetencyContextType;
+  const { link } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
   return (
     link && (

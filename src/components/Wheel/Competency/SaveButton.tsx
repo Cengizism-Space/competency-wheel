@@ -2,7 +2,6 @@ import { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../../../typings";
 import { saveWheel, updateWheel } from "../../../../sanity/sanity";
-import { BookmarkIcon } from "@heroicons/react/24/outline";
 
 const SaveButton = () => {
   const { wheel, initialWheel, isInitial, isExportable, link, dispatch } =
@@ -47,11 +46,7 @@ const SaveButton = () => {
   return (
     !isInitial &&
     isExportable && (
-      <button
-        className="flex flex-row items-center w-full rounded bg-green-700 px-8 py-3 text-sm font-medium text-white shadow hover:bg-green-800 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
-        onClick={saveChart}
-      >
-        <BookmarkIcon className="h-6 w-6 mr-2" />
+      <button className="primary button" onClick={saveChart}>
         {isSaving ? "Saving..." : link ? "Update wheel" : "Save wheel"}
       </button>
     )
