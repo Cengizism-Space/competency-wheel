@@ -16,23 +16,39 @@ const CompetencyMeta: React.FC = () => {
     CompetenciesContext
   ) as CompetencyContextType;
 
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [inputValue, setInputValue] = useState("");
+  const [value, setValue] = useState(5);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (activeIndex !== null) {
-      setInputValue(wheel.competencies[activeIndex].title);
+      setTitle(wheel.competencies[activeIndex].title);
+      setValue(wheel.competencies[activeIndex].value);
       setDescription(wheel.competencies[activeIndex]?.description || "");
     } else {
-      setInputValue("");
+      setTitle("");
+      setValue(5);
       setDescription("");
     }
   }, [activeIndex, wheel]);
 
-  const handleInputChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => setInputValue(event.target.value),
+  const handleTitleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => setTitle(event.target.value),
     []
+  );
+
+  const handleValueChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      dispatch({
+        type: "updateCompetency",
+        payload: (competency: CompetencyType) => ({
+          ...competency,
+          value: Number(event.target.value),
+        }),
+      });
+    },
+    [dispatch]
   );
 
   const handleDescriptionChange = useCallback(
@@ -42,12 +58,13 @@ const CompetencyMeta: React.FC = () => {
   );
 
   const clearMetaForm = useCallback(() => {
-    setInputValue("");
+    setTitle("");
+    setValue(5);
     setDescription("");
   }, []);
 
   const handleSave = useCallback(() => {
-    if (!inputValue.trim()) {
+    if (!title.trim()) {
       setError("Competency name cannot be empty");
       return;
     }
@@ -58,14 +75,14 @@ const CompetencyMeta: React.FC = () => {
         type: "updateCompetency",
         payload: (competency: CompetencyType) => ({
           ...competency,
-          title: inputValue,
-          description: description,
+          title,
+          description,
         }),
       });
 
       clearMetaForm();
       dispatch({ type: "setState", payload: { activeIndex: null } });
-    } else if (inputValue && wheel.competencies.length < 20) {
+    } else if (title && wheel.competencies.length < 20) {
       dispatch({
         type: "setState",
         payload: {
@@ -74,7 +91,7 @@ const CompetencyMeta: React.FC = () => {
             competencies: [
               ...wheel.competencies,
               {
-                title: inputValue,
+                title,
                 description,
                 value: 5,
               },
@@ -84,7 +101,7 @@ const CompetencyMeta: React.FC = () => {
       });
       clearMetaForm();
     }
-  }, [inputValue, description, activeIndex, wheel, clearMetaForm, dispatch]);
+  }, [title, description, activeIndex, wheel, clearMetaForm, dispatch]);
 
   return (
     <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
@@ -92,8 +109,18 @@ const CompetencyMeta: React.FC = () => {
         id="competencyTitle"
         label="Title"
         placeholder="JavaScript, User research, ..."
-        value={inputValue}
-        onChange={handleInputChange}
+        value={title}
+        onChange={handleTitleChange}
+      />
+      <InputField
+        id="competencyValue"
+        label="Value"
+        placeholder="5"
+        value={value}
+        onChange={handleValueChange}
+        type="number"
+        min={1}
+        max={10}
       />
       <InputField
         id="competencyDescription"

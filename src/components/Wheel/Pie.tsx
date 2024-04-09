@@ -4,6 +4,7 @@ import { CompetencyContextType } from "../../../typings";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import useContainerDimensions from "@/hooks/useContainerDimensions";
+import CompetencyToolbar from "./Competency/CompetencyToolbar";
 
 const Pie: React.FC = () => {
   const { wheel, svgRef, dispatch } = useContext(
@@ -17,7 +18,8 @@ const Pie: React.FC = () => {
   });
 
   return (
-    <div className="col-span-9 grow" ref={containerRef}>
+    <div className="col-span-9 grow relative" ref={containerRef}>
+      <CompetencyToolbar />
       <svg
         height="100%"
         width="100%"
