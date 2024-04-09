@@ -16,7 +16,7 @@ const Button: FC<ButtonProps> = ({
 
   const variantClasses = {
     primary: `${defaultBlockClasses} bg-red-500 text-white hover:bg-red-600 active:bg-red-700`,
-    secondary: `${defaultBlockClasses} bg-white hover:bg-slate-50 active:bg-red-500 text-slate-500`,
+    secondary: `${defaultBlockClasses} bg-white text-gray-700 hover:bg-gray-200 focus:relative`,
     link: "flex flex-row items-center text-slate-500 hover:text-red-700",
     whitey: "flex flex-row items-center text-white hover:text-slate-900",
   };

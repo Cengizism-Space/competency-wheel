@@ -1,5 +1,6 @@
 export type State = {
   activeIndex: number | null;
+  activeLabelCoords: { x: number; y: number } | null;
   wheel: WheelType;
   initialWheel: WheelType | null;
   templates: WheelType[];
@@ -17,6 +18,7 @@ export type Action =
 
 export interface CompetencyContextType {
   activeIndex: number | null;
+  activeLabelCoords: { x: number; y: number } | null;
   wheel: WheelType;
   initialWheel: WheelType | null;
   templates: WheelType[];

@@ -9,7 +9,7 @@ import {
 import Button from "@/components/Commons/Button";
 
 const CompetencyToolbar: React.FC = () => {
-  const { wheel, activeIndex, dispatch } = useContext(
+  const { wheel, activeIndex, activeLabelCoords, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
@@ -43,10 +43,15 @@ const CompetencyToolbar: React.FC = () => {
     }
   }, [activeIndex, wheel, dispatch]);
 
+  const toolbarCoords = {
+    top: activeLabelCoords ? activeLabelCoords.y : 0,
+    left: activeLabelCoords ? activeLabelCoords.x  : 0,
+  };
+
   return (
     activeIndex !== null && (
-      <div className="competency-value-controllers absolute top-0 right-0 flex flex-row gap-2">
-        <span className="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
+      <div className="competency-value-controllers absolute flex flex-row gap-2" style={toolbarCoords}>
+        <span className="inline-flex overflow-hidden rounded-md border bg-white shadow">
           <Button
             className="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
             title="Increase competency value"
@@ -66,7 +71,7 @@ const CompetencyToolbar: React.FC = () => {
           </Button>
         </span>
 
-        <span className="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
+        <span className="inline-flex overflow-hidden rounded-md border bg-white shadow">
           <Button
             className="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
             title="Delete competency"

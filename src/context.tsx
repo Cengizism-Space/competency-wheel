@@ -13,6 +13,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
 }) => {
   const [state, dispatch] = useReducer(CompetenciesReducer, {
     activeIndex: null,
+    activeLabelCoords: { x: 0, y: 0 },
     wheel: DEFAULT_WHEEL,
     initialWheel: null,
     templates: [],

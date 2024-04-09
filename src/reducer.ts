@@ -20,6 +20,7 @@ export const CompetenciesReducer = produce((draft: State, action: Action) => {
         history.replaceState({}, "", `${window.location.origin}/`);
       }
       draft.activeIndex = null;
+      draft.activeLabelCoords = { x: 0, y: 0 };
       draft.wheel = DEFAULT_WHEEL;
       draft.initialWheel = null;
       draft.templates = [];
