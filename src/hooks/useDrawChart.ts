@@ -92,6 +92,33 @@ const useDrawChart = ({
               "Z",
             ].join(" ");
 
+        const arc = svg
+          .append("path")
+          .attr(
+            "class",
+            `arc ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`
+          )
+          .attr("d", d)
+          .attr("fill", colors[i])
+          .attr("stroke", "white")
+          .attr("stroke-width", 1)
+          .on("click",
+            () => dispatch({
+              type: "setState",
+              payload: {
+                activeIndex: i,
+                activeLabelCoords: {
+                  x: (labelX + textWidth / 2) + 16,
+                  y: (labelY - textHeight / 2) - 6
+                }
+              }
+            })
+          )
+          .append("title")
+          .text(competency.description || "");
+
+        arcs.push(arc);
+
         const labelRadius = Math.min(centerX, centerY) - padding - 10;
         const labelX =
           centerX +
@@ -109,7 +136,7 @@ const useDrawChart = ({
         let textHeight = numLines * fontSize * lineHeight;
 
         const group = svg.append("g")
-          .attr("class", `label ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`)
+          .attr("class", `label ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`);
 
         const text = group.append("text")
           .attr("x", labelX);
@@ -140,41 +167,12 @@ const useDrawChart = ({
           .attr("ry", 5)
           .style("fill", "rgba(255, 255, 255, 0.75)");
 
-        labels.push(rect);
-
         text
           .attr(
             "y",
             parseFloat(rect.attr("y")) + parseFloat(rect.attr("height")) / 2 + 5
           )
           .style("text-anchor", "middle");
-
-        const arc = svg
-          .append("path")
-          .attr(
-            "class",
-            `arc ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`
-          )
-          .attr("d", d)
-          .attr("fill", colors[i])
-          .attr("stroke", "white")
-          .attr("stroke-width", 1)
-          .on("click",
-            () => dispatch({
-              type: "setState",
-              payload: {
-                activeIndex: i,
-                activeLabelCoords: {
-                  x: (labelX + textWidth / 2) + 16,
-                  y: (labelY - textHeight / 2) - 6
-                }
-              }
-            })
-          )
-          .append("title")
-          .text(competency.description || "");
-
-        arcs.push(arc);
       });
 
       arcs.forEach(arc => svg.node()?.appendChild(arc.node()));
