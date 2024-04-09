@@ -2,6 +2,7 @@ import { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../../../typings";
 import { saveWheel, updateWheel } from "../../../../sanity/sanity";
+import Button from "@/components/Commons/Button";
 
 const SaveButton = () => {
   const { wheel, initialWheel, isInitial, isExportable, link, dispatch } =
@@ -46,9 +47,9 @@ const SaveButton = () => {
   return (
     !isInitial &&
     isExportable && (
-      <button className="primary button" onClick={saveChart}>
+      <Button onClick={saveChart}>
         {isSaving ? "Saving..." : link ? "Update wheel" : "Save wheel"}
-      </button>
+      </Button>
     )
   );
 };

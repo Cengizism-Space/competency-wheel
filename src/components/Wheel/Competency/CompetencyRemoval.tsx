@@ -1,6 +1,7 @@
 import React, { useCallback, useContext } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../../../typings";
+import Button from "@/components/Commons/Button";
 
 const CompetencyRemoval: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(
@@ -27,9 +28,9 @@ const CompetencyRemoval: React.FC = () => {
   return (
     activeIndex !== null && (
       <div className="competency-remove">
-        <button onClick={handleRemove} className="button secondary">
+        <Button onClick={handleRemove} variant="secondary">
           Remove
-        </button>
+        </Button>
       </div>
     )
   );

@@ -3,6 +3,7 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../../../typings";
 import { deleteWheel } from "../../../../sanity/sanity";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import Button from "@/components/Commons/Button";
 
 const DeleteButton = () => {
   const { wheel, link, dispatch } = useContext(
@@ -23,13 +24,10 @@ const DeleteButton = () => {
 
   return (
     link && (
-      <button
-        className="flex flex-row items-center text-gray-500 hover:text-red-700"
-        onClick={handleDeleteWheel}
-      >
+      <Button onClick={handleDeleteWheel} variant="link">
         <TrashIcon className="h-6 w-6 mr-2" />
         {isDeleting ? "Deleting..." : "Delete wheel"}
-      </button>
+      </Button>
     )
   );
 };

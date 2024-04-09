@@ -3,7 +3,8 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../../typings";
 import { createSlug } from "@/utils";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
+import Button from "../Commons/Button";
 
 const Title = () => {
   const { wheel, isFound, dispatch } = useContext(
@@ -51,7 +52,6 @@ const Title = () => {
         ref={ref}
       >
         <div className="absolute inset-x-0 top-28 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-75"></div>
-
         {isEditing ? (
           <form
             className="flex flex-row items-center h-32"
@@ -64,10 +64,10 @@ const Title = () => {
               autoFocus
               className="text-3xl font-bold sm:text-5xl text-gray-600 mr-8 bg-transparent focus:outline-none focus:ring-0 line-height-1"
             />
-            <button className="flex flex-row items-center text-gray-500 hover:text-red-700">
-              <PencilSquareIcon className="h-6 w-6 mr-2" />
+            <Button type="submit" variant="link">
+              <CheckIcon className="h-6 w-6 mr-2" />
               Save title
-            </button>
+            </Button>
           </form>
         ) : (
           <div className="flex flex-row items-center h-32">
@@ -77,13 +77,10 @@ const Title = () => {
             >
               {wheel.title}
             </h1>
-            <button
-              className="flex flex-row items-center text-gray-500 hover:text-red-700"
-              onClick={handleEdit}
-            >
+            <Button onClick={handleEdit} variant="link">
               <PencilSquareIcon className="h-6 w-6 mr-2" />
               Edit title
-            </button>
+            </Button>
           </div>
         )}
       </div>

@@ -7,6 +7,9 @@ import React, {
 } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyType, CompetencyContextType } from "../../../../typings";
+import InputField from "@/components/Commons/InputField";
+import Button from "@/components/Commons/Button";
+import { CheckIcon } from "@heroicons/react/24/outline";
 
 const CompetencyMeta: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(
@@ -85,42 +88,25 @@ const CompetencyMeta: React.FC = () => {
 
   return (
     <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
-      <label
-        htmlFor="competencyTitle"
-        className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-      >
-        <span className="text-xs font-medium text-gray-700"> Title </span>
-
-        <input
-          type="text"
-          id="competencyTitle"
-          placeholder="JavaScript, User research, ..."
-          className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-      </label>
-
-      <label
-        htmlFor="competencyDescription"
-        className="block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-      >
-        <span className="text-xs font-medium text-gray-700"> Description </span>
-
-        <input
-          type="text"
-          id="competencyDescription"
-          placeholder="Ability to write clean code, ..."
-          className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
-          value={description}
-          onChange={handleDescriptionChange}
-        />
-      </label>
-
+      <InputField
+        id="competencyTitle"
+        label="Title"
+        placeholder="JavaScript, User research, ..."
+        value={inputValue}
+        onChange={handleInputChange}
+      />
+      <InputField
+        id="competencyDescription"
+        label="Description"
+        placeholder="Ability to write clean code, ..."
+        value={description}
+        onChange={handleDescriptionChange}
+      />
       {error && <p className="text-red-500">{error}</p>}
-      <button onClick={handleSave} className="primary button">
+      <Button onClick={handleSave}>
+        <CheckIcon className="h-6 w-6 mr-2" />
         {activeIndex !== null ? "Update" : "Add new"}
-      </button>
+      </Button>
     </form>
   );
 };

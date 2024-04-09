@@ -3,6 +3,7 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../../../typings";
 import { useClipboard } from "@/hooks/useClipboard";
 import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import Button from "@/components/Commons/Button";
 
 const CopyLinkButton = () => {
   const { link } = useContext(CompetenciesContext) as CompetencyContextType;
@@ -16,13 +17,10 @@ const CopyLinkButton = () => {
   return isCopied ? (
     <span>Copied to clipboard</span>
   ) : (
-    <button
-      className="flex flex-row items-center hover:text-slate-900"
-      onClick={handleCopy}
-    >
+    <Button onClick={handleCopy} variant="whitey">
       <DocumentDuplicateIcon className="h-6 w-6 mr-2" />
       Copy to clipboard
-    </button>
+    </Button>
   );
 };
 
