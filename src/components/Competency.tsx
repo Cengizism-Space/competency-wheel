@@ -107,7 +107,7 @@ const Competency: React.FC = () => {
   }, [title, description, activeIndex, wheel, clearMetaForm, dispatch]);
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
+    <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-5">
       <InputField
         id="competencyTitle"
         label="Title"
@@ -115,6 +115,7 @@ const Competency: React.FC = () => {
         value={title}
         onChange={handleTitleChange}
       />
+      {error && <p className="text-sm text-red-500 leading-none mb-4">{error}</p>}
 
       <InputField
         id="competencyValue"
@@ -129,13 +130,11 @@ const Competency: React.FC = () => {
 
       <InputField
         id="competencyDescription"
-        label="Description"
+        label="Description (Optional)"
         placeholder="Ability to write clean code, ..."
         value={description}
         onChange={handleDescriptionChange}
       />
-
-      {error && <p className="text-red-500">{error}</p>}
 
       <Button type="submit" onClick={handleSave}>
         {activeIndex !== null ? "Update" : "Add new"}
