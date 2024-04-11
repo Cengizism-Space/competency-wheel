@@ -9,10 +9,8 @@ import Announcer from "./Announcer";
 import ModeSwitcher from "./ModeSwitcher";
 import { Transition } from "@headlessui/react";
 import Competency from "./Competency";
-import ResetWheelButton from "./ResetWheelButton";
-import ExportToPNGButton from "./ExportToPNGButton";
-import SaveWheelButton from "./SaveWheelButton";
-import DeleteWheelButton from "./DeleteWheelButton";
+import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
+import WheelController from "./WheelController";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -73,9 +71,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
         <div className="flex flex-col gap-0 grow">
           <Title />
-          <div className="grow">
-            <Pie />
-          </div>
+          <Pie />
         </div>
 
         <Transition
@@ -87,27 +83,33 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="flex flex-col h-full justify-between pt-24 border-e bg-white">
-            <div className="flex flex-col gap-8 w-80 text-slate-600">
+          <div className="flex flex-col h-full justify-between pt-32 border-e bg-white">
+            <div className="flex flex-col gap-16 w-80 text-slate-600">
               <div className="w-full flex flex-col gap-4 rounded px-8 py-6">
                 <p className="text-lg font-medium text-left">Competency</p>
                 <Competency />
               </div>
-
-              <div className="flex flex-col gap-4 rounded bg-slate-50 px-8 py-6 mx-8">
-                <p className="text-lg font-medium text-left">Wheel</p>
-                <ExportToPNGButton />
-                <SaveWheelButton />
-                <DeleteWheelButton />
-              </div>
             </div>
 
-            <Link />
+            <div className="sticky inset-x-0 bottom-0">
+              <div className="flex flex-col gap-4 rounded bg-slate-50 p-8 pb-4">
+                <WheelController />
+              </div>
+              <Link />
+            </div>
           </div>
         </Transition>
       </div>
 
-      <ResetWheelButton />
+      <div className="fixed bottom-4 left-4">
+        <a
+          href="/"
+          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-sm text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring"
+        >
+          <ArrowUturnLeftIcon className="h-4 w-4" />
+          Restart
+        </a>
+      </div>
     </>
   );
 };

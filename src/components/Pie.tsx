@@ -18,7 +18,7 @@ const Pie: React.FC = () => {
   });
 
   return (
-    <div className="relative w-auto h-screen" ref={containerRef}>
+    <div className="relative grow w-auto h-screen" ref={containerRef}>
       <SliceToolbar />
       <svg
         height="100%"

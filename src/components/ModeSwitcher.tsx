@@ -42,7 +42,7 @@ const ModeSwitcher: FC = () => {
   };
 
   return (
-    <div className="absolute top-3 right-3 inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
+    <div className="absolute top-7 right-7 inline-flex rounded-lg border border-gray-100 bg-gray-100 p-1">
       <Button onClick={() => setOpen(false)} active={!isEditing}>
         <PresentationChartLineIcon className="h-4 w-4" />
         View

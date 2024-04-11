@@ -9,7 +9,6 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyType, CompetencyContextType } from "../../typings";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button";
-import { CheckIcon } from "@heroicons/react/24/outline";
 
 const Competency: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(
@@ -116,6 +115,7 @@ const Competency: React.FC = () => {
         value={title}
         onChange={handleTitleChange}
       />
+
       <InputField
         id="competencyValue"
         label="Value"
@@ -126,6 +126,7 @@ const Competency: React.FC = () => {
         min={1}
         max={10}
       />
+
       <InputField
         id="competencyDescription"
         label="Description"
@@ -133,21 +134,12 @@ const Competency: React.FC = () => {
         value={description}
         onChange={handleDescriptionChange}
       />
+
       {error && <p className="text-red-500">{error}</p>}
 
-      {/* <Button variant="secondary" onClick={handleSave}>
-        <CheckIcon className="h-6 w-6 mr-2" />
+      <Button type="submit" onClick={handleSave}>
         {activeIndex !== null ? "Update" : "Add new"}
-      </Button> */}
-
-      <button
-        onClick={handleSave}
-        className="w-fit block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
-        type="button"
-      >
-        <CheckIcon className="inline h-5 w-5 mr-2" />
-        {activeIndex !== null ? "Update" : "Add new"}
-      </button>
+      </Button>
     </form>
   );
 };

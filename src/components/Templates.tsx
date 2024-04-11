@@ -80,18 +80,18 @@ const Templates = () => {
         <div>Loading templates...</div>
       ) : (
         <>
-          <p className="text-sm italic text-gray-600">Choose a template</p>
+          <p className="text-sm italic text-gray-600 leading-none">Choose a template</p>
           {templates.map((template: TemplateWithRandomCompetenciesType) => (
             <Link
               key={template.slug.current}
-              className="secondary button"
+              className="items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring"
               href={`/wheel/${template.slug.current}`}
               onClick={() => handleSetTemplate(template.slug.current)}
             >
-              <span className="text-lg">{template.title}</span>
-              <span className="block text-gray-500 italic font-normal text-sm">
+              <p className="text-lg">{template.title}</p>
+              <p className="text-gray-500 italic font-normal text-sm">
                 {template.randomCompetencies} ...
-              </span>
+              </p>
             </Link>
           ))}
         </>

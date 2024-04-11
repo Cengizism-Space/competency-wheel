@@ -1,42 +1,52 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
-import CopyLinkButton from "./CopyLinkButton";
-import ShareLinkButton from "./ShareLinkButton";
-import { ShareIcon } from "@heroicons/react/24/outline";
+import { ShareIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import { useWebShare } from "@/hooks/useWebShare";
+import { useClipboard } from "@/hooks/useClipboard";
+import { DEFAULT_CHECKOUT_MY_WHEEL } from "@/constants";
+import classNames from "classnames";
+
+const linkButtonStyles = classNames(
+  "flex w-full items-center text-left gap-2 bg-white px-9 py-6 hover:bg-gray-50 text-slate-600 border-t border-gray-100"
+);
 
 const Link = () => {
-  const { link } = useContext(CompetenciesContext) as CompetencyContextType;
+  const { wheel, link } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
 
-  return (
-    link && (
-      <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
-        <a
-          href="#"
-          className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50 text-slate-600"
-        >
-          <ShareIcon className="h-5 w-5" />
+  const { share } = useWebShare();
+  const { isCopied, copyToClipboard } = useClipboard();
 
-          <div>
-            <p className="text-xs">
-              <strong className="block font-medium">Share your wheel</strong>
+  const handleShare = useCallback(() => {
+    share({
+      title: wheel?.title ?? "",
+      text: DEFAULT_CHECKOUT_MY_WHEEL,
+      url: link ?? "",
+    });
+  }, [wheel, share, link]);
 
-              <span> with others </span>
-            </p>
-          </div>
-        </a>
-      </div>
-      // <div className="flex flex-row gap-12 justify-center items-center rounded bg-slate-600 text-white px-8 py-6">
-      //   <div className="text-left">
-      //     <p className="text-lg font-medium">Link to your wheel</p>
-      //     <a className="hover:text-slate-900" href={link}>
-      //       {link}
-      //     </a>
-      //   </div>
-      //   <CopyLinkButton />
-      //   <ShareButton />
-      // </div>
-    )
+  const handleCopy = useCallback(() => {
+    copyToClipboard(link ?? "");
+  }, [copyToClipboard, link]);
+
+  return link && typeof navigator.share !== "undefined" ? (
+    <button onClick={handleShare} className={linkButtonStyles}>
+      <ShareIcon className="h-4 w-4" />
+      <span className="block leading-none text-sm">Share your wheel</span>
+    </button>
+  ) : (
+    <button
+      onClick={handleCopy}
+      className={linkButtonStyles}
+      disabled={isCopied}
+    >
+      <DocumentDuplicateIcon className="h-4 w-4" />
+      <span className="block leading-none text-sm">
+        {isCopied ? "Copied to clipboard" : "Copy link"}
+      </span>
+    </button>
   );
 };
 

@@ -28,7 +28,7 @@ const useDrawChart = ({
       const centerX = width / 2;
       const centerY = height / 2;
       const centerRadius = Math.max(0, Math.min(centerX, centerY) / 3 - 10);
-      const padding = 50;
+      const padding = 100;
 
       svg
         .attr("width", width)
@@ -129,7 +129,7 @@ const useDrawChart = ({
 
         const words = competency.title.split(" ");
         const numLines = words.length;
-        const fontSize = 20;
+        const fontSize = 12;
         const lineHeight = 1.2;
 
         let textWidth = 0;
@@ -159,10 +159,10 @@ const useDrawChart = ({
 
         const rect = group
           .insert("rect", ":first-child")
-          .attr("x", labelX - textWidth / 2 - 5)
-          .attr("y", labelY - textHeight / 2 - 5)
-          .attr("width", textWidth + 10)
-          .attr("height", textHeight + 10)
+          .attr("x", labelX - textWidth / 2 - 11)
+          .attr("y", labelY - textHeight / 2 - 6)
+          .attr("width", textWidth + 20)
+          .attr("height", textHeight + 20)
           .attr("rx", 5)
           .attr("ry", 5)
           .style("fill", "rgba(255, 255, 255, 0.75)");

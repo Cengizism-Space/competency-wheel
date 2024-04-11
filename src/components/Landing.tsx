@@ -10,9 +10,9 @@ const Landing: React.FC = () => {
     <CompetenciesProvider>
       <section className="flex flex-col mx-auto w-full px-4 py-12 lg:flex lg:h-screen lg:items-center text-center">
         <div className="mt-6 mb-6">
-          <h1 className="text-3xl font-bold sm:text-5xl mb-4 text-gray-600">
+          <h1 className="text-3xl font-medium sm:text-5xl mb-4 text-gray-400">
             Create your own
-            <strong className="font-extrabold text-red-700 sm:block mt-2">
+            <strong className="font-bold text-gray-800 sm:block mt-2">
               Competency Wheel
             </strong>
           </h1>
@@ -21,9 +21,9 @@ const Landing: React.FC = () => {
             great way to visualize your skills and competencies.
           </p>
         </div>
-        <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-12 mt-6 flex flex-wrap items-center justify-center gap-8">
-            <Link className="primary button" href="/wheel/">
+        <div className="flex gap-4">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-8">
+            <Link className="flex items-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring" href="/wheel/">
               Start Fresh
             </Link>
             <span className="text-sm italic text-gray-600">or</span>

@@ -1,9 +1,26 @@
 import React, { FC, ReactNode, ButtonHTMLAttributes } from "react";
+import classNames from "classnames";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "link" | "whitey";
+  variant?: "primary" | "secondary" | "link";
 }
+
+const commons = "items-center gap-1.5 py-3 focus:outline-none";
+const styles = {
+  primary: classNames(
+    "w-fit flex rounded-lg bg-indigo-600 px-5 text-sm font-medium text-white transition hover:bg-indigo-700 focus:ring",
+    commons
+  ),
+  secondary: classNames(
+    "inline-flex w-fit justify-center rounded-lg border border-gray-200 bg-white px-5 text-sm text-gray-500 transition hover:text-gray-700 focus:ring",
+    commons
+  ),
+  link: classNames(
+    "inline-flex text-gray-500 transition hover:text-gray-700 focus:none",
+    commons
+  ),
+};
 
 const Button: FC<ButtonProps> = ({
   children,
@@ -11,15 +28,8 @@ const Button: FC<ButtonProps> = ({
   type = "button",
   ...props
 }) => {
-  const variantClasses = {
-    primary: `block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring`,
-    secondary: `inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring`,
-    link: "inline-flex items-center justify-center gap-1.5 px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:none",
-    whitey: "flex flex-row items-center text-white hover:text-slate-900",
-  };
-
   return (
-    <button type={type} className={variantClasses[variant]} {...props}>
+    <button type={type} className={styles[variant]} {...props}>
       {children}
     </button>
   );

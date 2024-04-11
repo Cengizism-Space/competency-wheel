@@ -18,7 +18,7 @@ export const randomizeCompetencies = (templates: TemplateWithRandomCompetenciesT
     const toShuffle = [...template.competencies];
     const shuffled = toShuffle.sort(() => 0.5 - Math.random());
     const selected = shuffled
-      .slice(0, 4)
+      .slice(0, 3)
       .map((c) => c.title)
       .join(", ");
     return {
