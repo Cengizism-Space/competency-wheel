@@ -11,6 +11,7 @@ import { Transition } from "@headlessui/react";
 import Competency from "./Competency";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 import WheelController from "./WheelController";
+import classNames from "classnames";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -68,14 +69,25 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
       <ModeSwitcher />
 
-      <div className="flex flex-row gap-0 w-screen">
-        <div className="flex flex-col gap-0 grow">
+      <div
+        className={classNames({
+          "grid grid-cols-12 gap-0": isEditing,
+          "w-screen": !isEditing,
+        })}
+      >
+        <div
+          className={classNames({
+            "col-span-9": isEditing,
+            "w-screen": !isEditing,
+          })}
+        >
           <Title />
           <Pie />
         </div>
 
         <Transition
           show={isEditing}
+          className="col-span-3"
           enter="transition-opacity duration-75"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -84,7 +96,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           leaveTo="opacity-0"
         >
           <div className="flex flex-col h-full justify-between pt-32 border-e bg-white">
-            <div className="flex flex-col gap-16 w-80 text-slate-600">
+            <div className="flex flex-col gap-16 w-full text-slate-600">
               <div className="w-full flex flex-col gap-4 rounded px-8 py-6">
                 <p className="text-lg font-medium text-left">Competency</p>
                 <Competency />
