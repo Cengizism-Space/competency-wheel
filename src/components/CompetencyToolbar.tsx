@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Button from "@/components/commons/Button";
 
-const SliceToolbar: React.FC = () => {
+const CompetencyToolbar: React.FC = () => {
   const { wheel, activeIndex, activeLabelCoords, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
@@ -86,4 +86,4 @@ const SliceToolbar: React.FC = () => {
   );
 };
 
-export default SliceToolbar;
+export default CompetencyToolbar;
