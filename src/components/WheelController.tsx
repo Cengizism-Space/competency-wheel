@@ -1,11 +1,11 @@
 import React, { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
-import { saveWheel, updateWheel } from "../../sanity/sanity";
+import { saveWheel, updateWheel } from "../../sanity/client";
 import Button from "@/components/commons/Button";
 import useExportToPng from "@/hooks/useExportToPng";
 import { PhotoIcon } from "@heroicons/react/24/solid";
-import { deleteWheel } from "../../sanity/sanity";
+import { deleteWheel } from "../../sanity/client";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
 const WheelController = () => {

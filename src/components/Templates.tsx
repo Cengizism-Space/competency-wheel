@@ -6,7 +6,7 @@ import {
   TemplateWithRandomCompetenciesType,
 } from "../../typings";
 import { createSlug, randomizeCompetencies } from "@/utils";
-import { fetchTemplates } from "../../sanity/sanity";
+import { fetchTemplates } from "../../sanity/client";
 
 const Templates = () => {
   const { templates, dispatch } = useContext(
@@ -77,7 +77,7 @@ const Templates = () => {
   return (
     <div className="flex flex-col gap-4 text-left">
       {isLoading ? (
-        <div>Loading templates...</div>
+        <span className="text-gray-500 italic">Loading templates...</span>
       ) : (
         <>
           <p className="text-sm italic text-gray-600 leading-none">

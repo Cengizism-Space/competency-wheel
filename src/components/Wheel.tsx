@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Title from "./Title";
 import LinkAndShare from "./LinkAndShare";
-import { fetchWheel } from "../../sanity/sanity";
+import { fetchWheel } from "../../sanity/client";
 import Pie from "./Pie";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
@@ -70,15 +70,13 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
       <ModeSwitcher />
 
       <div
-        className={classNames({
-          "grid grid-cols-12 gap-0 editing": isEditing,
-          "w-screen": !isEditing,
+        className={classNames("w-screen", {
+          "grid grid-cols-12 gap-0 editing mx-auto": isEditing,
         })}
       >
         <div
           className={classNames({
             "col-span-9": isEditing,
-            "w-screen": !isEditing,
           })}
         >
           <Title />
