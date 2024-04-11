@@ -51,7 +51,7 @@ const Competency: React.FC = () => {
         });
       }
     },
-    [dispatch]
+    [wheel, dispatch]
   );
 
   const handleDescriptionChange = useCallback(
@@ -104,7 +104,7 @@ const Competency: React.FC = () => {
       });
       clearMetaForm();
     }
-  }, [title, description, activeIndex, wheel, clearMetaForm, dispatch]);
+  }, [title, value, description, activeIndex, wheel, clearMetaForm, dispatch]);
 
   return (
     <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-5">
@@ -115,7 +115,9 @@ const Competency: React.FC = () => {
         value={title}
         onChange={handleTitleChange}
       />
-      {error && <p className="text-sm text-red-500 leading-none mb-4">{error}</p>}
+      {error && (
+        <p className="text-sm text-red-500 leading-none mb-4">{error}</p>
+      )}
 
       <InputField
         id="competencyValue"

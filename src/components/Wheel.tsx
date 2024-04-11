@@ -66,9 +66,9 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
         </Announcer>
       )}
 
-      <div className="flex flex-row gap-0 w-screen">
-        <ModeSwitcher />
+      <ModeSwitcher />
 
+      <div className="flex flex-row gap-0 w-screen">
         <div className="flex flex-col gap-0 grow">
           <Title />
           <Pie />

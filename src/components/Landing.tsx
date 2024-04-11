@@ -16,14 +16,19 @@ const Landing: React.FC = () => {
               Competency Wheel
             </strong>
           </h1>
+
           <p className="mt-8 sm:text-xl/relaxed max-w-xl text-center mx-auto">
             You can use this tool to create your own competency wheel. It is a
             great way to visualize your skills and competencies.
           </p>
         </div>
+
         <div className="flex gap-4">
           <div className="mt-6 flex flex-wrap items-center justify-center gap-8">
-            <Link className="flex items-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring" href="/wheel/">
+            <Link
+              className="flex items-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
+              href="/wheel/"
+            >
               Start Fresh
             </Link>
             <span className="text-sm italic text-gray-600">or</span>

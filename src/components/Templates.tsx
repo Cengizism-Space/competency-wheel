@@ -28,7 +28,7 @@ const Templates = () => {
       });
       setIsLoading(false);
     })();
-  }, []);
+  }, [dispatch]);
 
   const getTemplate = useCallback(
     (slug: string) => {
@@ -80,7 +80,10 @@ const Templates = () => {
         <div>Loading templates...</div>
       ) : (
         <>
-          <p className="text-sm italic text-gray-600 leading-none">Choose a template</p>
+          <p className="text-sm italic text-gray-600 leading-none">
+            Choose a template
+          </p>
+
           {templates.map((template: TemplateWithRandomCompetenciesType) => (
             <Link
               key={template.slug.current}
