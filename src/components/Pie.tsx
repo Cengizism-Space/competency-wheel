@@ -4,7 +4,7 @@ import { CompetencyContextType } from "../../typings";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import useContainerDimensions from "@/hooks/useContainerDimensions";
-import SliceToolbar from "./SliceToolbar";
+import CompetencyToolbar from "./CompetencyToolbar";
 
 const Pie: React.FC = () => {
   const { wheel, svgRef, dispatch } = useContext(
@@ -19,7 +19,7 @@ const Pie: React.FC = () => {
 
   return (
     <div className="relative grow w-auto h-screen" ref={containerRef}>
-      <SliceToolbar />
+      <CompetencyToolbar />
       <svg
         height="100%"
         width="100%"

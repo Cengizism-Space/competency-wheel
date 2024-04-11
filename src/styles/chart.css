@@ -10,10 +10,11 @@
   visibility: hidden;
 }
 
-.arc.inactive {
+.editing .arc.inactive {
   opacity: 0.2;
 }
 
-.arc:hover {
+.editing .arc:hover {
   opacity: 0.8;
+  cursor: pointer;
 }

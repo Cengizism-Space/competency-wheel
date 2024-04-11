@@ -71,7 +71,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
       <div
         className={classNames({
-          "grid grid-cols-12 gap-0": isEditing,
+          "grid grid-cols-12 gap-0 editing": isEditing,
           "w-screen": !isEditing,
         })}
       >
