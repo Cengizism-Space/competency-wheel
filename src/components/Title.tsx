@@ -4,7 +4,7 @@ import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import { createSlug } from "@/utils";
 import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
-import Button from "./Button";
+import Button from "./commons/Button";
 
 const Title = () => {
   const { wheel, isFound, isEditing, dispatch } = useContext(

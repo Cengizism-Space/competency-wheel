@@ -2,7 +2,7 @@ import React, { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import { saveWheel, updateWheel } from "../../sanity/sanity";
-import Button from "@/components/Button";
+import Button from "@/components/commons/Button";
 import useExportToPng from "@/hooks/useExportToPng";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { deleteWheel } from "../../sanity/sanity";

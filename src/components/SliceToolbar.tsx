@@ -6,7 +6,7 @@ import {
   ChevronDownIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import Button from "@/components/Button";
+import Button from "@/components/commons/Button";
 
 const SliceToolbar: React.FC = () => {
   const { wheel, activeIndex, activeLabelCoords, dispatch } = useContext(

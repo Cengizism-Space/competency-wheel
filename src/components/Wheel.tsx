@@ -5,7 +5,7 @@ import { fetchWheel } from "../../sanity/sanity";
 import Pie from "./Pie";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
-import Announcer from "./Announcer";
+import Announcer from "./commons/Announcer";
 import ModeSwitcher from "./ModeSwitcher";
 import { Transition } from "@headlessui/react";
 import Competency from "./Competency";
