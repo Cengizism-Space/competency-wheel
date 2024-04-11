@@ -1,4 +1,4 @@
-import Announcer from "@/components/Commons/Announcer";
+import Announcer from "@/components/Announcer";
 
 export default function NotFound() {
   return (

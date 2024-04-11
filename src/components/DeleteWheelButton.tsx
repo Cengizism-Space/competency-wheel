@@ -1,11 +1,11 @@
 import React, { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../../../typings";
-import { deleteWheel } from "../../../../sanity/sanity";
+import { CompetencyContextType } from "../../typings";
+import { deleteWheel } from "../../sanity/sanity";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import Button from "@/components/Commons/Button";
+import Button from "@/components/Button";
 
-const DeleteButton = () => {
+const DeleteWheelButton = () => {
   const { wheel, link, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
@@ -32,4 +32,4 @@ const DeleteButton = () => {
   );
 };
 
-export default DeleteButton;
+export default DeleteWheelButton;

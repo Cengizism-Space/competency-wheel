@@ -1,12 +1,12 @@
 import React, { useContext, useCallback } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../../../typings";
+import { CompetencyContextType } from "../../typings";
 import { useWebShare } from "@/hooks/useWebShare";
 import { DEFAULT_CHECKOUT_MY_WHEEL } from "@/constants";
 import { ShareIcon } from "@heroicons/react/24/outline";
-import Button from "@/components/Commons/Button";
+import Button from "@/components/Button";
 
-const ShareButton = () => {
+const ShareLinkButton = () => {
   const { wheel, link } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
@@ -31,4 +31,4 @@ const ShareButton = () => {
   );
 };
 
-export default ShareButton;
+export default ShareLinkButton;

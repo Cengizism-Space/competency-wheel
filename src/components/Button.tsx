@@ -11,13 +11,10 @@ const Button: FC<ButtonProps> = ({
   type = "button",
   ...props
 }) => {
-  const defaultBlockClasses =
-    "flex flex-row items-center justify-center w-full rounded px-8 py-3 text-sm font-medium shadow focus:outline-none focus:ring sm:w-auto";
-
   const variantClasses = {
-    primary: `${defaultBlockClasses} bg-red-500 text-white hover:bg-red-600 active:bg-red-700`,
-    secondary: `${defaultBlockClasses} bg-white text-gray-700 hover:bg-gray-200 focus:relative`,
-    link: "flex flex-row items-center text-slate-500 hover:text-red-700",
+    primary: `block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring`,
+    secondary: `inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring`,
+    link: "inline-flex items-center justify-center gap-1.5 px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:none",
     whitey: "flex flex-row items-center text-white hover:text-slate-900",
   };
 

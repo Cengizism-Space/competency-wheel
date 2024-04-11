@@ -1,9 +1,9 @@
 import React, { useContext, useCallback } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../../../typings";
+import { CompetencyContextType } from "../../typings";
 import { useClipboard } from "@/hooks/useClipboard";
 import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
-import Button from "@/components/Commons/Button";
+import Button from "@/components/Button";
 
 const CopyLinkButton = () => {
   const { link } = useContext(CompetenciesContext) as CompetencyContextType;

@@ -4,9 +4,9 @@ import { CompetenciesContext } from "@/context";
 import {
   CompetencyContextType,
   TemplateWithRandomCompetenciesType,
-} from "../../../typings";
+} from "../../typings";
 import { createSlug, randomizeCompetencies } from "@/utils";
-import { fetchTemplates } from "../../../sanity/sanity";
+import { fetchTemplates } from "../../sanity/sanity";
 
 const Templates = () => {
   const { templates, dispatch } = useContext(

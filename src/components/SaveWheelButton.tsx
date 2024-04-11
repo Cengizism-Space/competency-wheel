@@ -1,10 +1,10 @@
 import { useContext, useCallback, useState } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../../../typings";
-import { saveWheel, updateWheel } from "../../../../sanity/sanity";
-import Button from "@/components/Commons/Button";
+import { CompetencyContextType } from "../../typings";
+import { saveWheel, updateWheel } from "../../sanity/sanity";
+import Button from "@/components/Button";
 
-const SaveButton = () => {
+const SaveWheelButton = () => {
   const { wheel, initialWheel, isInitial, isExportable, link, dispatch } =
     useContext(CompetenciesContext) as CompetencyContextType;
 
@@ -54,4 +54,4 @@ const SaveButton = () => {
   );
 };
 
-export default SaveButton;
+export default SaveWheelButton;

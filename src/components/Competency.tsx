@@ -6,12 +6,12 @@ import React, {
   useContext,
 } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyType, CompetencyContextType } from "../../../../typings";
-import InputField from "@/components/Commons/InputField";
-import Button from "@/components/Commons/Button";
+import { CompetencyType, CompetencyContextType } from "../../typings";
+import InputField from "@/components/InputField";
+import Button from "@/components/Button";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
-const CompetencyMeta: React.FC = () => {
+const Competency: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
@@ -40,13 +40,17 @@ const CompetencyMeta: React.FC = () => {
 
   const handleValueChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      dispatch({
-        type: "updateCompetency",
-        payload: (competency: CompetencyType) => ({
-          ...competency,
-          value: Number(event.target.value),
-        }),
-      });
+      setValue(Number(event.target.value));
+
+      if (wheel.competencies.length > 0) {
+        dispatch({
+          type: "updateCompetency",
+          payload: (competency: CompetencyType) => ({
+            ...competency,
+            value: Number(event.target.value),
+          }),
+        });
+      }
     },
     [dispatch]
   );
@@ -93,7 +97,7 @@ const CompetencyMeta: React.FC = () => {
               {
                 title,
                 description,
-                value: 5,
+                value: value || 5,
               },
             ],
           },
@@ -130,12 +134,22 @@ const CompetencyMeta: React.FC = () => {
         onChange={handleDescriptionChange}
       />
       {error && <p className="text-red-500">{error}</p>}
-      <Button onClick={handleSave}>
+
+      {/* <Button variant="secondary" onClick={handleSave}>
         <CheckIcon className="h-6 w-6 mr-2" />
         {activeIndex !== null ? "Update" : "Add new"}
-      </Button>
+      </Button> */}
+
+      <button
+        onClick={handleSave}
+        className="w-fit block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
+        type="button"
+      >
+        <CheckIcon className="inline h-5 w-5 mr-2" />
+        {activeIndex !== null ? "Update" : "Add new"}
+      </button>
     </form>
   );
 };
 
-export default CompetencyMeta;
+export default Competency;

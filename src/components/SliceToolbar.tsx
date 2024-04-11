@@ -1,14 +1,14 @@
 import React, { useCallback, useContext } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyType, CompetencyContextType } from "../../../../typings";
+import { CompetencyType, CompetencyContextType } from "../../typings";
 import {
   ChevronUpIcon,
   ChevronDownIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import Button from "@/components/Commons/Button";
+import Button from "@/components/Button";
 
-const CompetencyToolbar: React.FC = () => {
+const SliceToolbar: React.FC = () => {
   const { wheel, activeIndex, activeLabelCoords, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
@@ -86,4 +86,4 @@ const CompetencyToolbar: React.FC = () => {
   );
 };
 
-export default CompetencyToolbar;
+export default SliceToolbar;
