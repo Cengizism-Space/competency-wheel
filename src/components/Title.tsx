@@ -7,26 +7,28 @@ import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
 import Button from "./Button";
 
 const Title = () => {
-  const { wheel, isFound, dispatch } = useContext(
+  const { wheel, isFound, isEditing, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick(ref, () => {
-    if (isEditing) {
-      setIsEditing(false);
+    if (isEditingTitle) {
+      setIsEditingTitle(false);
     }
   });
 
   const handleEdit = () => {
-    setIsEditing(true);
+    if (isEditing) {
+      setIsEditingTitle(true);
+    }
   };
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    setIsEditing(false);
+    setIsEditingTitle(false);
   };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,12 +57,12 @@ const Title = () => {
                 className="mt-4 flex flex-col gap-8 sm:mt-0 sm:flex-row sm:items-center text-center"
                 ref={ref}
               >
-                {isEditing ? (
+                {isEditingTitle ? (
                   <form className="flex items-center" onSubmit={handleSubmit}>
                     <input
                       value={wheel.title}
                       onChange={handleTitleChange}
-                      onBlur={() => setIsEditing(false)}
+                      onBlur={() => setIsEditingTitle(false)}
                       autoFocus
                       className="w-fit justify-center text-center text-3xl font-bold sm:text-5xl text-gray-600 mr-8 bg-transparent focus:outline-none focus:ring-0 line-height-1 border-b border-gray-300"
                     />
@@ -77,10 +79,15 @@ const Title = () => {
                     >
                       {wheel.title}
                     </h1>
-                    <Button onClick={handleEdit} variant="link">
-                      <PencilSquareIcon className="h-4 w-4" />
-                      <span className="text-sm font-medium"> Edit title </span>
-                    </Button>
+                    {isEditing && (
+                      <Button onClick={handleEdit} variant="link">
+                        <PencilSquareIcon className="h-4 w-4" />
+                        <span className="text-sm font-medium">
+                          {" "}
+                          Edit title{" "}
+                        </span>
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>
