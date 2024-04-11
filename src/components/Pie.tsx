@@ -7,7 +7,7 @@ import useContainerDimensions from "@/hooks/useContainerDimensions";
 import CompetencyToolbar from "./CompetencyToolbar";
 
 const Pie: React.FC = () => {
-  const { wheel, svgRef, dispatch } = useContext(
+  const { wheel, svgRef, isEmpty, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
@@ -19,6 +19,13 @@ const Pie: React.FC = () => {
 
   return (
     <div className="relative grow w-auto h-screen" ref={containerRef}>
+      {isEmpty && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <p className="text-gray-500">
+            Add a competency to get started
+          </p>
+        </div>
+      )}
       <CompetencyToolbar />
       <svg
         height="100%"

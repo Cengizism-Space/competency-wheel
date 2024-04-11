@@ -22,7 +22,8 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     isFound: false,
     isExportable: false,
     isInitial: true,
-    isEditing: true,
+    isEditing: false,
+    isEmpty: true,
   });
 
   useEffect(() => {
@@ -32,11 +33,13 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     const link = state.wheel.hasOwnProperty("_id")
       ? `${window.location.origin}/wheel/${state.wheel?.slug.current}`
       : state.link;
+    const isEmpty = state.wheel.competencies.length === 0;
 
     if (
       isExportable !== state.isExportable ||
       isInitial !== state.isInitial ||
-      link !== state.link
+      link !== state.link ||
+      isEmpty !== state.isEmpty
     ) {
       dispatch({
         type: "setState",
@@ -44,6 +47,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
           isExportable,
           isInitial,
           link,
+          isEmpty,
         },
       });
     }
@@ -53,6 +57,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     state.isExportable,
     state.isInitial,
     state.link,
+    state.isEmpty,
   ]);
 
   return (

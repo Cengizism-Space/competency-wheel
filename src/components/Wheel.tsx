@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Title from "./Title";
-import Link from "./Link";
+import LinkAndShare from "./LinkAndShare";
 import { fetchWheel } from "../../sanity/sanity";
 import Pie from "./Pie";
 import { CompetenciesContext } from "@/context";
@@ -9,9 +9,9 @@ import Announcer from "./commons/Announcer";
 import ModeSwitcher from "./ModeSwitcher";
 import { Transition } from "@headlessui/react";
 import Competency from "./Competency";
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 import WheelController from "./WheelController";
 import classNames from "classnames";
+import ResetButton from "./ResetButton";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -37,7 +37,7 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
 };
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const { isFound, isEditing, dispatch } = useContext(
+  const { wheel, isFound, isEditing, isEmpty, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
   const [isLoading, setIsLoading] = useState(true);
@@ -96,34 +96,17 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           leaveTo="opacity-0"
         >
           <div className="flex flex-col h-full justify-between pt-32 border-e bg-white">
-            <div className="flex flex-col gap-16 w-full text-slate-600">
-              <div className="w-full flex flex-col gap-4 rounded px-8 py-6">
-                <p className="text-lg font-medium text-left">Competency</p>
-                <Competency />
-              </div>
-            </div>
+            <Competency />
 
             <div className="sticky inset-x-0 bottom-0">
-              <div className="flex flex-col gap-4 rounded bg-slate-50 p-8 pb-4">
-                <WheelController />
-              </div>
-              <Link />
+              {!isEmpty && <WheelController />}
+              {!isEmpty && <LinkAndShare />}
             </div>
           </div>
         </Transition>
       </div>
 
-      {isEditing && (
-        <div className="fixed bottom-4 left-4">
-          <a
-            href="/"
-            className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-sm text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring"
-          >
-            <ArrowUturnLeftIcon className="h-4 w-4" />
-            Restart
-          </a>
-        </div>
-      )}
+      {isEditing && <ResetButton />}
     </>
   );
 };

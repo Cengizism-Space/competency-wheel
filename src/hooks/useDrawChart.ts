@@ -39,13 +39,8 @@ const useDrawChart = ({
       .append("rect")
       .attr("width", width)
       .attr("height", height)
-      .attr("fill", "transparent");
-
-    if (!isEditing) {
-      svg.on("click", () => dispatch({ type: "setState", payload: { activeIndex: null } }));
-    } else {
-      svg.on("click", null);
-    }
+      .attr("fill", "transparent")
+      .on("click", () => dispatch({ type: "setState", payload: { activeIndex: null } }));
 
     let totalRating = wheel.competencies.reduce((a, b) => a + b.value, 0);
 
@@ -107,16 +102,17 @@ const useDrawChart = ({
         .attr("stroke", "white")
         .attr("stroke-width", 1)
         .on("click",
-          () => dispatch({
-            type: "setState",
-            payload: {
-              activeIndex: i,
-              activeLabelCoords: {
-                x: (labelX + textWidth / 2) + 16,
-                y: (labelY - textHeight / 2) - 6
+          () => isEditing ?
+            dispatch({
+              type: "setState",
+              payload: {
+                activeIndex: i,
+                activeLabelCoords: {
+                  x: (labelX + textWidth / 2) + 16,
+                  y: (labelY - textHeight / 2) - 6
+                }
               }
-            }
-          })
+            }) : null
         )
         .append("title")
         .text(competency.description || "");

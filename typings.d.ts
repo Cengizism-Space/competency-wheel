@@ -10,6 +10,7 @@ export type State = {
   isExportable: boolean;
   isInitial: boolean;
   isEditing: boolean;
+  isEmpty: boolean;
 };
 
 export type Action =
@@ -29,6 +30,7 @@ export interface CompetencyContextType {
   isExportable: boolean;
   isInitial: boolean;
   isEditing: boolean;
+  isEmpty: boolean;
   dispatch: React.Dispatch<any>;
 }
 

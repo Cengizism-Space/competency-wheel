@@ -17,7 +17,7 @@ const Landing: React.FC = () => {
             </strong>
           </h1>
 
-          <p className="mt-8 sm:text-xl/relaxed max-w-xl text-center mx-auto">
+          <p className="mt-8 sm:text-xl/relaxed max-w-xl text-gray-500 text-center mx-auto">
             You can use this tool to create your own competency wheel. It is a
             great way to visualize your skills and competencies.
           </p>

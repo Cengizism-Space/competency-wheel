@@ -11,7 +11,7 @@ const linkButtonStyles = classNames(
   "flex w-full items-center text-left gap-2 bg-white px-9 py-6 hover:bg-gray-50 text-slate-600 border-t border-gray-100"
 );
 
-const Link = () => {
+const LinkAndShare = () => {
   const { wheel, link } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
@@ -50,4 +50,4 @@ const Link = () => {
   );
 };
 
-export default Link;
+export default LinkAndShare;

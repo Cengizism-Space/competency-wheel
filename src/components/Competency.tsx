@@ -107,41 +107,49 @@ const Competency: React.FC = () => {
   }, [title, value, description, activeIndex, wheel, clearMetaForm, dispatch]);
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-5">
-      <InputField
-        id="competencyTitle"
-        label="Title"
-        placeholder="JavaScript, User research, ..."
-        value={title}
-        onChange={handleTitleChange}
-      />
-      {error && (
-        <p className="text-sm text-red-500 leading-none mb-4">{error}</p>
-      )}
+    <div className="flex flex-col gap-16 w-full text-slate-600">
+      <div className="w-full flex flex-col gap-4 rounded px-8 py-6">
+        <p className="text-lg font-medium text-left">Competency</p>
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="flex flex-col gap-5"
+        >
+          <InputField
+            id="competencyTitle"
+            label="Title"
+            placeholder="JavaScript, User research, ..."
+            value={title}
+            onChange={handleTitleChange}
+          />
+          {error && (
+            <p className="text-sm text-red-500 leading-none mb-4">{error}</p>
+          )}
 
-      <InputField
-        id="competencyValue"
-        label="Value"
-        placeholder="5"
-        value={value}
-        onChange={handleValueChange}
-        type="number"
-        min={1}
-        max={10}
-      />
+          <InputField
+            id="competencyValue"
+            label="Value"
+            placeholder="5"
+            value={value}
+            onChange={handleValueChange}
+            type="number"
+            min={1}
+            max={10}
+          />
 
-      <InputField
-        id="competencyDescription"
-        label="Description (Optional)"
-        placeholder="Ability to write clean code, ..."
-        value={description}
-        onChange={handleDescriptionChange}
-      />
+          <InputField
+            id="competencyDescription"
+            label="Description (Optional)"
+            placeholder="Ability to write clean code, ..."
+            value={description}
+            onChange={handleDescriptionChange}
+          />
 
-      <Button type="submit" onClick={handleSave}>
-        {activeIndex !== null ? "Update" : "Add new"}
-      </Button>
-    </form>
+          <Button type="submit" onClick={handleSave}>
+            {activeIndex !== null ? "Update" : "Add new"}
+          </Button>
+        </form>
+      </div>
+    </div>
   );
 };
 

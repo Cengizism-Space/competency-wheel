@@ -69,7 +69,7 @@ const WheelController = () => {
   }, [wheel, dispatch]);
 
   return (
-    <>
+    <div className="flex flex-col gap-4 rounded bg-slate-50 p-8 pb-4">
       {!isInitial && isExportable && (
         <Button onClick={saveChart}>
           {isSaving ? "Saving..." : link ? "Update wheel" : "Save wheel"}
@@ -91,7 +91,7 @@ const WheelController = () => {
           </Button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
