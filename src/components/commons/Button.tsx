@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant?: "primary" | "secondary" | "link";
+  variant?: "primary" | "secondary" | "link" | "danger";
 }
 
 const commons = "items-center gap-1.5 py-3 focus:outline-none";
@@ -18,6 +18,10 @@ const styles = {
   ),
   link: classNames(
     "inline-flex text-gray-500 transition hover:text-gray-700 focus:none",
+    commons
+  ),
+  danger: classNames(
+    "inline-flex justify-center rounded-md border border-transparent bg-red-600 px-4 text-sm font-medium text-white hover:bg-red-400 focus:none",
     commons
   ),
 };

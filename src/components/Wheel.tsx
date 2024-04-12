@@ -55,6 +55,10 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
     setIsLoading(false);
   }, [slug, dispatch]);
 
+  useEffect(() => {
+    console.log("wheel", wheel);
+  }, [wheel]);
+
   return (
     <>
       {isLoading && <Announcer>Loading the wheel..</Announcer>}
