@@ -4,6 +4,7 @@ import React from "react";
 import { CompetenciesProvider } from "@/context";
 import Templates from "./Templates";
 import Link from "next/link";
+import MadeBy from "./MadeBy";
 
 const Landing: React.FC = () => {
   return (
@@ -36,6 +37,8 @@ const Landing: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <MadeBy />
     </CompetenciesProvider>
   );
 };

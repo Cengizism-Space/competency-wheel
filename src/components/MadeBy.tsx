@@ -7,7 +7,7 @@ const MadeBy = () => {
         href="https://github.com/cengizism-Space/competency-wheel"
         rel="noreferrer"
         target="_blank"
-        className="flex flex-row gap-1 items-center text-gray-700 transition hover:opacity-75"
+        className="flex flex-row gap-1 items-center text-gray-500 transition hover:text-gray-800"
       >
         <span className="text-sm">Cengizism</span>
         <svg

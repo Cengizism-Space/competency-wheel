@@ -6,8 +6,8 @@ import { saveWheel, updateWheel } from "../../sanity/client";
 import Button from "@/components/Button";
 import useExportToPng from "@/hooks/useExportToPng";
 import { PhotoIcon } from "@heroicons/react/24/solid";
-import { deleteWheel } from "../../sanity/client";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { deleteWheel } from "../../sanity/client";
 
 const WheelController = () => {
   const {
