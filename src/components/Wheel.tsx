@@ -8,7 +8,7 @@ import {
   CompetencyType,
   WheelType,
 } from "../../typings";
-import Announcer from "./commons/Announcer";
+import Alert from "./commons/Alert";
 import ModeSwitcher from "./ModeSwitcher";
 import { Transition } from "@headlessui/react";
 import Competency from "./Competency";
@@ -17,6 +17,7 @@ import classNames from "classnames";
 import ResetButton from "./ResetButton";
 import Title from "./Title";
 import { createSlug } from "@/utils";
+import NotFound from "@/app/not-found";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -74,18 +75,16 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
     setIsLoading(false);
   }, [slug, dispatch]);
 
+  if (!isFound) {
+    // return <NotFound />;
+    debugger;
+  }
+
   return (
     <>
-      {isLoading && <Announcer>Loading the wheel..</Announcer>}
-      {!isLoading && !isFound && (
-        <Announcer>
-          Wheel not found!{" "}
-          <a href="/" className="hover:text-slate-900">
-            Create a new wheel
-          </a>
-        </Announcer>
-      )}
+      {isLoading && <Alert>Loading the wheel..</Alert>}
       <ModeSwitcher />
+
       <div
         className={classNames("w-screen", {
           "grid grid-cols-12 gap-0 editing mx-auto": isEditing,

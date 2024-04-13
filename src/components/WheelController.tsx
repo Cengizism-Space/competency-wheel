@@ -69,7 +69,7 @@ const WheelController = () => {
       setIsDeleting(false);
       window.location.assign(window.location.origin);
     }
-  }, [wheel, dispatch]);
+  }, [wheel]);
 
   return (
     <div className="flex flex-col gap-4 rounded bg-slate-50 p-8 pb-4">

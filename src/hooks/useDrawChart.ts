@@ -109,7 +109,7 @@ const useDrawChart = ({
                 activeIndex: i,
                 activeLabelCoords: {
                   x: (labelX + textWidth / 2) + 16,
-                  y: (labelY - textHeight / 2) - 6
+                  y: (labelY - textHeight / 2) + 120
                 }
               }
             }) : null
@@ -192,6 +192,10 @@ const useDrawChart = ({
   useEffect(() => {
     drawChart();
   }, [svgRef, dimensions, wheel, isEditing, activeIndex, dispatch]); // eslint-disable-line
+
+  useEffect(() => {
+    dispatch({ type: "setState", payload: { activeIndex: null } });
+  }, [dimensions, dispatch]);
 };
 
 export default useDrawChart;
