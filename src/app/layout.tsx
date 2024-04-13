@@ -4,6 +4,7 @@ import "@/styles/main.css";
 import "@/styles/chart.css";
 import type { Metadata } from "next";
 // import { metadata } from "@/constants";
+import classNames from "classnames";
 
 export const metadata: Metadata = {
   title: "Competency wheel app",
@@ -19,8 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <main className="flex h-full flex-col items-center justify-between bg-slate-100">
+      <body className={classNames(inter.className)}>
+        <main className="flex flex-col items-center justify-between">
           {children}
         </main>
       </body>

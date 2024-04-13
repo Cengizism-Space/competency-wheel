@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import Title from "./Title";
 import LinkAndShare from "./LinkAndShare";
 import { fetchWheel } from "../../sanity/client";
 import Pie from "./Pie";
@@ -12,6 +11,7 @@ import Competency from "./Competency";
 import WheelController from "./WheelController";
 import classNames from "classnames";
 import ResetButton from "./ResetButton";
+import Title from "./Title";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -70,23 +70,20 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           </a>
         </Announcer>
       )}
-
       <ModeSwitcher />
-
       <div
         className={classNames("w-screen", {
           "grid grid-cols-12 gap-0 editing mx-auto": isEditing,
         })}
       >
         <div
-          className={classNames({
+          className={classNames("relative h-screen", {
             "col-span-9": isEditing,
           })}
         >
           <Title />
           <Pie />
         </div>
-
         <Transition
           show={isEditing}
           className="col-span-3"
@@ -99,7 +96,6 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
         >
           <div className="flex flex-col h-full justify-between pt-32 border-e bg-white">
             <Competency />
-
             <div className="sticky inset-x-0 bottom-0">
               {!isEmpty && <WheelController />}
               {!isEmpty && <LinkAndShare />}

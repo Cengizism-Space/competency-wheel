@@ -18,12 +18,10 @@ const Pie: React.FC = () => {
   });
 
   return (
-    <div className="relative grow w-auto h-screen" ref={containerRef}>
+    <div className="h-[calc(100vh_-_8rem)]" ref={containerRef}>
       {isEmpty && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-gray-500">
-            Add a competency to get started
-          </p>
+          <p className="text-gray-500">Add a competency to get started</p>
         </div>
       )}
       <CompetencyToolbar />
