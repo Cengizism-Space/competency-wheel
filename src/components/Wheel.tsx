@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import LinkAndShare from "./LinkAndShare";
 import { fetchWheel } from "../../sanity/client";
-import WheelCanvas from "./WheelCanvas";
 import { CompetenciesContext } from "@/context";
 import {
   CompetencyContextType,
@@ -17,7 +16,11 @@ import classNames from "classnames";
 import ResetButton from "./ResetButton";
 import Title from "./Title";
 import { createSlug } from "@/utils";
-import NotFound from "@/app/not-found";
+import useDrawChart from "@/hooks/useDrawChart";
+import useOutsideClick from "@/hooks/useOutsideClick";
+import useContainerDimensions from "@/hooks/useContainerDimensions";
+import CompetencyToolbar from "./CompetencyToolbar";
+import MadeBy from "./MadeBy";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -57,10 +60,16 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
 };
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const { isFound, isEditing, isEmpty, dispatch } = useContext(
+  const { wheel, svgRef, isFound, isEditing, isEmpty, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
   const [isLoading, setIsLoading] = useState(true);
+
+  const [containerRef, dimensions] = useContainerDimensions();
+  useDrawChart({ wheel, svgRef, dimensions });
+  useOutsideClick(svgRef, () => {
+    dispatch({ type: "setState", payload: { activeIndex: null } });
+  });
 
   useEffect(() => {
     dispatch({
@@ -74,11 +83,6 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
     setIsLoading(false);
   }, [slug, dispatch]);
-
-  if (!isFound) {
-    // return <NotFound />;
-    debugger;
-  }
 
   return (
     <>
@@ -97,7 +101,39 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
         >
           <Title />
 
-          <WheelCanvas />
+          <div className="h-[calc(100vh_-_8rem)]" ref={containerRef}>
+            {isEmpty && isFound && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <p className="text-gray-500">Add a competency to get started</p>
+              </div>
+            )}
+
+            {!isFound && (
+              <div className="grid h-screen place-content-center px-4">
+                <div className="text-center">
+                  <h1 className="text-9xl font-black text-gray-300">404</h1>
+                  <p className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    Uh-oh!
+                  </p>
+                  <p className="mt-4 text-gray-500">
+                    There is no wheel with this ID. Start creating one.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <CompetencyToolbar />
+
+            <svg
+              height="100%"
+              width="100%"
+              preserveAspectRatio="xMinYMin slice"
+              overflow="visible"
+              ref={svgRef}
+            />
+
+            <MadeBy />
+          </div>
         </div>
 
         <Transition
