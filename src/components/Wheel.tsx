@@ -8,7 +8,7 @@ import {
   CompetencyType,
   WheelType,
 } from "../../typings";
-import Alert from "./commons/Alert";
+import Alert from "./Alert";
 import ModeSwitcher from "./ModeSwitcher";
 import { Transition } from "@headlessui/react";
 import Competency from "./Competency";
@@ -96,8 +96,10 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           })}
         >
           <Title />
+
           <WheelCanvas />
         </div>
+
         <Transition
           show={isEditing}
           className="col-span-3"
@@ -110,6 +112,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
         >
           <div className="flex flex-col h-full justify-between pt-32 border-e bg-white">
             <Competency />
+
             <div className="sticky inset-x-0 bottom-0">
               {!isEmpty && <WheelController />}
               {!isEmpty && <LinkAndShare />}

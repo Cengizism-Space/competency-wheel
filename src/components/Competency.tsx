@@ -7,8 +7,8 @@ import React, {
 } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyType, CompetencyContextType } from "../../typings";
-import InputField from "@/components/commons/InputField";
-import Button from "@/components/commons/Button";
+import InputField from "@/components/InputField";
+import Button from "@/components/Button";
 
 const Competency: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(

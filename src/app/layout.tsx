@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
-import "@/styles/main.css";
 import "@/styles/chart.css";
 import type { Metadata } from "next";
 // import { metadata } from "@/constants";

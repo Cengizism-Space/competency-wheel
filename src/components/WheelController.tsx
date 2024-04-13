@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import { saveWheel, updateWheel } from "../../sanity/client";
-import Button from "@/components/commons/Button";
+import Button from "@/components/Button";
 import useExportToPng from "@/hooks/useExportToPng";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { deleteWheel } from "../../sanity/client";
