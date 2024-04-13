@@ -22,7 +22,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     isFound: false,
     isExportable: false,
     isInitial: true,
-    isEditing: false,
+    isEditing: true,
     isEmpty: true,
   });
 

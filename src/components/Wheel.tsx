@@ -3,7 +3,11 @@ import LinkAndShare from "./LinkAndShare";
 import { fetchWheel } from "../../sanity/client";
 import WheelCanvas from "./WheelCanvas";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import {
+  CompetencyContextType,
+  CompetencyType,
+  WheelType,
+} from "../../typings";
 import Announcer from "./commons/Announcer";
 import ModeSwitcher from "./ModeSwitcher";
 import { Transition } from "@headlessui/react";
@@ -12,6 +16,7 @@ import WheelController from "./WheelController";
 import classNames from "classnames";
 import ResetButton from "./ResetButton";
 import Title from "./Title";
+import { createSlug } from "@/utils";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -20,10 +25,24 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
       initialWheel.competencies = [];
     }
 
+    const wheel: WheelType = initialWheel.template
+      ? {
+          title: initialWheel.title,
+          template: false,
+          slug: {
+            ...initialWheel.slug,
+            current: createSlug(initialWheel.title),
+          },
+          competencies: initialWheel.competencies.map(
+            (competency: CompetencyType) => ({ ...competency })
+          ),
+        }
+      : initialWheel;
+
     dispatch({
       type: "setState",
       payload: {
-        wheel: initialWheel,
+        wheel,
         initialWheel,
         isFound: true,
       },
@@ -37,7 +56,7 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
 };
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const { wheel, isFound, isEditing, isEmpty, dispatch } = useContext(
+  const { isFound, isEditing, isEmpty, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
   const [isLoading, setIsLoading] = useState(true);
@@ -54,10 +73,6 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
     setIsLoading(false);
   }, [slug, dispatch]);
-
-  useEffect(() => {
-    console.log("wheel", wheel);
-  }, [wheel]);
 
   return (
     <>

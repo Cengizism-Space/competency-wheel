@@ -28,7 +28,7 @@ export const fetchTemplates = async (): Promise<TemplateWithRandomCompetenciesTy
 export async function fetchWheel(slug: string) {
   try {
     return await sanity.fetch(`*[_type == "wheel" && slug.current == $slug]{
-      _id, title, slug,
+      _id, template, title, slug,
       competencies[]->{_id, title, description, value}
     }[0]`, { slug });
   } catch (error) {

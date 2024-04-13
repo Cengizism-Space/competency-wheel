@@ -67,7 +67,7 @@ const WheelController = () => {
       await deleteWheel(wheel.slug.current);
     } finally {
       setIsDeleting(false);
-      dispatch({ type: "reset" });
+      window.location.assign(window.location.origin);
     }
   }, [wheel, dispatch]);
 
@@ -94,7 +94,7 @@ const WheelController = () => {
           >
             <TrashIcon className="text-red-500 h-4 w-4" />
             <span className="text-sm text-red-400 font-medium">
-              {isDeleting ? "Deleting..." : "Delete wheel"}{" "}
+              {isDeleting ? "Deleting..." : "Delete wheel"}
             </span>
           </Button>
         </div>
