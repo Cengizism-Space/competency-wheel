@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import LinkAndShare from "./LinkAndShare";
 import { fetchWheel } from "../../sanity/client";
-import Pie from "./Pie";
+import WheelCanvas from "./WheelCanvas";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
 import Announcer from "./commons/Announcer";
@@ -82,7 +82,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           })}
         >
           <Title />
-          <Pie />
+          <WheelCanvas />
         </div>
         <Transition
           show={isEditing}

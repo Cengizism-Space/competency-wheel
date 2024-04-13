@@ -5,8 +5,9 @@ import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import useContainerDimensions from "@/hooks/useContainerDimensions";
 import CompetencyToolbar from "./CompetencyToolbar";
+import MadeBy from "./MadeBy";
 
-const Pie: React.FC = () => {
+const WheelCanvas: React.FC = () => {
   const { wheel, svgRef, isEmpty, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
@@ -32,8 +33,9 @@ const Pie: React.FC = () => {
         overflow="visible"
         ref={svgRef}
       />
+      <MadeBy />
     </div>
   );
 };
 
-export default Pie;
+export default WheelCanvas;
