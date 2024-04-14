@@ -119,6 +119,8 @@ const useDrawChart = ({
 
       arcs.push(arc);
 
+      if (competency.title === "") return;
+
       const labelRadius = Math.min(centerX, centerY) - padding - 10;
       const labelX =
         centerX +
@@ -155,6 +157,7 @@ const useDrawChart = ({
         if (computedTextLength) {
           textWidth = Math.max(textWidth, computedTextLength);
         }
+
       });
 
       const rect = group

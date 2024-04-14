@@ -9,23 +9,23 @@ import MadeBy from "./MadeBy";
 const Landing: React.FC = () => {
   return (
     <CompetenciesProvider>
-      <section className="flex flex-col mx-auto w-full px-4 py-12 lg:flex lg:h-screen lg:items-center text-center">
-        <div className="mt-6 mb-6">
-          <h1 className="text-3xl font-medium sm:text-5xl mb-4 text-gray-400">
+      <section className="grid h-screen place-content-center items-center text-center">
+        <div className="mt-6 mb-4 leading-none">
+          <h3 className="text-2xl text-gray-400 font-medium uppercase">
             Create your own
-            <strong className="font-bold text-gray-800 sm:block mt-2">
-              Competency Wheel
-            </strong>
+          </h3>
+          <h1 className="text-5xl font-bold text-gray-800 mt-1">
+            Competency Wheel
           </h1>
 
-          <p className="mt-8 sm:text-xl/relaxed max-w-xl text-gray-500 text-center mx-auto">
+          <p className="mt-4 text-base max-w-xl text-gray-500 mx-auto leading-normal">
             You can use this tool to create your own competency wheel. It is a
             great way to visualize your skills and competencies.
           </p>
         </div>
 
-        <div className="flex gap-4">
-          <div className="mt-6 flex flex-col-reverse items-center justify-center gap-3">
+        <div className="flex">
+          <div className="mt-6 flex flex-col-reverse items-center justify-center gap-2 w-full">
             <Link
               className="flex items-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
               href="/wheel/"

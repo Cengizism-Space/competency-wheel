@@ -34,13 +34,13 @@ const Templates = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-4 text-left items-center">
+    <div className="flex flex-col gap-2">
       {isLoading ? (
         <span className="text-gray-500 italic">Loading templates...</span>
       ) : templates.length > 0 ? (
         <>
           <Listbox>
-            <div className="relative mt-1 w-80">
+            <div className="relative w-80">
               <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-3 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm hover:cursor-pointer">
                 <span className="block truncate text-gray-500">
                   Choose a template
@@ -68,7 +68,7 @@ const Templates = () => {
                         key={templateIdx}
                         className={({ active }) =>
                           classNames(
-                            "relative cursor-default select-none py-2 pl-3 pr-4 hover:cursor-pointer",
+                            "text-left relative cursor-default select-none py-2 pl-3 pr-4 hover:cursor-pointer",
                             {
                               "bg-slate-100 text-gray-600": active,
                               "text-gray-500": !active,
@@ -79,7 +79,7 @@ const Templates = () => {
                       >
                         <Link href={`/wheel/${template.slug.current}`}>
                           <p className="truncate">
-                            <span className="block text-lg">
+                            <span className="block leading-tight font-semibold uppercase">
                               {template.title}
                             </span>
                             {template.randomCompetencies} ...
@@ -92,7 +92,7 @@ const Templates = () => {
               </Transition>
             </div>
           </Listbox>
-          <span className="text-xs italic text-gray-600">or</span>
+          <span className="text-xs italic text-gray-500">or</span>
         </>
       ) : null}
     </div>

@@ -41,6 +41,10 @@ export const DEFAULT_WHEEL: WheelType = {
     current: createSlug(DEFAULT_TITLE)
   },
   competencies: [] as CompetencyType[],
+  // competencies: Array.from({ length: 20 }, (_, index) => ({
+  //   title: '',
+  //   value: (index % 10) + 1,
+  // })) as CompetencyType[],
 };
 
 export const DEFAULT_CHECKOUT_MY_WHEEL = "Check out my competency wheel" as string;
