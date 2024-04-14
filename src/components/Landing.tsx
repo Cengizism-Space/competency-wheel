@@ -25,14 +25,13 @@ const Landing: React.FC = () => {
         </div>
 
         <div className="flex gap-4">
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-8">
+          <div className="mt-6 flex flex-col-reverse items-center justify-center gap-3">
             <Link
               className="flex items-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
               href="/wheel/"
             >
-              Start Fresh
+              Start with your own wheel
             </Link>
-            <span className="text-sm italic text-gray-600">or</span>
             <Templates />
           </div>
         </div>
