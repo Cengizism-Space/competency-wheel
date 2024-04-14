@@ -11,7 +11,7 @@ const Landing: React.FC = () => {
     <CompetenciesProvider>
       <section className="grid h-screen place-content-center items-center text-center">
         <div className="mt-6 mb-5 leading-none">
-          <h3 className="text-2xl text-gray-400 font-medium uppercase">
+          <h3 className="text-2xl text-gray-500 font-medium uppercase">
             Create your own
           </h3>
           <h1 className="text-5xl font-bold text-gray-800 mt-1">
@@ -25,13 +25,13 @@ const Landing: React.FC = () => {
         </div>
 
         <span className="relative flex justify-center">
-          <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-400 to-transparent opacity-75"></div>
+          <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-400 to-transparent opacity-50"></div>
         </span>
 
         <div className="flex">
           <div className="mt-6 flex flex-col-reverse items-center justify-center gap-2 w-full">
             <Link
-              className="flex items-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
+              className="flex items-center rounded-lg bg-indigo-600 px-5 py-3 text-base font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
               href="/wheel/"
             >
               Start with your own wheel

@@ -1,22 +1,14 @@
 import { useEffect, useContext } from 'react';
 import * as d3 from 'd3';
-import { CompetencyType, CompetencyContextType, WheelType } from '@/../typings';
+import { CompetencyType, CompetencyContextType } from '@/../typings';
 import { degreesToRadians } from "@/utils";
 import { colors } from "@/constants";
 import { CompetenciesContext } from "@/context";
 
-const useDrawChart = ({
-  wheel,
-  svgRef,
-  dimensions
-}: {
-  wheel: WheelType;
-  svgRef: React.RefObject<SVGSVGElement>;
-  dimensions: { width: number; height: number };
-}) => {
-  const { activeIndex, isEditing, dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
+const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: number } }) => {
+  const { wheel, svgRef, activeIndex, isEditing, dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
 
-  const drawChart = () => {
+  const drawChart = (competencies: CompetencyType[], palette: string[]) => {
     const svg = svgRef.current ? d3.select(svgRef.current) : null;
     if (!svg) return;
 
@@ -42,14 +34,14 @@ const useDrawChart = ({
       .attr("fill", "transparent")
       .on("click", () => dispatch({ type: "setState", payload: { activeIndex: null } }));
 
-    let totalRating = wheel.competencies.reduce((a, b) => a + b.value, 0);
+    let totalRating = competencies.reduce((a, b) => a + b.value, 0);
 
     let accumulatedRating = 0;
 
     const arcs: any[] = [];
     const labels: any[] = [];
 
-    wheel.competencies.forEach((competency: CompetencyType, i: number) => {
+    competencies.forEach((competency: CompetencyType, i: number) => {
       const rating = competency.value;
       const radius =
         centerRadius +
@@ -70,7 +62,7 @@ const useDrawChart = ({
       const endY = centerY + radius * Math.sin(degreesToRadians(endingAngle));
 
       const d =
-        wheel.competencies.length === 1
+        competencies.length === 1
           ? `M ${centerX} ${centerY} m -${radius}, 0 a ${radius},${radius} 0 1,0 ${radius * 2
           },0 a ${radius},${radius} 0 1,0 -${radius * 2},0`
           : [
@@ -98,7 +90,7 @@ const useDrawChart = ({
           `arc ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`
         )
         .attr("d", d)
-        .attr("fill", colors[i])
+        .attr("fill", palette[i])
         .attr("stroke", "white")
         .attr("stroke-width", 1)
         .on("click",
@@ -157,7 +149,6 @@ const useDrawChart = ({
         if (computedTextLength) {
           textWidth = Math.max(textWidth, computedTextLength);
         }
-
       });
 
       const rect = group
@@ -181,7 +172,7 @@ const useDrawChart = ({
     arcs.forEach(arc => svg.node()?.appendChild(arc.node()));
     labels.forEach(label => svg.node()?.appendChild(label.node()));
 
-    wheel.competencies.length > 0 && svg
+    competencies.length > 0 && svg
       .append("circle")
       .attr("cx", centerX)
       .attr("cy", centerY)
@@ -193,7 +184,25 @@ const useDrawChart = ({
   };
 
   useEffect(() => {
-    drawChart();
+    let competencies: CompetencyType[];
+    let palette: string[];
+
+    if (wheel.competencies.length === 0) {
+      competencies = Array.from({ length: 20 }, (_, index) => ({
+        title: "",
+        description: "",
+        value: (index % 10) + 1,
+      }));
+      palette = [
+        ...colors.grayscale,
+        ...colors.grayscale,
+      ];
+    } else {
+      competencies = wheel.competencies;
+      palette = colors.rainbow;
+    }
+
+    drawChart(competencies, palette);
   }, [svgRef, dimensions, wheel, isEditing, activeIndex, dispatch]); // eslint-disable-line
 
   useEffect(() => {

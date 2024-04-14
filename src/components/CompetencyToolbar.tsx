@@ -1,11 +1,7 @@
 import React, { useCallback, useContext } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyType, CompetencyContextType } from "../../typings";
-import {
-  ChevronUpIcon,
-  ChevronDownIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { PlusIcon, MinusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Button from "@/components/Button";
 
 const CompetencyToolbar: React.FC = () => {
@@ -61,7 +57,7 @@ const CompetencyToolbar: React.FC = () => {
             onClick={() => handleValueAdjust(1)}
             variant="secondary"
           >
-            <ChevronUpIcon className="h-5 w-5" />
+            <PlusIcon className="h-5 w-5" />
           </Button>
 
           <Button
@@ -70,7 +66,7 @@ const CompetencyToolbar: React.FC = () => {
             onClick={() => handleValueAdjust(-1)}
             variant="secondary"
           >
-            <ChevronDownIcon className="h-5 w-5" />
+            <MinusIcon className="h-5 w-5" />
           </Button>
         </span>
 

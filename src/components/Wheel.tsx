@@ -59,16 +59,16 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
 };
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const { wheel, svgRef, isFound, isEditing, isEmpty, dispatch } = useContext(
+  const { svgRef, isFound, isEditing, isEmpty, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
   const [isLoading, setIsLoading] = useState(true);
 
   const [containerRef, dimensions] = useContainerDimensions();
-  useDrawChart({ wheel, svgRef, dimensions });
-  useOutsideClick(svgRef, () => {
-    dispatch({ type: "setState", payload: { activeIndex: null } });
-  });
+  useDrawChart({ dimensions });
+  useOutsideClick(svgRef, () =>
+    dispatch({ type: "setState", payload: { activeIndex: null } })
+  );
 
   useEffect(() => {
     dispatch({
@@ -86,7 +86,6 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
   return (
     <>
       <ModeSwitcher />
-
       <div
         className={classNames("w-screen", {
           "grid grid-cols-12 gap-0 editing mx-auto": isEditing,
@@ -113,7 +112,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
             {isEmpty && isFound && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <p className="mt-4 text-gray-500">
+                <p className="mt-32 p-6 w-fit items-center justify-center text-center rounded-md bg-slate-50 text-gray-500">
                   Add a competency to get started
                 </p>
               </div>
@@ -157,7 +156,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="flex flex-col h-full justify-between pt-32 border-e bg-white">
+          <div className="flex flex-col h-full justify-between pt-32 border-e bg-white border-l">
             <Competency />
 
             <div className="sticky inset-x-0 bottom-0">
