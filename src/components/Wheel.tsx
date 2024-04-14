@@ -110,9 +110,9 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
               </div>
             )}
 
-            {isEmpty && isFound && !isEditing &&  (
+            {isEmpty && isFound && !isEmpty && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <p className="mt-32 p-6 w-fit items-center justify-center text-center rounded-md bg-slate-50 text-gray-500 shadow">
+                <p className="mt-32 p-4 w-fit items-center justify-center text-center rounded-md bg-slate-50 text-gray-500 shadow">
                   Add a competency to get started
                 </p>
               </div>

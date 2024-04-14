@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useMemo } from 'react';
 import * as d3 from 'd3';
 import { CompetencyType, CompetencyContextType } from '@/../typings';
 import { degreesToRadians } from "@/utils";
@@ -94,7 +94,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
         .attr("stroke", "white")
         .attr("stroke-width", 1)
         .on("click",
-          () => isEditing ?
+          () => isEditing && wheel.competencies.length > 0 ?
             dispatch({
               type: "setState",
               payload: {
@@ -183,7 +183,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
       .on("click", () => dispatch({ type: "setState", payload: { activeIndex: null } }));
   };
 
-  useEffect(() => {
+  const { competencies, palette } = useMemo(() => {
     let competencies: CompetencyType[];
     let palette: string[];
 
@@ -202,12 +202,16 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
       palette = colors.rainbow;
     }
 
+    return { competencies, palette };
+  }, [wheel.competencies]);
+
+  useEffect(() => {
     drawChart(competencies, palette);
-  }, [svgRef, dimensions, wheel, isEditing, activeIndex, dispatch]); // eslint-disable-line
+  }, [dimensions, wheel, isEditing, activeIndex, competencies, palette]); // eslint-disable-line
 
   useEffect(() => {
     dispatch({ type: "setState", payload: { activeIndex: null } });
-  }, [dimensions, dispatch]);
+  }, [dimensions]);
 };
 
 export default useDrawChart;

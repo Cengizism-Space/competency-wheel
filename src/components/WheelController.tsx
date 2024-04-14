@@ -25,7 +25,7 @@ const WheelController = () => {
   const [isDeleteConfirmationDialogOpen, setIsDeleteConfirmationDialogOpen] =
     useState(false);
 
-  const exportToPng = useExportToPng(svgRef);
+  const exportToPng = useExportToPng(svgRef, wheel?.title ?? "");
 
   const urlWithSlug =
     typeof window !== "undefined"

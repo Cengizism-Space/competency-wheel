@@ -63,7 +63,7 @@ const Title = () => {
                     onChange={handleTitleChange}
                     onBlur={() => setIsEditingTitle(false)}
                     autoFocus
-                    className="w-fit justify-center text-center text-3xl font-bold sm:text-5xl text-gray-600 mr-8 bg-transparent focus:outline-none focus:ring-0 line-height-1 border-b border-gray-300"
+                    className="w-fit justify-center text-center text-3xl font-bold sm:text-5xl text-gray-600 mr-8 bg-transparent focus:outline-none focus:ring-0 line-height-1 border-b border-gray-400"
                   />
                   <Button type="submit" variant="link">
                     <CheckIcon className="h-4 w-4" />
