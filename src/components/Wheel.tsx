@@ -7,7 +7,7 @@ import {
   CompetencyType,
   WheelType,
 } from "../../typings";
-import Alert from "./Alert";
+// import Alert from "./Alert";
 import ModeSwitcher from "./ModeSwitcher";
 import { Transition } from "@headlessui/react";
 import Competency from "./Competency";
@@ -24,10 +24,10 @@ import MadeBy from "./MadeBy";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
+  let payload = {};
+
   if (initialWheel) {
-    if (!initialWheel.competencies) {
-      initialWheel.competencies = [];
-    }
+    initialWheel.competencies = initialWheel.competencies ?? [];
 
     const wheel: WheelType = initialWheel.template
       ? {
@@ -43,20 +43,19 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
         }
       : initialWheel;
 
-    dispatch({
-      type: "setState",
-      payload: {
-        wheel,
-        initialWheel,
-        isFound: true,
-      },
-    });
+    payload = {
+      wheel,
+      initialWheel,
+      isFound: true,
+    };
   } else {
-    dispatch({
-      type: "setState",
-      payload: { isFound: false },
-    });
+    payload = { isFound: false };
   }
+
+  dispatch({
+    type: "setState",
+    payload,
+  });
 };
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
@@ -86,7 +85,6 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
   return (
     <>
-      {isLoading && <Alert>Loading the wheel..</Alert>}
       <ModeSwitcher />
 
       <div
@@ -102,9 +100,22 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           <Title />
 
           <div className="h-[calc(100vh_-_8rem)]" ref={containerRef}>
+            {isLoading && (
+              <div className="grid h-screen place-content-center px-4">
+                <div className="text-center">
+                  <h1 className="text-5xl font-black text-gray-300">Loading</h1>
+                  <p className="mt-2 tracking-tight text-gray-500">
+                    Fetching the requested competency wheel
+                  </p>
+                </div>
+              </div>
+            )}
+
             {isEmpty && isFound && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-gray-500">Add a competency to get started</p>
+                <p className="mt-4 text-gray-500">
+                  Add a competency to get started
+                </p>
               </div>
             )}
 
