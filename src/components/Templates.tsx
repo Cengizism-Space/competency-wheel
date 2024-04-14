@@ -92,7 +92,7 @@ const Templates = () => {
               </Transition>
             </div>
           </Listbox>
-          <span className="text-xs italic text-gray-500">or</span>
+          <span className="text-xs italic text-gray-400">or</span>
         </>
       ) : null}
     </div>

@@ -10,7 +10,7 @@ const Landing: React.FC = () => {
   return (
     <CompetenciesProvider>
       <section className="grid h-screen place-content-center items-center text-center">
-        <div className="mt-6 mb-4 leading-none">
+        <div className="mt-6 mb-5 leading-none">
           <h3 className="text-2xl text-gray-400 font-medium uppercase">
             Create your own
           </h3>
@@ -23,6 +23,10 @@ const Landing: React.FC = () => {
             great way to visualize your skills and competencies.
           </p>
         </div>
+
+        <span className="relative flex justify-center">
+          <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-400 to-transparent opacity-75"></div>
+        </span>
 
         <div className="flex">
           <div className="mt-6 flex flex-col-reverse items-center justify-center gap-2 w-full">
