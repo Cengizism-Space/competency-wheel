@@ -83,8 +83,6 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
     isEditing,
     isEmpty,
     isSaved,
-    isErrored,
-    errorMessage,
     dispatch,
   } = useContext(CompetenciesContext) as CompetencyContextType;
   const [isLoading, setIsLoading] = useState(true);
@@ -110,7 +108,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
     }
 
     setIsLoading(false);
-  }, [slug, isEditing, searchParams, dispatch]);
+  }, [slug, isEditing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
