@@ -51,7 +51,11 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   } else {
     payload = { isFound: false };
   }
-  payload = { ...payload, isSaved: true, isInitial: true };
+  payload = { 
+    ...payload, 
+    isSaved: initialWheel.template ? false : true, 
+    isInitial: true 
+  };
 
   dispatch({
     type: "setState",
