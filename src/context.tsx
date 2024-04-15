@@ -32,7 +32,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
       state.wheel.title.length > 0 && state.wheel.competencies.length > 0;
     const isInitial = isEqual(state.wheel, state.initialWheel);
     const link = state.wheel.hasOwnProperty("_id")
-      ? `${window.location.origin}/wheel/${state.wheel?.slug.current}?edit=false`
+      ? `${window.location.origin}/wheel/${state.wheel?.slug.current}?presentation=true`
       : state.link;
     const isEmpty = state.wheel.competencies.length === 0;
 

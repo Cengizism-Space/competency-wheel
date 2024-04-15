@@ -22,6 +22,7 @@ import useContainerDimensions from "@/hooks/useContainerDimensions";
 import CompetencyToolbar from "./CompetencyToolbar";
 import MadeBy from "./MadeBy";
 import { useSearchParams } from "next/navigation";
+import LoadingWheel from "./LoadingWheel";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -81,7 +82,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
     dispatch({
       type: "setState",
       payload: {
-        isEditing: searchParams.get("edit") === "false" ? false : isEditing,
+        isEditing: searchParams.get("presentation") ? false : isEditing,
         isFound: slug ? false : true,
       },
     });
@@ -91,7 +92,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
     }
 
     setIsLoading(false);
-  }, [slug, dispatch]);
+  }, [slug, isEditing, searchParams, dispatch]);
 
   return (
     <>
@@ -109,16 +110,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           <Title />
 
           <div className="h-[calc(100vh_-_8rem)]" ref={containerRef}>
-            {isLoading && (
-              <div className="grid h-screen place-content-center px-4">
-                <div className="text-center">
-                  <h1 className="text-5xl font-black text-gray-300">Loading</h1>
-                  <p className="mt-2 tracking-tight text-gray-500">
-                    Fetching the requested competency wheel
-                  </p>
-                </div>
-              </div>
-            )}
+            {isLoading && <LoadingWheel />}
 
             {/* {isEmpty && isFound && (
               <div className="absolute inset-0 flex items-center justify-center">

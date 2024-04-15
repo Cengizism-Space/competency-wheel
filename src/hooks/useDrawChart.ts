@@ -211,7 +211,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
 
   useEffect(() => {
     dispatch({ type: "setState", payload: { activeIndex: null } });
-  }, [dimensions]);
+  }, [dimensions, dispatch]);
 };
 
 export default useDrawChart;
