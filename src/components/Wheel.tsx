@@ -21,7 +21,7 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import useContainerDimensions from "@/hooks/useContainerDimensions";
 import CompetencyToolbar from "./CompetencyToolbar";
 import MadeBy from "./MadeBy";
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from "next/navigation";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -52,10 +52,10 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   } else {
     payload = { isFound: false };
   }
-  payload = { 
-    ...payload, 
-    isSaved: initialWheel.template ? false : true, 
-    isInitial: true 
+  payload = {
+    ...payload,
+    isSaved: initialWheel.template ? false : true,
+    isInitial: true,
   };
 
   dispatch({
@@ -80,9 +80,9 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
   useEffect(() => {
     dispatch({
       type: "setState",
-      payload: { 
-        isEditing: searchParams.get('edit') === 'false' ? false : isEditing,
-        isFound: slug ? false : true 
+      payload: {
+        isEditing: searchParams.get("edit") === "false" ? false : isEditing,
+        isFound: slug ? false : true,
       },
     });
 
@@ -120,13 +120,13 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
               </div>
             )}
 
-            {isEmpty && isFound && !isEmpty && (
+            {/* {isEmpty && isFound && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <p className="mt-32 p-4 w-fit items-center justify-center text-center rounded-md bg-slate-50 text-gray-500 shadow">
                   Add a competency to get started
                 </p>
               </div>
-            )}
+            )} */}
 
             {!isFound && (
               <div className="grid h-screen place-content-center px-4">

@@ -72,7 +72,7 @@ const Competency: React.FC = () => {
     setDescription("");
   }, []);
 
-  const handleCompetencySave = useCallback(() => {
+  const handleCompetencyAddOrUpdate = useCallback(() => {
     if (!title.trim()) {
       setError("Competency name cannot be empty");
       return;
@@ -104,7 +104,7 @@ const Competency: React.FC = () => {
                 description,
                 value: value || 5,
               },
-            ],
+            ]
           },
         },
       });
@@ -190,8 +190,8 @@ const Competency: React.FC = () => {
             />
           )}
 
-          <Button type="submit" onClick={handleCompetencySave}>
-            {activeIndex !== null ? "Update" : "Add new"}
+          <Button type="submit" onClick={handleCompetencyAddOrUpdate}>
+            {activeIndex !== null ? "Update" : "Add"}
           </Button>
         </form>
       </div>

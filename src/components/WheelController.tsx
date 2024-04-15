@@ -82,16 +82,10 @@ const WheelController = () => {
 
   return (
     <div className="flex flex-col gap-4 rounded bg-slate-50 p-8 pb-4">
-      {!isInitial && (
-        <Button onClick={handleSaveWheel} disabled={isSaving}>
-          {isSaving ? "Saving" : link ? "Update" : "Save"}
-        </Button>
-      )}
-
       {isExportable && (
         <Button onClick={exportToPng} variant="secondary">
           <PhotoIcon className="h-4 w-4 mr-1" />
-          <span className="text-sm font-medium"> Export to PNG </span>
+          <span className="text-sm font-medium"> Download image </span>
         </Button>
       )}
 
@@ -107,6 +101,12 @@ const WheelController = () => {
             </span>
           </Button>
         </div>
+      )}
+
+      {!isInitial && (
+        <Button onClick={handleSaveWheel} disabled={isSaving}>
+          {isSaving ? "Saving" : link ? "Update" : "Save"}
+        </Button>
       )}
 
       <Transition appear show={isDeleteConfirmationDialogOpen} as={Fragment}>
