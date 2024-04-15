@@ -24,6 +24,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     isInitial: true,
     isEditing: true,
     isEmpty: true,
+    isSaved: false,
   });
 
   useEffect(() => {

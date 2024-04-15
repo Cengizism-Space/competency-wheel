@@ -16,6 +16,7 @@ const WheelController = () => {
     isInitial,
     isExportable,
     link,
+    isSaved,
     svgRef,
     dispatch,
   } = useContext(CompetenciesContext) as CompetencyContextType;
@@ -32,7 +33,7 @@ const WheelController = () => {
       ? `${window.location.origin}/wheel/${wheel?.slug.current}`
       : "";
 
-  const saveChart = useCallback(async () => {
+  const handleSaveWheel = useCallback(async () => {
     setIsSaving(true);
 
     const updateLink = () => {
@@ -55,6 +56,14 @@ const WheelController = () => {
       }
     }
 
+    dispatch({
+      type: "setState",
+      payload: {
+        initialWheel: wheel,
+        isSaved: true
+      },
+    });
+
     setIsSaving(false);
     if (typeof window !== "undefined" && wheel) {
       history.replaceState({}, "", urlWithSlug);
@@ -73,9 +82,9 @@ const WheelController = () => {
 
   return (
     <div className="flex flex-col gap-4 rounded bg-slate-50 p-8 pb-4">
-      {!isInitial && isExportable && (
-        <Button onClick={saveChart}>
-          {isSaving ? "Saving..." : link ? "Update wheel" : "Save wheel"}
+      {!isInitial && (
+        <Button onClick={handleSaveWheel} disabled={isSaving}>
+          {isSaving ? "Saving" : link ? "Update" : "Save"}
         </Button>
       )}
 
@@ -86,7 +95,7 @@ const WheelController = () => {
         </Button>
       )}
 
-      {link && (
+      {isSaved && (
         <div className="mx-1">
           <Button
             onClick={() => setIsDeleteConfirmationDialogOpen(true)}
@@ -94,7 +103,7 @@ const WheelController = () => {
           >
             <TrashIcon className="text-red-500 h-4 w-4" />
             <span className="text-sm text-red-400 font-medium">
-              {isDeleting ? "Deleting..." : "Delete wheel"}
+              {isDeleting ? "Deleting" : "Delete wheel"}
             </span>
           </Button>
         </div>
@@ -148,7 +157,7 @@ const WheelController = () => {
                       disabled={isDeleting}
                       variant="danger"
                     >
-                      {isDeleting ? "Deleting..." : "Got it, delete it!"}
+                      {isDeleting ? "Deleting" : "Got it, delete it!"}
                     </Button>
                   </div>
                 </Dialog.Panel>

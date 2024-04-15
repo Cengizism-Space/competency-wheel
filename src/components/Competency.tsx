@@ -4,11 +4,14 @@ import React, {
   useState,
   useEffect,
   useContext,
+  Fragment,
 } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyType, CompetencyContextType } from "../../typings";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button";
+import { Switch } from "@headlessui/react";
+import classNames from "classnames";
 
 const Competency: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(
@@ -19,25 +22,28 @@ const Competency: React.FC = () => {
   const [description, setDescription] = useState("");
   const [value, setValue] = useState(5);
   const [error, setError] = useState("");
+  const [hasDescription, setHasDescription] = useState(false);
 
   useEffect(() => {
     if (activeIndex !== null) {
       setTitle(wheel.competencies[activeIndex].title);
       setValue(wheel.competencies[activeIndex].value);
       setDescription(wheel.competencies[activeIndex]?.description || "");
+      setHasDescription(!!wheel.competencies[activeIndex]?.description);
     } else {
       setTitle("");
       setValue(5);
       setDescription("");
+      setHasDescription(false);
     }
   }, [activeIndex, wheel]);
 
-  const handleTitleChange = useCallback(
+  const handleCompetencyTitleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setTitle(event.target.value),
     []
   );
 
-  const handleValueChange = useCallback(
+  const handleCompetencyValueChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       setValue(Number(event.target.value));
 
@@ -54,19 +60,19 @@ const Competency: React.FC = () => {
     [wheel, dispatch]
   );
 
-  const handleDescriptionChange = useCallback(
+  const handleCompetencyDescriptionChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) =>
       setDescription(() => event.target.value),
     []
   );
 
-  const clearMetaForm = useCallback(() => {
+  const clearForm = useCallback(() => {
     setTitle("");
     setValue(5);
     setDescription("");
   }, []);
 
-  const handleSave = useCallback(() => {
+  const handleCompetencySave = useCallback(() => {
     if (!title.trim()) {
       setError("Competency name cannot be empty");
       return;
@@ -83,7 +89,7 @@ const Competency: React.FC = () => {
         }),
       });
 
-      clearMetaForm();
+      clearForm();
       dispatch({ type: "setState", payload: { activeIndex: null } });
     } else if (title && wheel.competencies.length < 20) {
       dispatch({
@@ -102,9 +108,9 @@ const Competency: React.FC = () => {
           },
         },
       });
-      clearMetaForm();
+      clearForm();
     }
-  }, [title, value, description, activeIndex, wheel, clearMetaForm, dispatch]);
+  }, [title, value, description, activeIndex, wheel, clearForm, dispatch]);
 
   return (
     <div className="flex flex-col gap-16 w-full text-slate-600">
@@ -119,7 +125,7 @@ const Competency: React.FC = () => {
             label="Title"
             placeholder="JavaScript, User research, ..."
             value={title}
-            onChange={handleTitleChange}
+            onChange={handleCompetencyTitleChange}
           />
           {error && (
             <p className="text-sm text-red-500 leading-none mb-4">{error}</p>
@@ -130,21 +136,61 @@ const Competency: React.FC = () => {
             label="Value"
             placeholder="5"
             value={value}
-            onChange={handleValueChange}
+            onChange={handleCompetencyValueChange}
             type="number"
             min={1}
             max={10}
           />
 
-          <InputField
-            id="competencyDescription"
-            label="Description (Optional)"
-            placeholder="Ability to write clean code, ..."
-            value={description}
-            onChange={handleDescriptionChange}
-          />
+          <div className="flex flex-row gap-2 items-center">
+            <Switch
+              checked={hasDescription}
+              onChange={setHasDescription}
+              as={Fragment}
+            >
+              {({ checked }) => (
+                <button
+                  className={classNames(
+                    "relative inline-flex h-6 w-11 items-center rounded-full",
+                    {
+                      "bg-blue-600": checked,
+                      "bg-gray-200": !checked,
+                    }
+                  )}
+                >
+                  <span
+                    className={classNames(
+                      "inline-block w-4 h-4 transform bg-white rounded-full transition",
+                      {
+                        "translate-x-6": checked,
+                        "translate-x-1": !checked,
+                      }
+                    )}
+                  />
+                </button>
+              )}
+            </Switch>
 
-          <Button type="submit" onClick={handleSave}>
+            <Button
+              onClick={() => setHasDescription(!hasDescription)}
+              variant="link"
+              className="inline-flex"
+            >
+              <span className="text-sm">Has a description</span>
+            </Button>
+          </div>
+
+          {hasDescription && (
+            <InputField
+              id="competencyDescription"
+              label="Description (Optional)"
+              placeholder="Ability to write clean code, ..."
+              value={description}
+              onChange={handleCompetencyDescriptionChange}
+            />
+          )}
+
+          <Button type="submit" onClick={handleCompetencySave}>
             {activeIndex !== null ? "Update" : "Add new"}
           </Button>
         </form>

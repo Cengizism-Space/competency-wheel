@@ -51,6 +51,7 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   } else {
     payload = { isFound: false };
   }
+  payload = { ...payload, isSaved: true, isInitial: true };
 
   dispatch({
     type: "setState",
@@ -59,7 +60,7 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
 };
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const { svgRef, isFound, isEditing, isEmpty, dispatch } = useContext(
+  const { svgRef, isFound, isEditing, isEmpty, isSaved, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
   const [isLoading, setIsLoading] = useState(true);
@@ -161,7 +162,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
             <div className="sticky inset-x-0 bottom-0">
               {!isEmpty && <WheelController />}
-              {!isEmpty && <LinkAndShare />}
+              {isSaved && <LinkAndShare />}
             </div>
           </div>
         </Transition>
