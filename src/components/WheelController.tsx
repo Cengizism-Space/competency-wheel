@@ -8,6 +8,7 @@ import useExportToPng from "@/hooks/useExportToPng";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { deleteWheel } from "../../sanity/client";
+import { set } from "lodash";
 
 const WheelController = () => {
   const {
@@ -34,39 +35,52 @@ const WheelController = () => {
       : "";
 
   const handleSaveWheel = useCallback(async () => {
-    setIsSaving(true);
+    try {
+      setIsSaving(true);
 
-    const updateLink = () => {
+      const updateLink = () => {
+        dispatch({
+          type: "setState",
+          payload: {
+            link: urlWithSlug,
+          },
+        });
+      };
+
+      if (!link) {
+        await saveWheel(wheel);
+        updateLink();
+      } else {
+        await updateWheel(wheel, initialWheel);
+
+        if (initialWheel?.slug.current !== wheel.slug.current) {
+          updateLink();
+        }
+      }
+
       dispatch({
         type: "setState",
         payload: {
-          link: urlWithSlug,
+          initialWheel: wheel,
+          isSaved: true,
         },
       });
-    };
 
-    if (!link) {
-      await saveWheel(wheel);
-      updateLink();
-    } else {
-      await updateWheel(wheel, initialWheel);
-
-      if (initialWheel?.slug.current !== wheel.slug.current) {
-        updateLink();
+      setIsSaving(false);
+      if (typeof window !== "undefined" && wheel) {
+        history.replaceState({}, "", urlWithSlug);
       }
-    }
-
-    dispatch({
-      type: "setState",
-      payload: {
-        initialWheel: wheel,
-        isSaved: true,
-      },
-    });
-
-    setIsSaving(false);
-    if (typeof window !== "undefined" && wheel) {
-      history.replaceState({}, "", urlWithSlug);
+    } catch (error) {
+      setIsSaving(false);
+      
+      dispatch({
+        type: "setState",
+        payload: {
+          isErrored: true,
+          errorMessage:
+            "An error occurred while saving the wheel. Please try again later.",
+        },
+      });
     }
   }, [link, wheel, initialWheel, dispatch, urlWithSlug]);
 
@@ -74,9 +88,20 @@ const WheelController = () => {
     try {
       setIsDeleting(true);
       await deleteWheel(wheel.slug.current);
-    } finally {
       setIsDeleting(false);
       window.location.assign(window.location.origin);
+    } catch (error) {
+      setIsDeleting(false);
+      setIsDeleteConfirmationDialogOpen(false);
+
+      dispatch({
+        type: "setState",
+        payload: {
+          isErrored: true,
+          errorMessage:
+            "An error occurred while deleting the wheel. Please try again later.",
+        },
+      });
     }
   }, [wheel]);
 

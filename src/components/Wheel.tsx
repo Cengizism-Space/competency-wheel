@@ -7,7 +7,7 @@ import {
   CompetencyType,
   WheelType,
 } from "../../typings";
-// import Alert from "./Alert";
+import Alert from "./Alert";
 import ModeSwitcher from "./ModeSwitcher";
 import { Transition } from "@headlessui/react";
 import Competency from "./Competency";
@@ -25,50 +25,68 @@ import { useSearchParams } from "next/navigation";
 import LoadingWheel from "./LoadingWheel";
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
-  const initialWheel = await fetchWheel(slug);
-  let payload = {};
+  try {
+    const initialWheel = await fetchWheel(slug);
+    let payload = {};
 
-  if (initialWheel) {
-    initialWheel.competencies = initialWheel.competencies ?? [];
+    if (initialWheel) {
+      initialWheel.competencies = initialWheel.competencies ?? [];
 
-    const wheel: WheelType = initialWheel.template
-      ? {
-          title: initialWheel.title,
-          template: false,
-          slug: {
-            ...initialWheel.slug,
-            current: createSlug(initialWheel.title),
-          },
-          competencies: initialWheel.competencies.map(
-            (competency: CompetencyType) => ({ ...competency })
-          ),
-        }
-      : initialWheel;
+      const wheel: WheelType = initialWheel.template
+        ? {
+            title: initialWheel.title,
+            template: false,
+            slug: {
+              ...initialWheel.slug,
+              current: createSlug(initialWheel.title),
+            },
+            competencies: initialWheel.competencies.map(
+              (competency: CompetencyType) => ({ ...competency })
+            ),
+          }
+        : initialWheel;
 
+      payload = {
+        wheel,
+        initialWheel,
+        isFound: true,
+      };
+    } else {
+      payload = { isFound: false };
+    }
     payload = {
-      wheel,
-      initialWheel,
-      isFound: true,
+      ...payload,
+      isSaved: initialWheel.template ? false : true,
+      isInitial: true,
     };
-  } else {
-    payload = { isFound: false };
-  }
-  payload = {
-    ...payload,
-    isSaved: initialWheel.template ? false : true,
-    isInitial: true,
-  };
 
-  dispatch({
-    type: "setState",
-    payload,
-  });
+    dispatch({
+      type: "setState",
+      payload,
+    });
+  } catch (error) {
+    dispatch({
+      type: "setState",
+      payload: {
+        isErrored: true,
+        errorMessage:
+          "An error occurred while loading the wheel. Please try again later.",
+      },
+    });
+  }
 };
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const { svgRef, isFound, isEditing, isEmpty, isSaved, dispatch } = useContext(
-    CompetenciesContext
-  ) as CompetencyContextType;
+  const {
+    svgRef,
+    isFound,
+    isEditing,
+    isEmpty,
+    isSaved,
+    isErrored,
+    errorMessage,
+    dispatch,
+  } = useContext(CompetenciesContext) as CompetencyContextType;
   const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
@@ -96,6 +114,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
   return (
     <>
+      <Alert />
       <ModeSwitcher />
       <div
         className={classNames("w-screen", {

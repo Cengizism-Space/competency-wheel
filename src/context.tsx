@@ -25,15 +25,18 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     isEditing: true,
     isEmpty: true,
     isSaved: false,
+    isErrored: false,
+    errorMessage: "",
   });
 
   useEffect(() => {
     const isExportable =
       state.wheel.title.length > 0 && state.wheel.competencies.length > 0;
     const isInitial = isEqual(state.wheel, state.initialWheel);
-    const link = state.wheel.hasOwnProperty("_id")
-      ? `${window.location.origin}/wheel/${state.wheel?.slug.current}?presentation=true`
+    let link = state.wheel.hasOwnProperty("_id")
+      ? `${window.location.origin}/wheel/${state.wheel?.slug.current}`
       : state.link;
+    link += "?presentation=true";
     const isEmpty = state.wheel.competencies.length === 0;
 
     if (
@@ -52,14 +55,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
         },
       });
     }
-  }, [
-    state.wheel,
-    state.initialWheel,
-    state.isExportable,
-    state.isInitial,
-    state.link,
-    state.isEmpty,
-  ]);
+  }, [state.wheel, state.initialWheel]);
 
   return (
     <CompetenciesContext.Provider value={{ ...state, dispatch }}>

@@ -21,7 +21,7 @@ export const fetchTemplates = async (): Promise<TemplateWithRandomCompetenciesTy
     return await sanity.fetch(templatesQuery);
   } catch (error) {
     console.error("Could not fetch templates", error);
-    return [];
+    throw error;
   }
 }
 
@@ -33,6 +33,7 @@ export async function fetchWheel(slug: string) {
     }[0]`, { slug });
   } catch (error) {
     console.error("Could not fetch wheel", error);
+    throw error;
   }
 }
 
@@ -51,29 +52,36 @@ export async function saveWheel(wheel: WheelType) {
     return await createCompetenciesAndAppendToWheel(wheel, response._id);
   } catch (error) {
     console.error("Could not create document", error);
+    throw error;
   }
 }
 
 async function createCompetenciesAndAppendToWheel(wheel: WheelType, wheelId: string) {
-  const competencies = await Promise.all(
-    wheel.competencies.map(competency =>
-      sanity.create({
-        _type: "competency",
-        title: competency.title,
-        description: competency.description,
-        value: competency.value,
-      })
-    )
-  );
+  try {
+    const competencies = await Promise.all(
+      wheel.competencies.map(competency =>
+        sanity.create({
+          _type: "competency",
+          title: competency.title,
+          description: competency.description,
+          value: competency.value,
+        })
+      )
+    );
 
-  const referenceKeys = competencies.map(competency => ({ _type: 'reference', _ref: competency._id }));
-  const wheelWithCompetencies = await sanity
-    .patch(wheelId)
-    .setIfMissing({ competencies: [] })
-    .append('competencies', referenceKeys)
-    .commit({ autoGenerateArrayKeys: true });
+    const referenceKeys = competencies.map(competency => ({ _type: 'reference', _ref: competency._id }));
+    const wheelWithCompetencies = await sanity
+      .patch(wheelId)
+      .setIfMissing({ competencies: [] })
+      .append('competencies', referenceKeys)
+      .commit({ autoGenerateArrayKeys: true });
 
-  return wheelWithCompetencies;
+    return wheelWithCompetencies;
+  }
+  catch (error) {
+    console.error("Could not create competencies", error);
+    throw error;
+  }
 }
 
 export async function updateWheel(wheel: WheelType, savedDocument: WheelType | null) {
@@ -98,22 +106,28 @@ export async function updateWheel(wheel: WheelType, savedDocument: WheelType | n
     }
   } catch (error) {
     console.error("Could not update document", error);
+    throw error;
   }
 }
 
 async function unsetAndDeleteAllReferences(wheel: WheelType) {
-  if (wheel._id) {
-    await sanity
-      .patch(wheel._id)
-      .unset(['competencies'])
-      .commit();
+  try {
+    if (wheel._id) {
+      await sanity
+        .patch(wheel._id)
+        .unset(['competencies'])
+        .commit();
 
-    const deleteReferencePromises = wheel.competencies.map((competency: CompetencyType) => {
-      if (competency._id) {
-        return sanity.delete(competency._id);
-      }
-    });
-    await Promise.all(deleteReferencePromises);
+      const deleteReferencePromises = wheel.competencies.map((competency: CompetencyType) => {
+        if (competency._id) {
+          return sanity.delete(competency._id);
+        }
+      });
+      await Promise.all(deleteReferencePromises);
+    }
+  } catch (error) {
+    console.error("Could not unset and delete references", error);
+    throw error;
   }
 }
 
@@ -130,9 +144,9 @@ export async function deleteWheel(slug: string) {
     }
 
     await unsetAndDeleteAllReferences(wheel);
-
     await sanity.delete(wheel._id);
   } catch (error) {
     console.error("Could not delete wheel", error);
+    throw error;
   }
 }

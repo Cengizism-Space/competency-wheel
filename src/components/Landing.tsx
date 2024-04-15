@@ -5,10 +5,13 @@ import { CompetenciesProvider } from "@/context";
 import Templates from "./Templates";
 import Link from "next/link";
 import MadeBy from "./MadeBy";
+import Alert from "./Alert";
 
 const Landing: React.FC = () => {
   return (
     <CompetenciesProvider>
+      <Alert />
+
       <section className="grid h-screen place-content-center items-center text-center">
         <div className="mt-6 mb-5 leading-none">
           <h3 className="text-2xl text-gray-500 font-medium uppercase">

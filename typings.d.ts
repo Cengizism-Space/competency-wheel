@@ -12,6 +12,8 @@ export type State = {
   isEditing: boolean;
   isEmpty: boolean;
   isSaved: boolean;
+  isErrored: boolean;
+  errorMessage: string;
 };
 
 export type Action =
@@ -33,6 +35,8 @@ export interface CompetencyContextType {
   isEditing: boolean;
   isEmpty: boolean;
   isSaved: boolean;
+  isErrored: boolean;
+  errorMessage: string;
   dispatch: React.Dispatch<any>;
 }
 
