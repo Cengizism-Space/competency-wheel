@@ -72,7 +72,7 @@ const WheelController = () => {
       }
     } catch (error) {
       setIsSaving(false);
-      
+
       dispatch({
         type: "setState",
         payload: {
@@ -103,7 +103,7 @@ const WheelController = () => {
         },
       });
     }
-  }, [wheel]);
+  }, [wheel, dispatch]);
 
   return (
     <div className="flex flex-col gap-4 rounded bg-slate-50 p-8 pb-4">

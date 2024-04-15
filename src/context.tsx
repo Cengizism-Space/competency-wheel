@@ -55,7 +55,7 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
         },
       });
     }
-  }, [state.wheel, state.initialWheel]);
+  }, [state.wheel, state.initialWheel]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <CompetenciesContext.Provider value={{ ...state, dispatch }}>
