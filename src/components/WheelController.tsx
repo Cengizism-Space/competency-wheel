@@ -60,7 +60,7 @@ const WheelController = () => {
       type: "setState",
       payload: {
         initialWheel: wheel,
-        isSaved: true
+        isSaved: true,
       },
     });
 
@@ -103,7 +103,7 @@ const WheelController = () => {
           >
             <TrashIcon className="text-red-500 h-4 w-4" />
             <span className="text-sm text-red-400 font-medium">
-              {isDeleting ? "Deleting" : "Delete wheel"}
+              Delete wheel
             </span>
           </Button>
         </div>
