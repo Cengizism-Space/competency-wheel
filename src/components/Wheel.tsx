@@ -21,6 +21,7 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import useContainerDimensions from "@/hooks/useContainerDimensions";
 import CompetencyToolbar from "./CompetencyToolbar";
 import MadeBy from "./MadeBy";
+import { useSearchParams } from 'next/navigation'
 
 const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
   const initialWheel = await fetchWheel(slug);
@@ -69,6 +70,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
   ) as CompetencyContextType;
   const [isLoading, setIsLoading] = useState(true);
 
+  const searchParams = useSearchParams();
   const [containerRef, dimensions] = useContainerDimensions();
   useDrawChart({ dimensions });
   useOutsideClick(svgRef, () =>
@@ -78,7 +80,10 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
   useEffect(() => {
     dispatch({
       type: "setState",
-      payload: { isFound: slug ? false : true },
+      payload: { 
+        isEditing: searchParams.get('edit') === 'false' ? false : isEditing,
+        isFound: slug ? false : true 
+      },
     });
 
     if (slug) {
