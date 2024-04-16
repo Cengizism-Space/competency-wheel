@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import LinkAndShare from "./LinkAndShare";
 import { fetchWheel } from "../../sanity/client";
 import { CompetenciesContext } from "@/context";
@@ -24,9 +24,20 @@ import MadeBy from "./MadeBy";
 import { useSearchParams } from "next/navigation";
 import LoadingWheel from "./LoadingWheel";
 
-const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
-  try {
-    const initialWheel = await fetchWheel(slug);
+const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
+  const { svgRef, isFound, isEditing, isEmpty, isSaved, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
+  const [isLoading, setIsLoading] = useState(true);
+
+  const searchParams = useSearchParams();
+  const [containerRef, dimensions] = useContainerDimensions();
+  useDrawChart({ dimensions });
+  useOutsideClick(svgRef, () =>
+    dispatch({ type: "setState", payload: { activeIndex: null } })
+  );
+
+  const createPayload = useCallback((initialWheel: WheelType) => {
     let payload = {};
 
     if (initialWheel) {
@@ -54,39 +65,38 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
     } else {
       payload = { isFound: false };
     }
+
     payload = {
       ...payload,
       isSaved: initialWheel.template ? false : true,
       isInitial: true,
     };
 
-    dispatch({
-      type: "setState",
-      payload,
-    });
-  } catch (error) {
-    dispatch({
-      type: "setState",
-      payload: {
-        isErrored: true,
-        errorMessage:
-          "An error occurred while loading the wheel. Please try again later.",
-      },
-    });
-  }
-};
+    return payload;
+  }, []);
 
-const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const { svgRef, isFound, isEditing, isEmpty, isSaved, dispatch } = useContext(
-    CompetenciesContext
-  ) as CompetencyContextType;
-  const [isLoading, setIsLoading] = useState(true);
+  const fetchAndDispatchWheel = useCallback(
+    async (slug: string) => {
+      try {
+        const initialWheel = await fetchWheel(slug);
+        const payload = createPayload(initialWheel);
 
-  const searchParams = useSearchParams();
-  const [containerRef, dimensions] = useContainerDimensions();
-  useDrawChart({ dimensions });
-  useOutsideClick(svgRef, () =>
-    dispatch({ type: "setState", payload: { activeIndex: null } })
+        dispatch({
+          type: "setState",
+          payload,
+        });
+      } catch (error) {
+        dispatch({
+          type: "setState",
+          payload: {
+            isErrored: true,
+            errorMessage:
+              "An error occurred while loading the wheel. Please try again later.",
+          },
+        });
+      }
+    },
+    [createPayload]
   );
 
   useEffect(() => {
@@ -99,7 +109,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
     });
 
     if (slug) {
-      fetchAndDispatchWheel(slug, dispatch);
+      fetchAndDispatchWheel(slug);
     }
 
     setIsLoading(false);
