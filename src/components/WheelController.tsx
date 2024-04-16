@@ -2,13 +2,11 @@ import React, { Fragment, useContext, useCallback, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyContextType } from "../../typings";
-import { saveWheel, updateWheel } from "../../sanity/client";
+import { saveWheel, updateWheel, deleteWheel } from "../../sanity/client";
 import Button from "@/components/Button";
 import useExportToPng from "@/hooks/useExportToPng";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { deleteWheel } from "../../sanity/client";
-import { set } from "lodash";
 
 const WheelController = () => {
   const {

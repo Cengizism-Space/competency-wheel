@@ -33,10 +33,9 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
     const isExportable =
       state.wheel.title.length > 0 && state.wheel.competencies.length > 0;
     const isInitial = isEqual(state.wheel, state.initialWheel);
-    let link = state.wheel.hasOwnProperty("_id")
+    const link = state.wheel.hasOwnProperty("_id")
       ? `${window.location.origin}/wheel/${state.wheel?.slug.current}`
       : state.link;
-    link += "?presentation=true";
     const isEmpty = state.wheel.competencies.length === 0;
 
     if (
@@ -55,7 +54,14 @@ export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
         },
       });
     }
-  }, [state.wheel, state.initialWheel]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [
+    state.wheel,
+    state.initialWheel,
+    state.isExportable,
+    state.isInitial,
+    state.link,
+    state.isEmpty,
+  ]);
 
   return (
     <CompetenciesContext.Provider value={{ ...state, dispatch }}>

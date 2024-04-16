@@ -23,12 +23,12 @@ const LinkAndShare = () => {
     share({
       title: wheel?.title ?? "",
       text: DEFAULT_CHECKOUT_MY_WHEEL,
-      url: link ?? "",
+      url: `${link}?presentation=true` ?? "",
     });
   }, [wheel, share, link]);
 
   const handleCopy = useCallback(() => {
-    copyToClipboard(link ?? "");
+    copyToClipboard(`${link}?presentation=true` ?? "");
   }, [copyToClipboard, link]);
 
   return link && typeof navigator.share !== "undefined" ? (

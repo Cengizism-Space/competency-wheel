@@ -48,7 +48,7 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
 
       payload = {
         wheel,
-        initialWheel,
+        initialWheel: wheel,
         isFound: true,
       };
     } else {
@@ -77,14 +77,9 @@ const fetchAndDispatchWheel = async (slug: string, dispatch: Function) => {
 };
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const {
-    svgRef,
-    isFound,
-    isEditing,
-    isEmpty,
-    isSaved,
-    dispatch,
-  } = useContext(CompetenciesContext) as CompetencyContextType;
+  const { svgRef, isFound, isEditing, isEmpty, isSaved, dispatch } = useContext(
+    CompetenciesContext
+  ) as CompetencyContextType;
   const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = useSearchParams();
