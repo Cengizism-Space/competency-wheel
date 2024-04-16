@@ -103,7 +103,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
     }
 
     setIsLoading(false);
-  }, [slug, isEditing]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [slug]);
 
   return (
     <>
