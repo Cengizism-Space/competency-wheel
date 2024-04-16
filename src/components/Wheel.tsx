@@ -1,5 +1,14 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
-import LinkAndShare from "./LinkAndShare";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  lazy,
+  Suspense,
+} from "react";
+import { useSearchParams } from "next/navigation";
+import classNames from "classnames";
+import { Transition } from "@headlessui/react";
 import { fetchWheel } from "../../sanity/client";
 import { CompetenciesContext } from "@/context";
 import {
@@ -7,22 +16,22 @@ import {
   CompetencyType,
   WheelType,
 } from "../../typings";
-import Alert from "./Alert";
-import ModeSwitcher from "./ModeSwitcher";
-import { Transition } from "@headlessui/react";
-import Competency from "./Competency";
-import WheelController from "./WheelController";
-import classNames from "classnames";
-import ResetButton from "./ResetButton";
-import Title from "./Title";
 import { createSlug } from "@/utils";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import useContainerDimensions from "@/hooks/useContainerDimensions";
 import CompetencyToolbar from "./CompetencyToolbar";
+import Title from "./Title";
+import ModeSwitcher from "./ModeSwitcher";
+import ResetButton from "./ResetButton";
 import MadeBy from "./MadeBy";
-import { useSearchParams } from "next/navigation";
+import Alert from "./Alert";
 import LoadingWheel from "./LoadingWheel";
+import NotFound from "./NotFound";
+
+const Competency = lazy(() => import("./Competency"));
+const WheelController = lazy(() => import("./WheelController"));
+const LinkAndShare = lazy(() => import("./LinkAndShare"));
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
   const { svgRef, isFound, isEditing, isEmpty, isSaved, dispatch } = useContext(
@@ -38,41 +47,37 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
   );
 
   const createPayload = useCallback((initialWheel: WheelType) => {
-    let payload = {};
-
-    if (initialWheel) {
-      initialWheel.competencies = initialWheel.competencies ?? [];
-
-      const wheel: WheelType = initialWheel.template
-        ? {
-            title: initialWheel.title,
-            template: false,
-            slug: {
-              ...initialWheel.slug,
-              current: createSlug(initialWheel.title),
-            },
-            competencies: initialWheel.competencies.map(
-              (competency: CompetencyType) => ({ ...competency })
-            ),
-          }
-        : initialWheel;
-
-      payload = {
-        wheel,
-        initialWheel: wheel,
-        isFound: true,
+    if (!initialWheel) {
+      return {
+        isFound: false,
+        isSaved: false,
+        isInitial: true,
       };
-    } else {
-      payload = { isFound: false };
     }
 
-    payload = {
-      ...payload,
-      isSaved: initialWheel.template ? false : true,
+    initialWheel.competencies = initialWheel.competencies ?? [];
+
+    const wheel: WheelType = initialWheel.template
+      ? {
+          title: initialWheel.title,
+          template: false,
+          slug: {
+            ...initialWheel.slug,
+            current: createSlug(initialWheel.title),
+          },
+          competencies: initialWheel.competencies.map(
+            (competency: CompetencyType) => ({ ...competency })
+          ),
+        }
+      : initialWheel;
+
+    return {
+      wheel,
+      initialWheel: wheel,
+      isFound: true,
+      isSaved: !initialWheel.template,
       isInitial: true,
     };
-
-    return payload;
   }, []);
 
   const fetchAndDispatchWheel = useCallback(
@@ -134,25 +139,17 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           <div className="h-[calc(100vh_-_8rem)]" ref={containerRef}>
             {isLoading && <LoadingWheel />}
 
-            {/* {isEmpty && isFound && (
+            {!isFound && (
+              <NotFound>
+                <span>There is no wheel with this ID. Start creating one.</span>
+              </NotFound>
+            )}
+
+            {isEmpty && isFound && !isEditing && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <p className="mt-32 p-4 w-fit items-center justify-center text-center rounded-md bg-slate-50 text-gray-500 shadow">
                   Add a competency to get started
                 </p>
-              </div>
-            )} */}
-
-            {!isFound && (
-              <div className="grid h-screen place-content-center px-4">
-                <div className="text-center">
-                  <h1 className="text-9xl font-black text-gray-300">404</h1>
-                  <p className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                    Uh-oh!
-                  </p>
-                  <p className="mt-4 text-gray-500">
-                    There is no wheel with this ID. Start creating one.
-                  </p>
-                </div>
               </div>
             )}
 
@@ -181,11 +178,22 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
           leaveTo="opacity-0"
         >
           <div className="flex flex-col h-full justify-between pt-32 border-e bg-white border-l">
-            <Competency />
+            <Suspense fallback={null}>
+              <Competency />
+            </Suspense>
 
             <div className="sticky inset-x-0 bottom-0">
-              {!isEmpty && <WheelController />}
-              {isSaved && <LinkAndShare />}
+              {!isEmpty && (
+                <Suspense fallback={null}>
+                  <WheelController />
+                </Suspense>
+              )}
+
+              {isSaved && (
+                <Suspense fallback={null}>
+                  <LinkAndShare />
+                </Suspense>
+              )}
             </div>
           </div>
         </Transition>
