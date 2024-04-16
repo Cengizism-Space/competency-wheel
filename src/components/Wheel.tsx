@@ -101,7 +101,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
         });
       }
     },
-    [createPayload]
+    [createPayload, dispatch]
   );
 
   useEffect(() => {
@@ -118,7 +118,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
     }
 
     setIsLoading(false);
-  }, [slug]);
+  }, [slug]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
