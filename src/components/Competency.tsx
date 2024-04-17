@@ -64,6 +64,19 @@ const Competency: React.FC = () => {
     [wheel, dispatch, title, description, improvement]
   );
 
+  const handleCompetencyValueAdjust = useCallback(
+    (adjustment: number) => {
+      dispatch({
+        type: "updateCompetency",
+        payload: (competency: CompetencyType) => ({
+          ...competency,
+          value: Math.min(10, Math.max(1, competency.value + adjustment)),
+        }),
+      });
+    },
+    [dispatch]
+  );
+
   const handleCompetencyDescriptionChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) =>
       setDescription(() => event.target.value),
@@ -158,6 +171,14 @@ const Competency: React.FC = () => {
             <p className="text-sm text-red-500 leading-none mb-4">{error}</p>
           )}
 
+          <InputField
+            id="competencyDescription"
+            label="Description (Optional)"
+            placeholder="Ability to write clean code, ..."
+            value={description}
+            onChange={handleCompetencyDescriptionChange}
+          />
+
           <div className="flex flex-row gap-2 items-center">
             <Switch
               checked={improvement}
@@ -199,25 +220,42 @@ const Competency: React.FC = () => {
             </Button>
           </div>
 
-          <InputField
-            id="competencyDescription"
-            label="Description (Optional)"
-            placeholder="Ability to write clean code, ..."
-            value={description}
-            onChange={handleCompetencyDescriptionChange}
-          />
+          <div className="w-24">
+            <label
+              htmlFor="competencyValue"
+              className="text-left block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+            >
+              <span className="text-xs font-medium text-gray-700">
+                Scale of
+              </span>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
+                  onClick={() => handleCompetencyValueAdjust(-1)}
+                >
+                  -
+                </button>
 
-          <div className="w-20">
-            <InputField
-              id="competencyValue"
-              label="Scale of"
-              placeholder="5"
-              value={value}
-              onChange={handleCompetencyValueChange}
-              type="number"
-              min={1}
-              max={10}
-            />
+                <input
+                  type="number"
+                  id="competencyValue"
+                  value={value}
+                  onChange={handleCompetencyValueChange}
+                  min={1}
+                  max={10}
+                  className="h-10 w-16 rounded border-gray-200 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+                />
+
+                <button
+                  type="button"
+                  className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
+                  onClick={() => handleCompetencyValueAdjust(1)}
+                >
+                  +
+                </button>
+              </div>
+            </label>
           </div>
 
           <Button type="submit" onClick={handleCompetencyAddOrUpdate}>
