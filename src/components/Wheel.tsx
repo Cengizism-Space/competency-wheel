@@ -29,6 +29,7 @@ import Alert from "./Alert";
 import LoadingWheel from "./LoadingWheel";
 import NotFound from "./NotFound";
 import Help from "./Help";
+import { RocketLaunchIcon } from "@heroicons/react/24/solid";
 
 const Competency = lazy(() => import("./Competency"));
 const WheelController = lazy(() => import("./WheelController"));
@@ -163,6 +164,13 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
               overflow="visible"
               ref={svgRef}
             />
+
+            {!isEditing && (
+              <div className="fixed bottom-6 left-6 flex flex-row items-center gap-2 text-gray-500">
+                <RocketLaunchIcon className="w-4 h-4" />
+                <span className="text-sm">Want to improve</span>
+              </div>
+            )}
 
             <MadeBy />
           </div>
