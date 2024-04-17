@@ -138,7 +138,9 @@ const Competency: React.FC = () => {
   return (
     <div className="flex flex-col gap-16 w-full text-slate-600">
       <div className="w-full flex flex-col gap-4 rounded px-8 py-6">
-        <p className="text-lg font-medium text-left">Competency</p>
+        <p className="text-lg font-medium text-left">
+          {activeIndex !== null ? `Competency` : `New competency`}
+        </p>
 
         <form
           onSubmit={(e) => e.preventDefault()}

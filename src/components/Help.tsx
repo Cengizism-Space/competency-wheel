@@ -2,24 +2,22 @@ import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Button from "./Button";
+import { scaleValues } from "../constants";
 
 const Help = () => {
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
+  const closeModal = () => setIsOpen(false);
+  const openModal = () => setIsOpen(true);
 
   return (
     <>
       <div className="flex flex-col gap-2 px-8 mb-2">
         <Button onClick={openModal} variant="link">
           <InformationCircleIcon className="h-6 w-6" />
-          <span className="text-sm italic">How are the scale values calculated?</span>
+          <span className="text-sm italic">
+            How are the scale values calculated?
+          </span>
         </Button>
       </div>
 
@@ -57,59 +55,30 @@ const Help = () => {
                   </Dialog.Title>
 
                   <table className="border-collapse table-auto w-full text-sm my-8">
-                    <thead>
+                    <thead className="bg-slate-200">
                       <tr>
-                        <th className="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                        <th className="border-b dark:border-slate-600 font-medium p-5 pl-8 text-slate-600 dark:text-slate-200 text-left">
                           Value
                         </th>
-                        <th className="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                        <th className="border-b dark:border-slate-600 font-medium py-5 px-4 text-slate-600 dark:text-slate-200 text-left">
                           Definition
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td className="border-b border-slate-200 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                          9-10
-                        </td>
-                        <td className="border-b border-slate-200 dark:border-slate-600 p-4 text-slate-500 dark:text-slate-400">
-                          I have extensive experience with this competency and
-                          master it completely
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="border-b border-slate-200 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                          7-8
-                        </td>
-                        <td className="border-b border-slate-200 dark:border-slate-600 p-4 text-slate-500 dark:text-slate-400">
-                          I have used this competency in multiple or in larger
-                          projects
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="border-b border-slate-200 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                          5-6
-                        </td>
-                        <td className="border-b border-slate-200 dark:border-slate-600 p-4 text-slate-500 dark:text-slate-400">
-                          I have used this competency in small projects
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="border-b border-slate-200 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                          3-4
-                        </td>
-                        <td className="border-b border-slate-200 dark:border-slate-600 p-4 text-slate-500 dark:text-slate-400">
-                          I have theoretical knowledge of this competency
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="border-b border-slate-200 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                          1-2
-                        </td>
-                        <td className="border-b border-slate-200 dark:border-slate-600 p-4 text-slate-500 dark:text-slate-400">
-                          I have heard about this subject
-                        </td>
-                      </tr>
+                      {scaleValues.map((scale, index) => (
+                        <tr
+                          key={index}
+                          className={index % 2 ? "bg-slate-50" : ""}
+                        >
+                          <td className="border-b border-slate-200 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                            {scale.value}
+                          </td>
+                          <td className="border-b border-slate-200 dark:border-slate-600 p-4 text-slate-500 dark:text-slate-400">
+                            {scale.definition}
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
 
