@@ -20,5 +20,10 @@ export default defineType({
       title: 'Value',
       type: 'number',
     }),
+    defineField({
+      name: 'improvement',
+      title: 'Improvement',
+      type: 'boolean',
+    }),
   ],
 })
