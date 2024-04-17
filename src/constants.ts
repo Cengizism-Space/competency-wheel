@@ -59,3 +59,5 @@ export const DEFAULT_WHEEL: WheelType = {
 };
 
 export const DEFAULT_CHECKOUT_MY_WHEEL = "Check out my competency wheel" as string;
+
+export const TO_BE_IMPROVED_EMOJI = "🚀" as string;

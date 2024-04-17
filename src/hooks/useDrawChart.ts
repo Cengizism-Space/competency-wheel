@@ -2,7 +2,7 @@ import { useEffect, useContext, useMemo } from 'react';
 import * as d3 from 'd3';
 import { CompetencyType, CompetencyContextType } from '@/../typings';
 import { degreesToRadians } from "@/utils";
-import { colors } from "@/constants";
+import { colors, TO_BE_IMPROVED_EMOJI } from "@/constants";
 import { CompetenciesContext } from "@/context";
 
 const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: number } }) => {
@@ -132,6 +132,14 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
       const group = svg.append("g")
         .attr("class", `label ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`);
 
+      if (competency.improvement) {
+        group.append("text")
+          .attr("x", labelX - 10)
+          .attr("y", labelY - 10)
+          .attr("font-size", "24px")
+          .text(TO_BE_IMPROVED_EMOJI);
+      }
+
       const text = group.append("text")
         .attr("x", labelX);
 
@@ -191,6 +199,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
       competencies = Array.from({ length: 20 }, (_, index) => ({
         title: "",
         description: "",
+        improvement: false,
         value: (index % 10) + 1,
       }));
       palette = [

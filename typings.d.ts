@@ -54,6 +54,7 @@ export type CompetencyType = {
   title: string;
   description: string;
   value: number;
+  improvement: boolean;
 } & SanityBase;
 
 export type WheelType = {

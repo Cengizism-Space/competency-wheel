@@ -12,6 +12,7 @@ import InputField from "@/components/InputField";
 import Button from "@/components/Button";
 import { Switch } from "@headlessui/react";
 import classNames from "classnames";
+import { RocketLaunchIcon } from "@heroicons/react/24/solid";
 
 const Competency: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(
@@ -21,6 +22,7 @@ const Competency: React.FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [value, setValue] = useState(5);
+  const [improvement, setImprovement] = useState(false);
   const [error, setError] = useState("");
   const [hasDescription, setHasDescription] = useState(false);
 
@@ -28,11 +30,13 @@ const Competency: React.FC = () => {
     if (activeIndex !== null) {
       setTitle(wheel.competencies[activeIndex].title);
       setValue(wheel.competencies[activeIndex].value);
+      setImprovement(!!wheel.competencies[activeIndex].improvement);
       setDescription(wheel.competencies[activeIndex]?.description || "");
       setHasDescription(!!wheel.competencies[activeIndex]?.description);
     } else {
       setTitle("");
       setValue(5);
+      setImprovement(false);
       setDescription("");
       setHasDescription(false);
     }
@@ -52,12 +56,15 @@ const Competency: React.FC = () => {
           type: "updateCompetency",
           payload: (competency: CompetencyType) => ({
             ...competency,
+            title,
+            description,
             value: Number(event.target.value),
+            improvement,
           }),
         });
       }
     },
-    [wheel, dispatch]
+    [wheel, dispatch, title, description, improvement]
   );
 
   const handleCompetencyDescriptionChange = useCallback(
@@ -69,6 +76,7 @@ const Competency: React.FC = () => {
   const clearForm = useCallback(() => {
     setTitle("");
     setValue(5);
+    setImprovement(false);
     setDescription("");
   }, []);
 
@@ -79,20 +87,20 @@ const Competency: React.FC = () => {
     }
     setError("");
 
+    let payload = {};
     if (activeIndex !== null) {
-      dispatch({
+      payload = {
         type: "updateCompetency",
         payload: (competency: CompetencyType) => ({
           ...competency,
           title,
           description,
+          value,
+          improvement,
         }),
-      });
-
-      clearForm();
-      dispatch({ type: "setState", payload: { activeIndex: null } });
-    } else if (title && wheel.competencies.length < 20) {
-      dispatch({
+      };
+    } else if (wheel.competencies.length < 20) {
+      payload = {
         type: "setState",
         payload: {
           wheel: {
@@ -103,14 +111,32 @@ const Competency: React.FC = () => {
                 title,
                 description,
                 value: value || 5,
+                improvement,
               },
-            ]
+            ],
           },
         },
-      });
-      clearForm();
+      };
     }
-  }, [title, value, description, activeIndex, wheel, clearForm, dispatch]);
+
+    if (Object.keys(payload).length > 0) {
+      dispatch(payload);
+
+      clearForm();
+      if (activeIndex !== null) {
+        dispatch({ type: "setState", payload: { activeIndex: null } });
+      }
+    }
+  }, [
+    title,
+    value,
+    improvement,
+    description,
+    activeIndex,
+    wheel,
+    clearForm,
+    dispatch,
+  ]);
 
   return (
     <div className="flex flex-col gap-16 w-full text-slate-600">
@@ -141,6 +167,46 @@ const Competency: React.FC = () => {
             min={1}
             max={10}
           />
+
+          <div className="flex flex-row gap-2 items-center">
+            <Switch
+              checked={improvement}
+              onChange={setImprovement}
+              as={Fragment}
+            >
+              {({ checked }) => (
+                <button
+                  className={classNames(
+                    "relative inline-flex h-6 w-11 items-center rounded-full",
+                    {
+                      "bg-blue-600": checked,
+                      "bg-gray-200": !checked,
+                    }
+                  )}
+                >
+                  <span
+                    className={classNames(
+                      "inline-block w-4 h-4 transform bg-white rounded-full transition",
+                      {
+                        "translate-x-6": checked,
+                        "translate-x-1": !checked,
+                      }
+                    )}
+                  />
+                </button>
+              )}
+            </Switch>
+            <Button
+              onClick={() => setImprovement(!improvement)}
+              variant="link"
+              className="inline-flex"
+            >
+              <div className="flex flex-row items-center gap-1">
+                <RocketLaunchIcon className="w-5 h-5" />
+                <span className="text-sm">Mark as to be improved</span>
+              </div>
+            </Button>
+          </div>
 
           <div className="flex flex-row gap-2 items-center">
             <Switch

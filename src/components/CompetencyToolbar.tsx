@@ -53,20 +53,20 @@ const CompetencyToolbar: React.FC = () => {
         <span className="inline-flex overflow-hidden rounded-md border bg-white">
           <Button
             className="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
-            title="Increase competency value"
-            onClick={() => handleValueAdjust(1)}
-            variant="secondary"
-          >
-            <PlusIcon className="h-5 w-5" />
-          </Button>
-
-          <Button
-            className="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
             title="Decrease competency value"
             onClick={() => handleValueAdjust(-1)}
             variant="secondary"
           >
             <MinusIcon className="h-5 w-5" />
+          </Button>
+
+          <Button
+            className="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+            title="Increase competency value"
+            onClick={() => handleValueAdjust(1)}
+            variant="secondary"
+          >
+            <PlusIcon className="h-5 w-5" />
           </Button>
         </span>
 

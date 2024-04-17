@@ -13,7 +13,7 @@ const sanity = createClient({
 
 const templatesQuery = `*[_type == "wheel" && template == true]{
   title, slug,
-    competencies[]->{title, description, value}
+    competencies[]->{title, description, value, improvement}
 }`;
 
 export const fetchTemplates = async (): Promise<TemplateWithRandomCompetenciesType[]> => {
@@ -29,7 +29,7 @@ export async function fetchWheel(slug: string) {
   try {
     return await sanity.fetch(`*[_type == "wheel" && slug.current == $slug]{
       _id, template, title, slug,
-      competencies[]->{_id, title, description, value}
+      competencies[]->{_id, title, description, value, improvement}
     }[0]`, { slug });
   } catch (error) {
     console.error("Could not fetch wheel", error);
@@ -65,6 +65,7 @@ async function createCompetenciesAndAppendToWheel(wheel: WheelType, wheelId: str
           title: competency.title,
           description: competency.description,
           value: competency.value,
+          improvement: competency.improvement
         })
       )
     );
