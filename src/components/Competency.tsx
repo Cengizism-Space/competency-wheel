@@ -156,27 +156,6 @@ const Competency: React.FC = () => {
             <p className="text-sm text-red-500 leading-none mb-4">{error}</p>
           )}
 
-          <InputField
-            id="competencyDescription"
-            label="Description (Optional)"
-            placeholder="Ability to write clean code, ..."
-            value={description}
-            onChange={handleCompetencyDescriptionChange}
-          />
-
-          <div className="w-20">
-            <InputField
-              id="competencyValue"
-              label="Value"
-              placeholder="5"
-              value={value}
-              onChange={handleCompetencyValueChange}
-              type="number"
-              min={1}
-              max={10}
-            />
-          </div>
-
           <div className="flex flex-row gap-2 items-center">
             <Switch
               checked={improvement}
@@ -212,10 +191,31 @@ const Competency: React.FC = () => {
               className="inline-flex"
             >
               <div className="flex flex-row items-center gap-1">
-                <RocketLaunchIcon className="w-5 h-5" />
+                <RocketLaunchIcon className="w-4 h-4" />
                 <span className="text-sm">Want to improve</span>
               </div>
             </Button>
+          </div>
+
+          <InputField
+            id="competencyDescription"
+            label="Description (Optional)"
+            placeholder="Ability to write clean code, ..."
+            value={description}
+            onChange={handleCompetencyDescriptionChange}
+          />
+
+          <div className="w-20">
+            <InputField
+              id="competencyValue"
+              label="Scale of"
+              placeholder="5"
+              value={value}
+              onChange={handleCompetencyValueChange}
+              type="number"
+              min={1}
+              max={10}
+            />
           </div>
 
           <Button type="submit" onClick={handleCompetencyAddOrUpdate}>

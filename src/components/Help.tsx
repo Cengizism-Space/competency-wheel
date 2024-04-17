@@ -19,7 +19,7 @@ const Help = () => {
       <div className="flex flex-col gap-2 px-8 mb-2">
         <Button onClick={openModal} variant="link">
           <InformationCircleIcon className="h-6 w-6" />
-          <span className="text-sm">How are the values calculated?</span>
+          <span className="text-sm italic">How are the scale values calculated?</span>
         </Button>
       </div>
 
@@ -53,7 +53,7 @@ const Help = () => {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Competency values scale
+                    Competency scale values
                   </Dialog.Title>
 
                   <table className="border-collapse table-auto w-full text-sm my-8">
