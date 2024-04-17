@@ -32,7 +32,7 @@ const Landing: React.FC = () => {
         </span>
 
         <div className="flex">
-          <div className="mt-6 flex flex-col-reverse items-center justify-center gap-2 w-full">
+          <div className="mt-6 flex flex-col-reverse items-center justify-center gap-4 w-full">
             <Link
               className="flex items-center rounded-lg bg-indigo-600 px-5 py-3 text-base font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
               href="/wheel/"
