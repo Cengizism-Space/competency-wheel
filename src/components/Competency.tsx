@@ -66,15 +66,21 @@ const Competency: React.FC = () => {
 
   const handleCompetencyValueAdjust = useCallback(
     (adjustment: number) => {
-      dispatch({
-        type: "updateCompetency",
-        payload: (competency: CompetencyType) => ({
-          ...competency,
-          value: Math.min(10, Math.max(1, competency.value + adjustment)),
-        }),
-      });
+      if (activeIndex !== null) {
+        dispatch({
+          type: "updateCompetency",
+          payload: (competency: CompetencyType) => ({
+            ...competency,
+            value: Math.min(10, Math.max(1, competency.value + adjustment)),
+          }),
+        });
+      } else {
+        setValue((prevValue) =>
+          Math.min(10, Math.max(1, prevValue + adjustment))
+        );
+      }
     },
-    [dispatch]
+    [dispatch, activeIndex]
   );
 
   const handleCompetencyDescriptionChange = useCallback(

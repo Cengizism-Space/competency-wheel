@@ -146,9 +146,9 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
               </NotFound>
             )}
 
-            {isEmpty && isFound && !isEditing && (
+            {isEmpty && isFound && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <p className="mt-32 p-4 w-fit items-center justify-center text-center rounded-md bg-slate-50 text-gray-500 shadow">
+                <p className="mt-32 p-4 items-center justify-center text-center border border-white bg-slate-50 text-gray-500">
                   Add a competency to get started
                 </p>
               </div>
@@ -157,8 +157,8 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
             <CompetencyToolbar />
 
             <svg
-              height="100%"
-              width="100%"
+              height={isFound ? "100%" : 0}
+              width={isFound ? "100%" : 0}
               preserveAspectRatio="xMinYMin slice"
               overflow="visible"
               ref={svgRef}

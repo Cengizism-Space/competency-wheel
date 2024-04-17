@@ -7,7 +7,7 @@ import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
 import Button from "./Button";
 
 const Title = () => {
-  const { wheel, isFound, isEditing, dispatch } = useContext(
+  const { wheel, isFound, isEmpty, isEditing, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
 
@@ -78,7 +78,7 @@ const Title = () => {
                   >
                     {wheel.title}
                   </h1>
-                  {isEditing && (
+                  {isEditing && !isEmpty &&  (
                     <Button onClick={handleEdit} variant="link">
                       <PencilSquareIcon className="h-4 w-4" />
                       <span className="text-sm font-medium"> Edit title </span>

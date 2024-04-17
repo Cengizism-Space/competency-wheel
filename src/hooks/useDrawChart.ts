@@ -6,11 +6,11 @@ import { colors, TO_BE_IMPROVED_ICON } from "@/constants";
 import { CompetenciesContext } from "@/context";
 
 const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: number } }) => {
-  const { wheel, svgRef, activeIndex, isEditing, dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
+  const { wheel, svgRef, activeIndex, isEditing, isFound, isEmpty, dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
 
   const drawChart = (competencies: CompetencyType[], palette: string[]) => {
     const svg = svgRef.current ? d3.select(svgRef.current) : null;
-    if (!svg) return;
+    if (!svg || !isFound) return;
 
     svg.selectAll("*").remove();
 
@@ -218,7 +218,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
 
   useEffect(() => {
     drawChart(competencies, palette);
-  }, [dimensions, wheel, isEditing, activeIndex, competencies, palette]); // eslint-disable-line
+  }, [dimensions, wheel, isEditing, isEmpty, activeIndex, competencies, palette]); // eslint-disable-line
 
   useEffect(() => {
     dispatch({ type: "setState", payload: { activeIndex: null } });
