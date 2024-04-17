@@ -24,7 +24,6 @@ const Competency: React.FC = () => {
   const [value, setValue] = useState(5);
   const [improvement, setImprovement] = useState(false);
   const [error, setError] = useState("");
-  const [hasDescription, setHasDescription] = useState(false);
 
   useEffect(() => {
     if (activeIndex !== null) {
@@ -32,13 +31,11 @@ const Competency: React.FC = () => {
       setValue(wheel.competencies[activeIndex].value);
       setImprovement(!!wheel.competencies[activeIndex].improvement);
       setDescription(wheel.competencies[activeIndex]?.description || "");
-      setHasDescription(!!wheel.competencies[activeIndex]?.description);
     } else {
       setTitle("");
       setValue(5);
       setImprovement(false);
       setDescription("");
-      setHasDescription(false);
     }
   }, [activeIndex, wheel]);
 
@@ -142,6 +139,7 @@ const Competency: React.FC = () => {
     <div className="flex flex-col gap-16 w-full text-slate-600">
       <div className="w-full flex flex-col gap-4 rounded px-8 py-6">
         <p className="text-lg font-medium text-left">Competency</p>
+
         <form
           onSubmit={(e) => e.preventDefault()}
           className="flex flex-col gap-5"
@@ -153,9 +151,18 @@ const Competency: React.FC = () => {
             value={title}
             onChange={handleCompetencyTitleChange}
           />
+
           {error && (
             <p className="text-sm text-red-500 leading-none mb-4">{error}</p>
           )}
+
+          <InputField
+            id="competencyDescription"
+            label="Description (Optional)"
+            placeholder="Ability to write clean code, ..."
+            value={description}
+            onChange={handleCompetencyDescriptionChange}
+          />
 
           <InputField
             id="competencyValue"
@@ -196,6 +203,7 @@ const Competency: React.FC = () => {
                 </button>
               )}
             </Switch>
+
             <Button
               onClick={() => setImprovement(!improvement)}
               variant="link"
@@ -207,54 +215,6 @@ const Competency: React.FC = () => {
               </div>
             </Button>
           </div>
-
-          <div className="flex flex-row gap-2 items-center">
-            <Switch
-              checked={hasDescription}
-              onChange={setHasDescription}
-              as={Fragment}
-            >
-              {({ checked }) => (
-                <button
-                  className={classNames(
-                    "relative inline-flex h-6 w-11 items-center rounded-full",
-                    {
-                      "bg-blue-600": checked,
-                      "bg-gray-200": !checked,
-                    }
-                  )}
-                >
-                  <span
-                    className={classNames(
-                      "inline-block w-4 h-4 transform bg-white rounded-full transition",
-                      {
-                        "translate-x-6": checked,
-                        "translate-x-1": !checked,
-                      }
-                    )}
-                  />
-                </button>
-              )}
-            </Switch>
-
-            <Button
-              onClick={() => setHasDescription(!hasDescription)}
-              variant="link"
-              className="inline-flex"
-            >
-              <span className="text-sm">Has a description</span>
-            </Button>
-          </div>
-
-          {hasDescription && (
-            <InputField
-              id="competencyDescription"
-              label="Description (Optional)"
-              placeholder="Ability to write clean code, ..."
-              value={description}
-              onChange={handleCompetencyDescriptionChange}
-            />
-          )}
 
           <Button type="submit" onClick={handleCompetencyAddOrUpdate}>
             {activeIndex !== null ? "Update" : "Add"}

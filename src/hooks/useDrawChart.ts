@@ -2,7 +2,7 @@ import { useEffect, useContext, useMemo } from 'react';
 import * as d3 from 'd3';
 import { CompetencyType, CompetencyContextType } from '@/../typings';
 import { degreesToRadians } from "@/utils";
-import { colors, TO_BE_IMPROVED_EMOJI } from "@/constants";
+import { colors, TO_BE_IMPROVED_ICON } from "@/constants";
 import { CompetenciesContext } from "@/context";
 
 const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: number } }) => {
@@ -133,11 +133,13 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
         .attr("class", `label ${activeIndex === i || activeIndex === null ? "active" : "inactive"}`);
 
       if (competency.improvement) {
-        group.append("text")
-          .attr("x", labelX - 10)
-          .attr("y", labelY - 10)
-          .attr("font-size", "24px")
-          .text(TO_BE_IMPROVED_EMOJI);
+        const iconX = labelX - 8;
+        const iconY = labelY - textHeight / 2 - 26;
+
+        group.append("path")
+          .attr("d", TO_BE_IMPROVED_ICON)
+          .attr("transform", `translate(${iconX}, ${iconY}) scale(1)`)
+          .attr("fill", "currentColor");
       }
 
       const text = group.append("text")
