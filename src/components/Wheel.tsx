@@ -28,6 +28,7 @@ import MadeBy from "./MadeBy";
 import Alert from "./Alert";
 import LoadingWheel from "./LoadingWheel";
 import NotFound from "./NotFound";
+import Help from "./Help";
 
 const Competency = lazy(() => import("./Competency"));
 const WheelController = lazy(() => import("./WheelController"));
@@ -183,6 +184,8 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
             </Suspense>
 
             <div className="sticky inset-x-0 bottom-0">
+              <Help />
+
               {!isEmpty && (
                 <Suspense fallback={null}>
                   <WheelController />

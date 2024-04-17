@@ -164,16 +164,18 @@ const Competency: React.FC = () => {
             onChange={handleCompetencyDescriptionChange}
           />
 
-          <InputField
-            id="competencyValue"
-            label="Value"
-            placeholder="5"
-            value={value}
-            onChange={handleCompetencyValueChange}
-            type="number"
-            min={1}
-            max={10}
-          />
+          <div className="w-20">
+            <InputField
+              id="competencyValue"
+              label="Value"
+              placeholder="5"
+              value={value}
+              onChange={handleCompetencyValueChange}
+              type="number"
+              min={1}
+              max={10}
+            />
+          </div>
 
           <div className="flex flex-row gap-2 items-center">
             <Switch
@@ -211,7 +213,7 @@ const Competency: React.FC = () => {
             >
               <div className="flex flex-row items-center gap-1">
                 <RocketLaunchIcon className="w-5 h-5" />
-                <span className="text-sm">Mark as to be improved</span>
+                <span className="text-sm">Want to improve</span>
               </div>
             </Button>
           </div>
