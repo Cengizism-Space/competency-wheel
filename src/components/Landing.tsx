@@ -6,6 +6,7 @@ import Templates from "./Templates";
 import Link from "next/link";
 import MadeBy from "./MadeBy";
 import Alert from "./Alert";
+import { styles } from "./Button";
 
 const Landing: React.FC = () => {
   return (
@@ -33,10 +34,7 @@ const Landing: React.FC = () => {
 
         <div className="flex">
           <div className="mt-6 flex flex-col-reverse items-center justify-center gap-4 w-full">
-            <Link
-              className="flex items-center rounded-lg bg-indigo-600 px-5 py-3 text-base font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
-              href="/wheel/"
-            >
+            <Link className={styles.secondary} href="/wheel/">
               Start with your own wheel
             </Link>
             <Templates />

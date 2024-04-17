@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const commons =
   "items-center gap-1.5 py-3 focus:outline-none disabled:cursor-not-allowed";
-const styles = {
+export const styles = {
   primary: classNames(
     "w-fit flex rounded-lg bg-indigo-600 px-5 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:bg-indigo-500 focus:ring",
     commons
