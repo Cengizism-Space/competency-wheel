@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "npm test && next build",
     "start": "next start",
-    "test": "jest",
+    "test": "NODE_ENV=test jest --coverage --ci --reporters=default --reporters=jest-junit",
     "test:watch": "jest --watch",
     "lint": "next lint",
     "semantic-release": "semantic-release"
