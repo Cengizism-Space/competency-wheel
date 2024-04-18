@@ -61,7 +61,7 @@ const CompetencyToolbar: React.FC = () => {
         className="competency-value-controllers absolute z-20 flex flex-row gap-2"
         style={toolbarCoords}
       >
-        <span className="inline-flex overflow-hidden rounded-md border bg-white">
+        <span className="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
           <Button
             className="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
             title="Decrease competency value"
