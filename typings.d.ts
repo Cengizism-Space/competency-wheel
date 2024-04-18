@@ -22,6 +22,7 @@ export type Action =
   | { type: 'reset' };
 
 export interface CompetencyContextType {
+  dispatch: React.Dispatch<any>;
   activeIndex: number | null;
   activeLabelCoords: { x: number; y: number } | null;
   wheel: WheelType;
@@ -37,7 +38,6 @@ export interface CompetencyContextType {
   isSaved: boolean;
   isErrored: boolean;
   errorMessage: string;
-  dispatch: React.Dispatch<any>;
 }
 
 type SanityBase = {

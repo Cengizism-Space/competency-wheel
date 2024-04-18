@@ -1,7 +1,7 @@
 import { createContext, useReducer, useRef, useEffect } from "react";
 import { CompetencyContextType } from "@/../typings";
 import { CompetenciesReducer } from "./reducer";
-import { DEFAULT_WHEEL } from "./constants";
+import { defaultState } from "./constants";
 import { isEqual } from "lodash";
 
 export const CompetenciesContext = createContext<
@@ -11,22 +11,10 @@ export const CompetenciesContext = createContext<
 export const CompetenciesProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
+  const svgRef = useRef<SVGSVGElement | null>(null);
   const [state, dispatch] = useReducer(CompetenciesReducer, {
-    activeIndex: null,
-    activeLabelCoords: { x: 0, y: 0 },
-    wheel: DEFAULT_WHEEL,
-    initialWheel: null,
-    templates: [],
-    svgRef: useRef<SVGSVGElement | null>(null),
-    link: undefined,
-    isFound: false,
-    isExportable: false,
-    isInitial: true,
-    isEditing: true,
-    isEmpty: true,
-    isSaved: false,
-    isErrored: false,
-    errorMessage: "",
+    ...defaultState,
+    svgRef,
   });
 
   useEffect(() => {

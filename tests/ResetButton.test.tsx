@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import ResetButton from "./ResetButton";
+import ResetButton from "../src/components/ResetButton";
 
 describe("ResetButton", () => {
   test("renders ResetButton component and checks the text", () => {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CompetencyType, WheelType } from "../typings";
+import { CompetencyContextType, CompetencyType, WheelType } from "../typings";
 import { createSlug } from "./utils";
 
 export const metadata: Metadata = {
@@ -56,6 +56,25 @@ export const DEFAULT_WHEEL: WheelType = {
     current: createSlug(DEFAULT_TITLE)
   },
   competencies: [] as CompetencyType[],
+};
+
+export const defaultState: CompetencyContextType = {
+  dispatch: () => {},
+  activeIndex: null,
+  activeLabelCoords: { x: 0, y: 0 },
+  wheel: DEFAULT_WHEEL,
+  initialWheel: null,
+  templates: [],
+  svgRef: null as unknown as React.MutableRefObject<SVGSVGElement | null>,
+  link: undefined,
+  isFound: false,
+  isExportable: false,
+  isInitial: true,
+  isEditing: true,
+  isEmpty: true,
+  isSaved: false,
+  isErrored: false,
+  errorMessage: "",
 };
 
 export const DEFAULT_CHECKOUT_MY_WHEEL = "Check out my competency wheel" as string;

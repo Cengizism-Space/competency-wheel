@@ -5,7 +5,7 @@ import { CompetenciesProvider } from "@/context";
 import Templates from "./Templates";
 import Link from "next/link";
 import MadeBy from "./MadeBy";
-import Alert from "./Alert/Alert";
+import Alert from "./Alert";
 import { styles } from "./Button";
 
 const Landing: React.FC = () => {

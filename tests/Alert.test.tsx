@@ -1,30 +1,12 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { CompetenciesContext } from "../../context";
-import Alert from "./Alert";
-import { DEFAULT_WHEEL } from "../../constants";
+import { CompetenciesContext } from "../src/context";
+import Alert from "../src/components/Alert";
+import { defaultState } from "../src/constants";
 
 describe("Alert", () => {
   const mockDispatch = jest.fn();
-
-  const defaultState = {
-    activeIndex: null,
-    activeLabelCoords: { x: 0, y: 0 },
-    wheel: DEFAULT_WHEEL,
-    initialWheel: null,
-    templates: [],
-    svgRef: null as unknown as React.MutableRefObject<SVGSVGElement | null>,
-    link: undefined,
-    isFound: false,
-    isExportable: false,
-    isInitial: true,
-    isEditing: true,
-    isEmpty: true,
-    isSaved: false,
-    isErrored: false,
-    errorMessage: "",
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
