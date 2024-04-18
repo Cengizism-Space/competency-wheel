@@ -16,3 +16,4 @@
 - Heroicons
 - Slugify
 - Next.js
+- Jest
