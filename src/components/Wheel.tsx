@@ -23,7 +23,7 @@ import useContainerDimensions from "@/hooks/useContainerDimensions";
 import CompetencyToolbar from "./CompetencyToolbar";
 import Title from "./Title";
 import ModeSwitcher from "./ModeSwitcher";
-import ResetButton from "./ResetButton";
+import ResetButton from "./ResetButton/ResetButton";
 import MadeBy from "./MadeBy";
 import Alert from "./Alert";
 import LoadingWheel from "./LoadingWheel";
