@@ -2,12 +2,23 @@ import React, { useCallback, useContext } from "react";
 import { CompetenciesContext } from "@/context";
 import { CompetencyType, CompetencyContextType } from "../../typings";
 import { PlusIcon, MinusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { RocketLaunchIcon } from "@heroicons/react/24/solid";
 import Button from "@/components/Button";
 
 const CompetencyToolbar: React.FC = () => {
   const { wheel, activeIndex, activeLabelCoords, dispatch } = useContext(
     CompetenciesContext
   ) as CompetencyContextType;
+
+  const handleWantToImprove = useCallback(() => {
+    dispatch({
+      type: "updateCompetency",
+      payload: (competency: CompetencyType) => ({
+        ...competency,
+        improvement: !competency.improvement,
+      }),
+    });
+  }, [dispatch]);
 
   const handleValueAdjust = useCallback(
     (adjustment: number) => {
@@ -57,27 +68,34 @@ const CompetencyToolbar: React.FC = () => {
             onClick={() => handleValueAdjust(-1)}
             variant="secondary"
           >
-            <MinusIcon className="h-5 w-5" />
+            <MinusIcon className="h-4 w-4" />
           </Button>
 
           <Button
-            className="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+            className="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
             title="Increase competency value"
             onClick={() => handleValueAdjust(1)}
             variant="secondary"
           >
-            <PlusIcon className="h-5 w-5" />
+            <PlusIcon className="h-4 w-4" />
           </Button>
-        </span>
 
-        <span className="inline-flex overflow-hidden rounded-md bg-red-600">
           <Button
-            className="inline-block p-3 text-white hover:bg-red-400 focus:relative"
+            className="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+            title="Want to improve!"
+            onClick={handleWantToImprove}
+            variant="secondary"
+          >
+            <RocketLaunchIcon className="h-4 w-4" />
+          </Button>
+
+          <Button
+            className="inline-block p-3 text-white bg-red-600 hover:bg-red-400 focus:relative"
             title="Delete competency"
             onClick={handleRemove}
             variant="danger"
           >
-            <TrashIcon className="h-5 w-5" />
+            <TrashIcon className="h-4 w-4" />
           </Button>
         </span>
       </div>
