@@ -25,7 +25,7 @@ import Title from "./Title";
 import ModeSwitcher from "./ModeSwitcher";
 import ResetButton from "./ResetButton/ResetButton";
 import MadeBy from "./MadeBy";
-import Alert from "./Alert";
+import Alert from "./Alert/Alert";
 import LoadingWheel from "./LoadingWheel";
 import NotFound from "./NotFound";
 import Help from "./Help";

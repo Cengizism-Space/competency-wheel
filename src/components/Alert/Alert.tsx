@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import { CompetencyContextType } from "../../../typings";
 
 const Alert: React.FC = () => {
   const { isErrored, errorMessage, dispatch } = useContext(
