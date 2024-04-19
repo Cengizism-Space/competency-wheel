@@ -5,11 +5,6 @@ import { ShareIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { useWebShare } from "@/hooks/useWebShare";
 import { useClipboard } from "@/hooks/useClipboard";
 import { DEFAULT_CHECKOUT_MY_WHEEL } from "@/constants";
-import classNames from "classnames";
-
-const linkButtonStyles = classNames(
-  "flex w-full items-center text-left gap-2 bg-white px-9 py-6 hover:bg-gray-50 text-slate-600 border-t border-gray-100"
-);
 
 const LinkAndShare = () => {
   const { wheel, link } = useContext(
@@ -32,15 +27,20 @@ const LinkAndShare = () => {
   }, [copyToClipboard, link]);
 
   return link && typeof navigator.share !== "undefined" ? (
-    <button onClick={handleShare} className={linkButtonStyles}>
+    <button
+      onClick={handleShare}
+      className="flex w-full items-center text-left gap-2 bg-white px-9 py-6 hover:bg-gray-50 text-slate-600 border-t border-gray-100"
+      data-testid="share-button"
+    >
       <ShareIcon className="h-4 w-4" />
       <span className="block leading-none text-sm">Share your wheel</span>
     </button>
   ) : (
     <button
       onClick={handleCopy}
-      className={linkButtonStyles}
+      className="flex w-full items-center text-left gap-2 bg-white px-9 py-6 hover:bg-gray-50 text-slate-600 border-t border-gray-100"
       disabled={isCopied}
+      data-testid="copy-button"
     >
       <DocumentDuplicateIcon className="h-4 w-4" />
       <span className="block leading-none text-sm">
