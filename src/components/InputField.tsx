@@ -29,6 +29,7 @@ const InputField: FC<InputFieldProps> = ({
     <input
       type={type}
       id={id}
+      data-testid="input-field"
       placeholder={placeholder}
       className="mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
       value={value}
