@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Button from "../src/components/Button";
+import Button from "../../src/components/Button";
 
 describe("Button", () => {
   it("renders correctly", () => {

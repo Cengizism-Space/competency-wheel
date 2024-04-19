@@ -1,9 +1,9 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { CompetenciesContext } from "../src/context";
-import Alert from "../src/components/Alert";
-import { defaultState } from "../src/constants";
+import { CompetenciesContext } from "../../src/context";
+import Alert from "../../src/components/Alert";
+import { defaultState } from "../../src/constants";
 
 describe("Alert", () => {
   const mockDispatch = jest.fn();

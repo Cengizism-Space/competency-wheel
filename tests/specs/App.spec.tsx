@@ -1,13 +1,13 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import App from "../src/components/App";
-import Wheel from "../src/components/Wheel";
+import App from "../../src/components/App";
+import Wheel from "../../src/components/Wheel";
 
-jest.mock("../src/components/Wheel", () => {
+jest.mock("../../src/components/Wheel", () => {
   return jest.fn(() => null);
 });
 
-jest.mock("../src/context", () => {
+jest.mock("../../src/context", () => {
   return {
     CompetenciesProvider: ({ children }: { children?: React.ReactNode }) => (
       <div>{children}</div>
