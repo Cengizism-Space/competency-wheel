@@ -154,6 +154,20 @@ describe("Competency", () => {
     expect(mockDispatch).not.toHaveBeenCalled();
   });
 
+  it('toggles improvement on button click', () => {
+    const { getByTestId } = render(
+      <CompetenciesContext.Provider value={mockContext}>
+        <Competency />
+      </CompetenciesContext.Provider>
+    );
+  
+    fireEvent.click(getByTestId('improvement-button'));
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: 'updateCompetency',
+      payload: expect.any(Function),
+    });
+  });
+
   it("handles value change", () => {
     const { container } = render(
       <CompetenciesContext.Provider value={mockContext}>

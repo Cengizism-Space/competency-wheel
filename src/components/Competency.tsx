@@ -115,6 +115,20 @@ const Competency: React.FC = () => {
     [wheel, dispatch]
   );
 
+  const handleImprovementToggle = useCallback(() => {
+    setImprovement(prev => !prev);
+  
+    if (wheel.competencies.length > 0) {
+      dispatch({
+        type: "updateCompetency",
+        payload: (competency: CompetencyType) => ({
+          ...competency,
+          improvement: !improvement,
+        }),
+      });
+    }
+  }, [wheel, dispatch, improvement]);
+
   const clearForm = useCallback(() => {
     setTitle("");
     setValue(5);
@@ -215,7 +229,7 @@ const Competency: React.FC = () => {
           <div className="flex flex-row gap-2 items-center">
             <Switch
               checked={improvement}
-              onChange={setImprovement}
+              onChange={handleImprovementToggle}
               as={Fragment}
             >
               {({ checked }) => (
@@ -242,9 +256,10 @@ const Competency: React.FC = () => {
             </Switch>
 
             <Button
-              onClick={() => setImprovement(!improvement)}
+              onClick={handleImprovementToggle}
               variant="link"
               className="inline-flex"
+              data-testid="improvement-button"
             >
               <div className="flex flex-row items-center gap-1">
                 <RocketLaunchIcon className="w-4 h-4" />
