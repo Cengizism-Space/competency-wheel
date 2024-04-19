@@ -40,8 +40,20 @@ const Competency: React.FC = () => {
   }, [activeIndex, wheel]);
 
   const handleCompetencyTitleChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => setTitle(event.target.value),
-    []
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setTitle(event.target.value);
+
+      if (wheel.competencies.length > 0) {
+        dispatch({
+          type: "updateCompetency",
+          payload: (competency: CompetencyType) => ({
+            ...competency,
+            title: event.target.value,
+          }),
+        });
+      }
+    },
+    [wheel, dispatch]
   );
 
   const handleCompetencyValueChange = useCallback(
@@ -84,9 +96,20 @@ const Competency: React.FC = () => {
   );
 
   const handleCompetencyDescriptionChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) =>
-      setDescription(() => event.target.value),
-    []
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setDescription(event.target.value);
+
+      if (wheel.competencies.length > 0) {
+        dispatch({
+          type: "updateCompetency",
+          payload: (competency: CompetencyType) => ({
+            ...competency,
+            description: event.target.value,
+          }),
+        });
+      }
+    },
+    [wheel, dispatch]
   );
 
   const clearForm = useCallback(() => {
@@ -96,6 +119,7 @@ const Competency: React.FC = () => {
     setDescription("");
   }, []);
 
+  // TODO: Some funtions are reduntant, but I'm keeping them for now
   const handleCompetencyAddOrUpdate = useCallback(() => {
     if (!title.trim()) {
       setError("Competency name cannot be empty");
