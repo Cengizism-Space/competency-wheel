@@ -17,29 +17,31 @@ const Templates = () => {
   };
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const fetchedTemplates: TemplateWithRandomCompetenciesType[] =
-          await fetchTemplates();
-        const randomizedTemplates = randomizeCompetencies(fetchedTemplates);
+  const fetchAndSetTemplates = async () => {
+    try {
+      const fetchedTemplates: TemplateWithRandomCompetenciesType[] =
+        await fetchTemplates();
+      const randomizedTemplates = randomizeCompetencies(fetchedTemplates);
 
-        dispatch({
-          type: "setState",
-          payload: { templates: randomizedTemplates },
-        });
-        setIsLoading(false);
-      } catch (error) {
-        dispatch({
-          type: "setState",
-          payload: {
-            isErrored: true,
-            errorMessage:
-              "An error occurred while fetching the templates. Please try again later.",
-          },
-        });
-      }
-    })();
+      dispatch({
+        type: "setState",
+        payload: { templates: randomizedTemplates },
+      });
+      setIsLoading(false);
+    } catch (error) {
+      dispatch({
+        type: "setState",
+        payload: {
+          isErrored: true,
+          errorMessage:
+            "An error occurred while fetching the templates. Please try again later.",
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchAndSetTemplates();
   }, [dispatch]);
 
   return (
