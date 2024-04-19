@@ -27,10 +27,13 @@ const Competency: React.FC = () => {
 
   useEffect(() => {
     if (activeIndex !== null) {
-      setTitle(wheel.competencies[activeIndex].title);
-      setValue(wheel.competencies[activeIndex].value);
-      setImprovement(!!wheel.competencies[activeIndex].improvement);
-      setDescription(wheel.competencies[activeIndex]?.description || "");
+      const activeCompetency = wheel.competencies[activeIndex];
+      if (activeCompetency) {
+        setTitle(wheel.competencies[activeIndex].title);
+        setValue(wheel.competencies[activeIndex].value);
+        setImprovement(!!wheel.competencies[activeIndex].improvement);
+        setDescription(wheel.competencies[activeIndex]?.description || "");
+      }
     } else {
       setTitle("");
       setValue(5);
@@ -98,7 +101,7 @@ const Competency: React.FC = () => {
   const handleCompetencyDescriptionChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       setDescription(event.target.value);
-
+  
       if (wheel.competencies.length > 0) {
         dispatch({
           type: "updateCompetency",
@@ -255,12 +258,13 @@ const Competency: React.FC = () => {
               htmlFor="competencyValue"
               className="text-left block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
             >
-              <span className="text-xs font-medium text-gray-700">
+              <span data-testid="scale-of-label" className="text-xs font-medium text-gray-700">
                 Scale of
               </span>
               <div className="flex items-center gap-1">
                 <button
                   type="button"
+                  data-testid="decrease-button"
                   className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
                   onClick={() => handleCompetencyValueAdjust(-1)}
                 >
@@ -270,6 +274,7 @@ const Competency: React.FC = () => {
                 <input
                   type="number"
                   id="competencyValue"
+                  data-testid="competency-value"
                   value={value}
                   onChange={handleCompetencyValueChange}
                   min={1}
@@ -279,6 +284,7 @@ const Competency: React.FC = () => {
 
                 <button
                   type="button"
+                  data-testid="increase-button"
                   className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
                   onClick={() => handleCompetencyValueAdjust(1)}
                 >
@@ -288,7 +294,11 @@ const Competency: React.FC = () => {
             </label>
           </div>
 
-          <Button type="submit" onClick={handleCompetencyAddOrUpdate}>
+          <Button 
+            type="submit" 
+            onClick={handleCompetencyAddOrUpdate}
+            data-testid="competency-submit-button"
+            >
             {activeIndex !== null ? "Update" : "Add"}
           </Button>
         </form>
