@@ -13,7 +13,7 @@ interface ModeSwitcherButtonProps {
   children: React.ReactNode;
 }
 
-const ModeSwitcherButton: FC<ModeSwitcherButtonProps> = ({
+export const ModeSwitcherButton: FC<ModeSwitcherButtonProps> = ({
   onClick,
   active,
   children,
