@@ -68,7 +68,7 @@ const CompetencyToolbar: React.FC = () => {
             onClick={() => handleValueAdjust(-1)}
             variant="secondary"
           >
-            <MinusIcon className="h-4 w-4" />
+            <MinusIcon className="h-4 w-4" data-testid="minus-icon" />
           </Button>
 
           <Button
@@ -77,7 +77,7 @@ const CompetencyToolbar: React.FC = () => {
             onClick={() => handleValueAdjust(1)}
             variant="secondary"
           >
-            <PlusIcon className="h-4 w-4" />
+            <PlusIcon className="h-4 w-4" data-testid="plus-icon" />
           </Button>
 
           <Button
@@ -86,7 +86,7 @@ const CompetencyToolbar: React.FC = () => {
             onClick={handleWantToImprove}
             variant="secondary"
           >
-            <RocketLaunchIcon className="h-4 w-4" />
+            <RocketLaunchIcon className="h-4 w-4" data-testid="rocket-launch-icon" />
           </Button>
 
           <Button
@@ -95,7 +95,7 @@ const CompetencyToolbar: React.FC = () => {
             onClick={handleRemove}
             variant="danger"
           >
-            <TrashIcon className="h-4 w-4" />
+            <TrashIcon className="h-4 w-4" data-testid="trash-icon" />
           </Button>
         </span>
       </div>

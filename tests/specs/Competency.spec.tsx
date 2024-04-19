@@ -6,31 +6,27 @@ import Competency from "../../src/components/Competency";
 import { defaultState, DEFAULT_WHEEL } from "../../src/constants";
 
 describe("Competency", () => {
-  const mockDispatch = jest.fn();
-  const mockContext = {
-    wheel: {
-      ...DEFAULT_WHEEL,
-      competencies: [
-        {
-          title: "Test",
-          value: 5,
-          improvement: false,
-          description: "Test description",
-        },
-      ],
-    },
-    activeIndex: 0,
-    dispatch: mockDispatch,
-  };
+  const mockDispatch = jest.fn(),
+    mockContext = {
+      ...defaultState,
+      wheel: {
+        ...DEFAULT_WHEEL,
+        competencies: [
+          {
+            title: "Test",
+            value: 5,
+            improvement: false,
+            description: "Test description",
+          },
+        ],
+      },
+      activeIndex: 0,
+      dispatch: mockDispatch,
+    };
 
   it("renders correctly", () => {
     const { getByText } = render(
-      <CompetenciesContext.Provider
-        value={{
-          ...defaultState,
-          ...mockContext,
-        }}
-      >
+      <CompetenciesContext.Provider value={mockContext}>
         <Competency />
       </CompetenciesContext.Provider>
     );
@@ -42,9 +38,7 @@ describe("Competency", () => {
     const { getByLabelText } = render(
       <CompetenciesContext.Provider
         value={{
-          ...defaultState,
           ...mockContext,
-          dispatch: mockDispatch,
           wheel: {
             ...mockContext.wheel,
             competencies: [
@@ -70,12 +64,7 @@ describe("Competency", () => {
 
   it("handles description change", () => {
     const { getByLabelText } = render(
-      <CompetenciesContext.Provider
-        value={{
-          ...defaultState,
-          ...mockContext,
-        }}
-      >
+      <CompetenciesContext.Provider value={mockContext}>
         <Competency />
       </CompetenciesContext.Provider>
     );
@@ -88,31 +77,21 @@ describe("Competency", () => {
 
   it("handles value change", () => {
     const { container } = render(
-      <CompetenciesContext.Provider
-        value={{
-          ...defaultState,
-          ...mockContext,
-        }}
-      >
+      <CompetenciesContext.Provider value={mockContext}>
         <Competency />
       </CompetenciesContext.Provider>
     );
-
     const input = container.querySelector(
       "#competencyValue"
     ) as HTMLInputElement;
+
     fireEvent.change(input, { target: { value: "7" } });
     expect(mockDispatch).toHaveBeenCalled();
   });
 
   it("handles form submission", () => {
     const { getByText } = render(
-      <CompetenciesContext.Provider
-        value={{
-          ...defaultState,
-          ...mockContext,
-        }}
-      >
+      <CompetenciesContext.Provider value={mockContext}>
         <Competency />
       </CompetenciesContext.Provider>
     );
