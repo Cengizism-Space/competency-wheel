@@ -1,4 +1,4 @@
-import { createContext, useReducer, useRef, useEffect } from "react";
+import React, { createContext, useReducer, useRef, useEffect } from "react";
 import { CompetencyContextType } from "@/../typings";
 import { CompetenciesReducer } from "./reducer";
 import { defaultState } from "./constants";

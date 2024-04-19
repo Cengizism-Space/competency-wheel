@@ -43,7 +43,7 @@ const Templates = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" data-testid="wheel-templates">
       {isLoading ? (
         <p className="flex items-center w-fit h-12 text-gray-500 italic">
           Loading templates...
