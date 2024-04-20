@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { CompetenciesContext } from "@/context";
 import {
@@ -17,7 +17,7 @@ const Templates = () => {
   };
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchAndSetTemplates = async () => {
+  const fetchAndSetTemplates = useCallback(async () => {
     try {
       const fetchedTemplates: TemplateWithRandomCompetenciesType[] =
         await fetchTemplates();
@@ -38,11 +38,11 @@ const Templates = () => {
         },
       });
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     fetchAndSetTemplates();
-  }, [dispatch]);
+  }, [fetchAndSetTemplates]);
 
   return (
     <div className="flex flex-col gap-4" data-testid="wheel-templates">
