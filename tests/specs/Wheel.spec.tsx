@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
+// import { CompetenciesReducer } from "../../src/reducer";
 import Wheel from "../../src/components/Wheel";
 import { defaultState, DEFAULT_WHEEL } from "../../src/constants";
 import useDrawChart from "../../src/hooks/useDrawChart";
@@ -216,4 +217,30 @@ describe("Wheel", () => {
 
     expect(screen.getByTestId("reset-button-component")).toBeInTheDocument();
   });
+
+  // it("sets and dispatches isExportable correctly", () => {
+  //   const newState = CompetenciesReducer(defaultState, {
+  //     type: "setState",
+  //     payload: {
+  //       ...defaultState,
+  //       wheel: {
+  //         ...defaultState.wheel,
+  //         title: "Test Title",
+  //         competencies: []
+  //         // [
+  //         //   {
+  //         //     title: "Test Competency",
+  //         //     description: "Test Description",
+  //         //     value: 1,
+  //         //     improvement: true,
+  //         //   },
+  //         // ],
+  //       },
+  //     },
+  //   });
+
+  //   expect(newState.isEmpty).toBe(true);
+  // });
+
+
 });

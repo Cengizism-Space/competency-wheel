@@ -28,14 +28,26 @@ import LoadingWheel from "./LoadingWheel";
 import NotFound from "./NotFound";
 import Help from "./Help";
 import { RocketLaunchIcon } from "@heroicons/react/24/solid";
+import { isEqual } from "lodash";
 
 const Competency = lazy(() => import("./Competency"));
 const WheelController = lazy(() => import("./WheelController"));
 const LinkAndShare = lazy(() => import("./LinkAndShare"));
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const { svgRef, isLoading, isFound, isEditing, isEmpty, isSaved, dispatch } =
-    useContext(CompetenciesContext) as CompetencyContextType;
+  const {
+    svgRef,
+    wheel,
+    initialWheel,
+    isLoading,
+    isExportable,
+    isInitial,
+    isFound,
+    isEditing,
+    isEmpty,
+    isSaved,
+    dispatch,
+  } = useContext(CompetenciesContext) as CompetencyContextType;
 
   const [containerRef, dimensions] = useContainerDimensions();
   useDrawChart({ dimensions });
@@ -120,6 +132,41 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
 
     dispatch({ type: "setState", payload: { isLoading: false } });
   }, [slug]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const isExportable =
+      wheel.title.length > 0 && wheel.competencies.length > 0;
+    const isInitial = isEqual(wheel, initialWheel);
+    // const link : string = wheel.hasOwnProperty("_id")
+    //   ? `${window.location.origin}/wheel/${wheel?.slug.current}`
+    //   : link;
+    const isEmpty = wheel.competencies.length === 0;
+
+    // if (
+    //   isExportable !== isExportable ||
+    //   isInitial !== isInitial ||
+    //   // link !== link ||
+    //   isEmpty !== isEmpty
+    // ) {
+    dispatch({
+      type: "setState",
+      payload: {
+        isExportable,
+        isInitial,
+        // link,
+        isEmpty,
+      },
+    });
+    // }
+  }, [
+    wheel,
+    initialWheel,
+    isExportable,
+    isInitial,
+    // link,
+    isEmpty,
+    dispatch,
+  ]);
 
   return (
     <>
