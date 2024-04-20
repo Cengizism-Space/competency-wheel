@@ -60,6 +60,7 @@ const CompetencyToolbar: React.FC = () => {
       <div
         className="competency-value-controllers absolute z-20 flex flex-row gap-2"
         style={toolbarCoords}
+        data-testid="competency-toolbar-component"
       >
         <span className="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
           <Button

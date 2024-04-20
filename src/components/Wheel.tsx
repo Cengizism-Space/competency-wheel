@@ -1,12 +1,10 @@
 import React, {
   useContext,
   useEffect,
-  useState,
   useCallback,
   lazy,
   Suspense,
 } from "react";
-import { useSearchParams } from "next/navigation";
 import classNames from "classnames";
 import { Transition } from "@headlessui/react";
 import { fetchWheel } from "../../sanity/client";
@@ -36,12 +34,9 @@ const WheelController = lazy(() => import("./WheelController"));
 const LinkAndShare = lazy(() => import("./LinkAndShare"));
 
 const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
-  const { svgRef, isFound, isEditing, isEmpty, isSaved, dispatch } = useContext(
-    CompetenciesContext
-  ) as CompetencyContextType;
-  const [isLoading, setIsLoading] = useState(true);
+  const { svgRef, isLoading, isFound, isEditing, isEmpty, isSaved, dispatch } =
+    useContext(CompetenciesContext) as CompetencyContextType;
 
-  const searchParams = useSearchParams();
   const [containerRef, dimensions] = useContainerDimensions();
   useDrawChart({ dimensions });
   useOutsideClick(svgRef, () =>
@@ -107,10 +102,14 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
   );
 
   useEffect(() => {
+    const isPresentation =
+      new URLSearchParams(window.location.search).get("presentation") ===
+      "true";
+
     dispatch({
       type: "setState",
       payload: {
-        isEditing: searchParams.get("presentation") ? false : isEditing,
+        isEditing: !isPresentation && isEditing,
         isFound: slug ? false : true,
       },
     });
@@ -119,7 +118,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
       fetchAndDispatchWheel(slug);
     }
 
-    setIsLoading(false);
+    dispatch({ type: "setState", payload: { isLoading: false } });
   }, [slug]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -130,6 +129,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
         className={classNames("w-screen", {
           "grid grid-cols-12 gap-0 editing mx-auto": isEditing,
         })}
+        data-testid="wheel-component"
       >
         <div
           className={classNames("relative h-screen", {

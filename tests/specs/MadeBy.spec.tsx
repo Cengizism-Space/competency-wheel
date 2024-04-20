@@ -7,7 +7,7 @@ describe("MadeBy", () => {
   test("renders MadeBy component", () => {
     render(<MadeBy />);
 
-    expect(screen.getByTestId("made-by")).toBeInTheDocument();
+    expect(screen.getByTestId("made-by-component")).toBeInTheDocument();
     expect(screen.getByText("Cengizism")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /Cengizism/i })).toHaveAttribute(
       "href",

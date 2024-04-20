@@ -54,6 +54,6 @@ describe("Landing", () => {
       </CompetenciesProvider>
     );
 
-    expect(getByTestId("made-by")).toBeInTheDocument();
+    expect(getByTestId("made-by-component")).toBeInTheDocument();
   });
 });

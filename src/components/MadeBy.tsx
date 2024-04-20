@@ -2,7 +2,7 @@ import React from "react";
 
 const MadeBy = () => {
   return (
-    <div className="absolute bottom-6 right-6" data-testid="made-by">
+    <div className="absolute bottom-6 right-6" data-testid="made-by-component">
       <a
         href="https://github.com/cengizism-Space/competency-wheel"
         rel="noreferrer"

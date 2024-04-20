@@ -67,6 +67,7 @@ export const defaultState: CompetencyContextType = {
   templates: [],
   svgRef: null as unknown as React.MutableRefObject<SVGSVGElement | null>,
   link: undefined,
+  isLoading: true,
   isFound: false,
   isExportable: false,
   isInitial: true,
