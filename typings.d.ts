@@ -14,6 +14,7 @@ export type State = {
   isEmpty: boolean;
   isSaved: boolean;
   isErrored: boolean;
+  isSaving: boolean;
   errorMessage: string;
 };
 
@@ -39,6 +40,7 @@ export interface CompetencyContextType {
   isEmpty: boolean;
   isSaved: boolean;
   isErrored: boolean;
+  isSaving: boolean;
   errorMessage: string;
 }
 

@@ -76,6 +76,7 @@ export const defaultState: CompetencyContextType = {
   isSaved: false,
   isErrored: false,
   errorMessage: "",
+  isSaving: false,
 };
 
 export const DEFAULT_CHECKOUT_MY_WHEEL = "Check out my competency wheel" as string;

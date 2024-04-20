@@ -16,11 +16,11 @@ const WheelController = () => {
     isExportable,
     link,
     isSaved,
+    isSaving,
     svgRef,
     dispatch,
   } = useContext(CompetenciesContext) as CompetencyContextType;
 
-  const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isDeleteConfirmationDialogOpen, setIsDeleteConfirmationDialogOpen] =
     useState(false);
@@ -34,7 +34,12 @@ const WheelController = () => {
 
   const handleSaveWheel = useCallback(async () => {
     try {
-      setIsSaving(true);
+      dispatch({
+        type: "setState",
+        payload: {
+          isSaving: true,
+        },
+      });
 
       const updateLink = () => {
         dispatch({
@@ -61,19 +66,18 @@ const WheelController = () => {
         payload: {
           initialWheel: wheel,
           isSaved: true,
+          isSaving: false,
         },
       });
 
-      setIsSaving(false);
       if (typeof window !== "undefined" && wheel) {
         history.replaceState({}, "", urlWithSlug);
       }
     } catch (error) {
-      setIsSaving(false);
-
       dispatch({
         type: "setState",
         payload: {
+          isSaving: false,
           isErrored: true,
           errorMessage:
             "An error occurred while saving the wheel. Please try again later.",
@@ -127,9 +131,9 @@ const WheelController = () => {
       )}
 
       {/* {!isInitial && ( */}
-        <Button onClick={handleSaveWheel} disabled={isSaving}>
-          {isSaving ? "Saving" : link ? "Update" : "Save"}
-        </Button>
+      <Button onClick={handleSaveWheel} disabled={isSaving}>
+        {isSaving ? "Saving" : link ? "Update" : "Save"}
+      </Button>
       {/* )} */}
 
       <Transition appear show={isDeleteConfirmationDialogOpen} as={Fragment}>
