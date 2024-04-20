@@ -65,7 +65,10 @@ const Title = () => {
                     autoFocus
                     className="w-fit justify-center text-center text-3xl font-bold sm:text-5xl text-gray-600 mr-8 bg-transparent focus:outline-none focus:ring-0 line-height-1 border-b border-gray-400"
                   />
-                  <Button type="submit" variant="link">
+                  <Button 
+                    type="submit" 
+                    data-testid="save-title-button"
+                    variant="link">
                     <CheckIcon className="h-4 w-4" />
                     <span className="text-sm font-medium"> Save title </span>
                   </Button>
@@ -79,7 +82,10 @@ const Title = () => {
                     {wheel.title}
                   </h1>
                   {isEditing && !isEmpty &&  (
-                    <Button onClick={handleEdit} variant="link">
+                    <Button 
+                      onClick={handleEdit} 
+                      data-testid="edit-title-button"
+                      variant="link">
                       <PencilSquareIcon className="h-4 w-4" />
                       <span className="text-sm font-medium"> Edit title </span>
                     </Button>
