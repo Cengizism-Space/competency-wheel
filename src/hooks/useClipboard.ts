@@ -5,7 +5,6 @@ export function useClipboard() {
 
   const copyToClipboard = useCallback(async (text: string) => {
     if (typeof navigator.clipboard.writeText !== 'function') {
-      console.error('Clipboard API not available');
       return;
     }
 
