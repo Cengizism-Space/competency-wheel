@@ -15,6 +15,7 @@ module.exports = {
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
     "!src/sanity/**/*.{js,jsx,ts,tsx}",
+    "!src/app/layout.tsx",
   ],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
