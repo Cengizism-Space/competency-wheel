@@ -16,6 +16,7 @@ module.exports = {
     "src/**/*.{js,jsx,ts,tsx}",
     "!src/sanity/**/*.{js,jsx,ts,tsx}",
     "!src/app/layout.tsx",
+    "!src/app/wheel/[slug]/page.tsx",
   ],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
