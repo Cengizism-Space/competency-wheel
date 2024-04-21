@@ -3,15 +3,19 @@ import { ShareData } from '../../typings';
 
 export function useWebShare() {
   const share = useCallback(async ({ title, text, url }: ShareData) => {
+    /* istanbul ignore next */
     if (typeof navigator.share !== 'function') {
-      console.error('Web Share API not available');
+      // TODO: Hook to error reporting service <Alert>
+      //       Web Share API not available
       return;
     }
 
     try {
       await navigator.share({ title, text, url });
     } catch (err) {
-      console.error('Failed to share: ', err);
+      // TODO: Hook to error reporting service <Alert>
+      //       'Failed to share: ', err
+      // console.error('Failed to share: ', err);
     }
   }, []);
 
