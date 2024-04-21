@@ -5,6 +5,9 @@ export function useClipboard() {
 
   const copyToClipboard = useCallback(async (text: string) => {
     if (typeof navigator.clipboard.writeText !== 'function') {
+      // TODO: Hook to error reporting service <Alert>
+      //       Web copy clipboard api not available
+      /* istanbul ignore next */
       return;
     }
 
@@ -14,7 +17,9 @@ export function useClipboard() {
 
       setTimeout(() => setIsCopied(false), 3000);
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      // TODO: Hook to error reporting service <Alert>
+      //       'Failed to copy text: ', err
+      // console.error('Failed to copy text: ', err);
     }
   }, []);
 

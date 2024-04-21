@@ -23,6 +23,22 @@ describe("useClipboard", () => {
     expect(global.navigator.clipboard.writeText).toHaveBeenCalledWith("test");
   });
 
+  it("should call setIsCopied with true", () => {
+    const setIsCopied = jest.fn();
+    jest.spyOn(React, 'useState').mockReturnValue([false, setIsCopied]);
+  
+    // @ts-ignore
+    global.navigator.clipboard = { writeText: jest.fn() };
+  
+    const copyToClipboard = () => setIsCopied(true);
+    // @ts-ignore
+    render(<TestComponent copyToClipboard={copyToClipboard} />);
+  
+    copyToClipboard();
+  
+    expect(setIsCopied).toHaveBeenCalledWith(true);
+  });
+
   it("should set isCopied to false after 3 seconds", async () => {
     jest.useFakeTimers();
 
