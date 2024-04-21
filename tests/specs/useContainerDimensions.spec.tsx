@@ -40,4 +40,34 @@ describe("useContainerDimensions", () => {
 
     expect(getByText("Width: 100, Height: 200")).toBeInTheDocument();
   });
+
+  it("should handle ResizeObserver disconnect", () => {
+    const disconnect = jest.fn();
+
+    // @ts-ignore
+    global.ResizeObserver = class ResizeObserver {
+      // @ts-ignore
+      constructor(callback) {
+        // @ts-ignore
+        this.callback = callback;
+      }
+      observe() {
+        // @ts-ignore
+        this.callback([
+          {
+            contentRect: {
+              width: 100,
+              height: 200,
+            },
+          },
+        ]);
+      }
+      disconnect = disconnect;
+    };
+
+    const { unmount } = render(<TestComponent />);
+    unmount();
+
+    expect(disconnect).toHaveBeenCalled();
+  });
 });

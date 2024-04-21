@@ -9,8 +9,9 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
   const { wheel, svgRef, activeIndex, isEditing, isFound, isEmpty, dispatch } = useContext(CompetenciesContext) as CompetencyContextType;
 
   const drawChart = (competencies: CompetencyType[], palette: string[]) => {
-    const svg = svgRef.current ? d3.select(svgRef.current) : null;
-    if (!svg || !isFound) return;
+    if (!svgRef.current || !isFound) return;
+
+    const svg = d3.select(svgRef.current);
 
     svg.selectAll("*").remove();
 
@@ -32,6 +33,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
       .attr("width", width)
       .attr("height", height)
       .attr("fill", "transparent")
+      // @ts-ignore
       .on("click", () => dispatch({ type: "setState", payload: { activeIndex: null } }));
 
     let totalRating = competencies.reduce((a, b) => a + b.value, 0);
@@ -93,6 +95,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
         .attr("fill", palette[i])
         .attr("stroke", "white")
         .attr("stroke-width", 1)
+        // @ts-ignore
         .on("click",
           () => isEditing && wheel.competencies.length > 0 ?
             dispatch({
@@ -155,6 +158,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
           )
           .text(word);
 
+        // @ts-ignore
         const computedTextLength = tspan.node()?.getComputedTextLength();
         if (computedTextLength) {
           textWidth = Math.max(textWidth, computedTextLength);
@@ -179,7 +183,9 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
         .style("text-anchor", "middle");
     });
 
+    // @ts-ignore
     arcs.forEach(arc => svg.node()?.appendChild(arc.node()));
+    // @ts-ignore
     labels.forEach(label => svg.node()?.appendChild(label.node()));
 
     competencies.length > 0 && svg
@@ -190,6 +196,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
       .attr("fill", "rgba(235, 235, 235)")
       .attr("stroke", "white")
       .attr("stroke-width", 1)
+      // @ts-ignore
       .on("click", () => dispatch({ type: "setState", payload: { activeIndex: null } }));
   };
 
