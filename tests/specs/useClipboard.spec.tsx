@@ -15,6 +15,7 @@ const TestComponent = () => {
 
 describe("useClipboard", () => {
   it("should copy text to clipboard and set isCopied to true", async () => {
+    // @ts-ignore
     global.navigator.clipboard = { writeText: jest.fn() };
     const { findByText } = render(<TestComponent />);
 
@@ -25,6 +26,7 @@ describe("useClipboard", () => {
   it("should set isCopied to false after 3 seconds", async () => {
     jest.useFakeTimers();
 
+    // @ts-ignore
     global.navigator.clipboard = { writeText: jest.fn() };
     const { findByText } = render(<TestComponent />);
 
@@ -34,6 +36,7 @@ describe("useClipboard", () => {
   });
 
   it("should handle clipboard API not available", () => {
+    // @ts-ignore
     global.navigator.clipboard = {};
     const { queryByText } = render(<TestComponent />);
 
