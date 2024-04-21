@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import InputField from "../../src/components/InputField";
+import InputField from "../../../src/components/InputField";
 
 describe("InputField", () => {
   it("renders the label", () => {

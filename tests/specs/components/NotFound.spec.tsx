@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import NotFound from "../../src/components/NotFound";
+import NotFound from "../../../src/components/NotFound";
 
 describe("NotFound component", () => {
   it("renders without crashing", () => {

@@ -1,8 +1,8 @@
 import React from "react";
 import { render, fireEvent, within, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Help from "../../src/components/Help";
-import { scaleValues } from "../../src/constants";
+import Help from "../../../src/components/Help";
+import { scaleValues } from "../../../src/constants";
 
 describe("Help component", () => {
   it("renders without crashing", () => {

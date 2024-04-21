@@ -9,11 +9,11 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
-import WheelController from "../../src/components/WheelController";
-import { defaultState, DEFAULT_WHEEL } from "../../src/constants";
+import WheelController from "../../../src/components/WheelController";
+import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
 
 jest.mock("@/hooks/useExportToPng", () => () => jest.fn());
-jest.mock("../../sanity/client", () => ({
+jest.mock("../../../sanity/client", () => ({
   saveWheel: jest.fn(),
   updateWheel: jest.fn(),
   deleteWheel: jest.fn(),
@@ -45,7 +45,9 @@ describe("WheelController", () => {
       dispatch: mockDispatch,
     };
 
+  // @ts-ignore
   delete window.location;
+  // @ts-ignore
   window.location = { assign: jest.fn() };
 
   it("renders without crashing", async () => {

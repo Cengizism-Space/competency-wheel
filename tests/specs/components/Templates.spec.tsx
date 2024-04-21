@@ -2,16 +2,16 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
-import Templates from "../../src/components/Templates";
-import { defaultState } from "../../src/constants";
+import Templates from "../../../src/components/Templates";
+import { defaultState } from "../../../src/constants";
 // import { waitFor } from "@testing-library/react";
 
-jest.mock('../../sanity/client');
+jest.mock('../../../sanity/client');
 
 // import { fetchTemplates } from "../../sanity/client";
 
 describe("Templates component", () => {
-  jest.mock('../../sanity/client', () => ({
+  jest.mock('../../../sanity/client', () => ({
     fetchTemplates: jest.fn(() => Promise.resolve([
       {
         title: "Template 1",

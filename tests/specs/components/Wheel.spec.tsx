@@ -3,16 +3,16 @@ import { render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
 // import { CompetenciesReducer } from "../../src/reducer";
-import Wheel from "../../src/components/Wheel";
-import { defaultState, DEFAULT_WHEEL } from "../../src/constants";
-import useDrawChart from "../../src/hooks/useDrawChart";
-import { fetchWheel } from "../../sanity/client";
+import Wheel from "../../../src/components/Wheel";
+import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
+import useDrawChart from "../../../src/hooks/useDrawChart";
+import { fetchWheel } from "../../../sanity/client";
 
-jest.mock("../../sanity/client", () => ({
+jest.mock("../../../sanity/client", () => ({
   fetchWheel: jest.fn(),
 }));
 
-jest.mock("../../src/hooks/useDrawChart", () => ({
+jest.mock("../../../src/hooks/useDrawChart", () => ({
   __esModule: true,
   default: jest.fn(),
 }));

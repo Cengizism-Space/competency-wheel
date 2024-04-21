@@ -1,10 +1,10 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { CompetenciesContext } from "@/context";
-import LinkAndShare from "../../src/components/LinkAndShare";
+import LinkAndShare from "../../../src/components/LinkAndShare";
 import { useWebShare } from "@/hooks/useWebShare";
 import { useClipboard } from "@/hooks/useClipboard";
-import { defaultState, DEFAULT_WHEEL } from "../../src/constants";
+import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
 
 declare global {
   interface Navigator {

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { useWebShare } from "../../src/hooks/useWebShare";
+import { useWebShare } from "../../../src/hooks/useWebShare";
 
 describe("useWebShare", () => {
   it("calls navigator.share when share is called", () => {

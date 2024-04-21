@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { useClipboard } from "../../src/hooks/useClipboard";
+import { useClipboard } from "../../../src/hooks/useClipboard";
 
 const TestComponent = () => {
   const { isCopied, copyToClipboard } = useClipboard();

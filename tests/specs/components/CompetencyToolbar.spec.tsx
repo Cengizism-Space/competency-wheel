@@ -2,8 +2,8 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
-import CompetencyToolbar from "../../src/components/CompetencyToolbar";
-import { defaultState, DEFAULT_WHEEL } from "../../src/constants";
+import CompetencyToolbar from "../../../src/components/CompetencyToolbar";
+import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
 
 describe("CompetencyToolbar", () => {
   const mockDispatch = jest.fn(),

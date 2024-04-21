@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import useContainerDimensions from "../../src/hooks/useContainerDimensions";
+import useContainerDimensions from "../../../src/hooks/useContainerDimensions";
 
 // @ts-ignore
 global.ResizeObserver = class ResizeObserver {

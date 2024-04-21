@@ -4,8 +4,8 @@ import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
 import ModeSwitcher, {
   ModeSwitcherButton,
-} from "../../src/components//ModeSwitcher";
-import { defaultState, DEFAULT_WHEEL } from "../../src/constants";
+} from "../../../src/components/ModeSwitcher";
+import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
 
 describe("ModeSwitcherButton", () => {
   test("renders ModeSwitcherButton component", () => {

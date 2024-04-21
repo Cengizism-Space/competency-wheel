@@ -2,8 +2,8 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
-import Competency from "../../src/components/Competency";
-import { defaultState, DEFAULT_WHEEL } from "../../src/constants";
+import Competency from "../../../src/components/Competency";
+import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
 
 describe("Competency", () => {
   const mockDispatch = jest.fn(),

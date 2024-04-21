@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Landing from "../../src/components/Landing";
-import { CompetenciesProvider } from "../../src/context";
+import Landing from "../../../src/components/Landing";
+import { CompetenciesProvider } from "../../../src/context";
 
 describe("Landing", () => {
   it("renders the title", () => {
