@@ -39,11 +39,12 @@ describe("Competency", () => {
   });
 
   it("renders elements", () => {
-    const { getByLabelText, getByText, getAllByLabelText, getByTestId } = render(
-      <CompetenciesContext.Provider value={mockContext}>
-        <Competency />
-      </CompetenciesContext.Provider>
-    );
+    const { getByLabelText, getByText, getAllByLabelText, getByTestId } =
+      render(
+        <CompetenciesContext.Provider value={mockContext}>
+          <Competency />
+        </CompetenciesContext.Provider>
+      );
 
     expect(getByLabelText("Title")).toBeInTheDocument();
     expect(getByLabelText("Description (Optional)")).toBeInTheDocument();
@@ -120,6 +121,22 @@ describe("Competency", () => {
     expect(mockDispatch).not.toHaveBeenCalled();
   });
 
+  it("sets an error when title is empty", () => {
+    const { getByTestId } = render(
+      <CompetenciesContext.Provider value={mockContext}>
+        <Competency />
+      </CompetenciesContext.Provider>
+    );
+  
+    const titleInput = getByTestId("competency-title-input");
+    fireEvent.change(titleInput, { target: { value: " " } });
+  
+    fireEvent.click(getByTestId("competency-submit-button"));
+  
+    expect(getByTestId("error-message").textContent).toBe("Competency name cannot be empty");
+    expect(mockDispatch).not.toHaveBeenCalled();
+  });
+
   it("handles description change", () => {
     const { getByLabelText } = render(
       <CompetenciesContext.Provider value={mockContext}>
@@ -130,7 +147,10 @@ describe("Competency", () => {
     fireEvent.change(getByLabelText("Description (Optional)"), {
       target: { value: "New Description" },
     });
-    expect(mockDispatch).toHaveBeenCalled();
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "updateCompetency",
+      payload: expect.any(Function),
+    });
   });
 
   it("handles description change when competencies length is 0", () => {
@@ -154,16 +174,16 @@ describe("Competency", () => {
     expect(mockDispatch).not.toHaveBeenCalled();
   });
 
-  it('toggles improvement on button click', () => {
+  it("toggles improvement on button click", () => {
     const { getByTestId } = render(
       <CompetenciesContext.Provider value={mockContext}>
         <Competency />
       </CompetenciesContext.Provider>
     );
-  
-    fireEvent.click(getByTestId('improvement-button'));
+
+    fireEvent.click(getByTestId("improvement-button"));
     expect(mockDispatch).toHaveBeenCalledWith({
-      type: 'updateCompetency',
+      type: "updateCompetency",
       payload: expect.any(Function),
     });
   });
@@ -179,7 +199,26 @@ describe("Competency", () => {
     ) as HTMLInputElement;
 
     fireEvent.change(input, { target: { value: "7" } });
-    expect(mockDispatch).toHaveBeenCalled();
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "updateCompetency",
+      payload: expect.any(Function),
+    });
+  });
+
+  it("handles competency value adjustment when activeIndex is null", () => {
+    const { getByTestId } = render(
+      <CompetenciesContext.Provider
+        value={{
+          ...mockContext,
+          activeIndex: null,
+        }}
+      >
+        <Competency />
+      </CompetenciesContext.Provider>
+    );
+  
+    fireEvent.click(getByTestId("increase-value-button"));
+    expect(mockDispatch).not.toHaveBeenCalled();
   });
 
   it("handles value decrease", () => {
@@ -189,7 +228,7 @@ describe("Competency", () => {
       </CompetenciesContext.Provider>
     );
 
-    fireEvent.click(getByTestId("decrease-button"));
+    fireEvent.click(getByTestId("decrease-value-button"));
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "updateCompetency",
       payload: expect.any(Function),
@@ -203,7 +242,7 @@ describe("Competency", () => {
       </CompetenciesContext.Provider>
     );
 
-    fireEvent.click(getByTestId("increase-button"));
+    fireEvent.click(getByTestId("increase-value-button"));
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "updateCompetency",
       payload: expect.any(Function),

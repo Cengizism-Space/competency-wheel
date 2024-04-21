@@ -60,6 +60,7 @@ describe("InputField", () => {
         value=""
         onChange={jest.fn()}
         type="number"
+        dataTestId="input-field"
       />
     );
 
@@ -76,6 +77,7 @@ describe("InputField", () => {
         onChange={jest.fn()}
         min={1}
         max={10}
+        dataTestId="input-field"
       />
     );
 
