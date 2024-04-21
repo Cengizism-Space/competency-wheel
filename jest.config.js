@@ -11,6 +11,11 @@ module.exports = {
   setupFilesAfterEnv: [],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   testEnvironment: "jest-environment-jsdom",
+  testPathIgnorePatterns: ["/sanity/", "/node_modules/", "/dist/", "/.next"],
+  collectCoverageFrom: [
+    "src/**/*.{js,jsx,ts,tsx}",
+    "!src/sanity/**/*.{js,jsx,ts,tsx}",
+  ],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
