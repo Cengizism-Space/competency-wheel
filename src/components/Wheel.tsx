@@ -34,7 +34,7 @@ const Competency = lazy(() => import("./Competency"));
 const WheelController = lazy(() => import("./WheelController"));
 const LinkAndShare = lazy(() => import("./LinkAndShare"));
 
-const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug }) => {
+const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug = null }) => {
   const {
     svgRef,
     wheel,
