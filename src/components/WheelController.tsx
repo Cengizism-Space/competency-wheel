@@ -187,7 +187,7 @@ const WheelController = () => {
                   </div>
                   <button
                     className="absolute top-5 right-5 text-gray-600 hover:text-gray-500 focus:outline-none"
-                    data-testid="close-dialog-button"
+                    data-testid="close-delete-dialog-button"
                     onClick={() => setIsDeleteConfirmationDialogOpen(false)}
                   >
                     <XMarkIcon className="h-6 w-6" />

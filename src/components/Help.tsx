@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Button from "./Button";
 import { scaleValues } from "../constants";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const Help = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -97,6 +98,13 @@ const Help = () => {
                       Got it, thanks!
                     </button>
                   </div>
+                  <button
+                    className="absolute top-5 right-5 text-gray-600 hover:text-gray-500 focus:outline-none"
+                    data-testid="close-help-dialog-button"
+                    onClick={closeModal}
+                  >
+                    <XMarkIcon className="h-6 w-6" />
+                  </button>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

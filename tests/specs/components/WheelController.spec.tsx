@@ -268,7 +268,7 @@ describe("WheelController", () => {
     const dialog = screen.getByRole("dialog");
     expect(dialog).toBeInTheDocument();
 
-    const closeDialogButton = within(dialog).getByTestId("close-dialog-button");
+    const closeDialogButton = within(dialog).getByTestId("close-delete-dialog-button");
     fireEvent.click(closeDialogButton);
     await waitFor(() => expect(dialog).not.toBeInTheDocument());
   });

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent, within, act } from "@testing-library/react";
+import { render, fireEvent, within, act, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Help from "../../../src/components/Help";
 import { scaleValues } from "../../../src/constants";
@@ -19,18 +19,20 @@ describe("Help component", () => {
     expect(getByText("Competency scale values")).toBeInTheDocument();
   });
 
-  // TODO: Fix this test
-  // it("closes the modal when the close button is clicked", async () => {
-  //   const { getByText, queryByText, findByTestId } = render(<Help />);
+  it("closes the modal when the close button is clicked", async () => {
+    const { getByText, getByRole } = render(<Help />);
 
-  //   await act(async () => {
-  //     fireEvent.click(getByText("How are the scale values calculated?"));
-  //     const closeButton = await findByTestId("close-button", {});
-  //     fireEvent.click(closeButton);
-  //   });
+    await act(async () => {
+      fireEvent.click(getByText("How are the scale values calculated?"));
+    });
 
-  //   expect(queryByText("Competency scale values")).not.toBeInTheDocument();
-  // });
+    const dialog = getByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+
+    const closeDialogButton = within(dialog).getByTestId("close-help-dialog-button");
+    fireEvent.click(closeDialogButton);
+    await waitFor(() => expect(dialog).not.toBeInTheDocument());
+  });
 
   it("renders the scale values correctly", async () => {
     const { getByText, getAllByRole } = render(<Help />);
