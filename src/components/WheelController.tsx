@@ -6,7 +6,7 @@ import { saveWheel, updateWheel, deleteWheel } from "../../sanity/client";
 import Button from "@/components/Button";
 import useExportToPng from "@/hooks/useExportToPng";
 import { PhotoIcon } from "@heroicons/react/24/solid";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const WheelController = () => {
   const {
@@ -180,10 +180,18 @@ const WheelController = () => {
                       onClick={handleDeleteWheel}
                       disabled={isDeleting}
                       variant="danger"
+                      data-testid="delete-confirmation-button"
                     >
                       {isDeleting ? "Deleting" : "Got it, delete it!"}
                     </Button>
                   </div>
+                  <button
+                    className="absolute top-5 right-5 text-gray-600 hover:text-gray-500 focus:outline-none"
+                    data-testid="close-dialog-button"
+                    onClick={() => setIsDeleteConfirmationDialogOpen(false)}
+                  >
+                    <XMarkIcon className="h-6 w-6" />
+                  </button>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

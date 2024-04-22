@@ -11,6 +11,7 @@ import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
 import WheelController from "../../../src/components/WheelController";
 import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
+import { saveWheel, updateWheel } from "../../../sanity/client";
 
 jest.mock("@/hooks/useExportToPng", () => () => jest.fn());
 jest.mock("../../../sanity/client", () => ({
@@ -173,53 +174,102 @@ describe("WheelController", () => {
     expect(savingButton).toBeInTheDocument();
   });
 
-  // TODO: Fix this test
-  it("opens the delete confirmation dialog when confirmation button is clicked, starts deleting", async () => {
+  it("calls saveWheel and updates link when link is not present", async () => {
+    const mockContextWithoutLink = {
+      ...mockContext,
+      link: "",
+    };
+
     await act(async () => {
       render(
-        <CompetenciesContext.Provider value={mockContext}>
+        <CompetenciesContext.Provider value={mockContextWithoutLink}>
           <WheelController />
         </CompetenciesContext.Provider>
       );
     });
 
-    const deleteButton = screen.getByText("Delete wheel");
+    const saveButton = screen.getByText("Save");
+    await act(async () => {
+      fireEvent.click(saveButton);
+    });
+
+    expect(saveWheel).toHaveBeenCalled();
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "setState",
+      payload: {
+        link: "undefined/wheel/test-wheel",
+      },
+    });
+  });
+
+  it("calls updateWheel and updates link when wheel slug changes", async () => {
+    const mockContextWithChangedSlug = {
+      ...mockContext,
+      wheel: {
+        ...mockContext.wheel,
+        slug: { _type: "slug" as "slug", current: "new-wheel" },
+      },
+    };
 
     await act(async () => {
-      fireEvent.click(deleteButton);
+      render(
+        <CompetenciesContext.Provider value={mockContextWithChangedSlug}>
+          <WheelController />
+        </CompetenciesContext.Provider>
+      );
     });
+
+    const saveButton = screen.getByText("Save");
+    await act(async () => {
+      fireEvent.click(saveButton);
+    });
+
+    expect(updateWheel).toHaveBeenCalled();
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "setState",
+      payload: {
+        link: "undefined/wheel/new-wheel",
+      },
+    });
+  });
+
+  it("opens the delete confirmation dialog when confirmation button is clicked, starts deleting", async () => {
+    render(
+      <CompetenciesContext.Provider value={mockContext}>
+        <WheelController />
+      </CompetenciesContext.Provider>
+    );
+
+    const deleteButton = screen.getByText("Delete wheel");
+    fireEvent.click(deleteButton);
 
     const dialog = screen.getByRole("dialog");
     expect(dialog).toBeInTheDocument();
 
-    // await act(async () => {
-    //   const closeButton = within(dialog).getByRole("button", {
-    //     name: /Got it, delete it!/i,
-    //   });
+    const deleteConfirmationButton = within(dialog).getByTestId(
+      "delete-confirmation-button"
+    );
+    fireEvent.click(deleteConfirmationButton);
 
-    //   fireEvent.click(closeButton);
-    // });
-
-    // const deletingText = await screen.findByText("Deleting");
-    // expect(deletingText).toBeInTheDocument();
+    const deletingText = await screen.findByText("Deleting");
+    expect(deletingText).toBeInTheDocument();
   });
 
-  // it("closes the delete confirmation dialog when clicked outside of the dialog", async () => {
-  //   render(
-  //     <CompetenciesContext.Provider value={mockContext}>
-  //       <WheelController />
-  //     </CompetenciesContext.Provider>
-  //   );
+  it("closes the delete confirmation dialog when clicked outside of the dialog", async () => {
+    render(
+      <CompetenciesContext.Provider value={mockContext}>
+        <WheelController />
+      </CompetenciesContext.Provider>
+    );
 
-  //   const deleteButton = screen.getByText("Delete wheel");
-  //   fireEvent.click(deleteButton);
+    const deleteButton = screen.getByText("Delete wheel");
+    fireEvent.click(deleteButton);
 
-  //   const dialog = screen.getByRole("dialog");
-  //   expect(dialog).toBeInTheDocument();
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toBeInTheDocument();
 
-  //   const overlay = await waitFor(() => document.querySelector('.fixed.inset-0.bg-black\\2f25'));
-  //   fireEvent.click(overlay);
-
-  //   await waitFor(() => expect(dialog).not.toBeInTheDocument());
-  // });
+    const closeDialogButton = within(dialog).getByTestId("close-dialog-button");
+    fireEvent.click(closeDialogButton);
+    await waitFor(() => expect(dialog).not.toBeInTheDocument());
+  });
 });
