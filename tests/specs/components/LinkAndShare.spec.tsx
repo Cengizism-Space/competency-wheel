@@ -1,5 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
 import LinkAndShare from "../../../src/components/LinkAndShare";
 import { useWebShare } from "@/hooks/useWebShare";
@@ -12,6 +13,8 @@ declare global {
     share?: (data?: any) => Promise<void>;
   }
 }
+
+global.navigator.share = jest.fn();
 
 jest.mock("@/hooks/useWebShare", () => ({
   __esModule: true,
@@ -66,41 +69,48 @@ describe("LinkAndShare", () => {
     delete global.navigator.share;
   });
 
-  // it("renders the share button if navigator.share is available", () => {
-  //   global.navigator.share = jest.fn();
+  it("renders the copy button if navigator.share is not available", () => {
+    const { getByTestId } = render(
+      <CompetenciesContext.Provider value={mockContext}>
+        <LinkAndShare />
+      </CompetenciesContext.Provider>
+    );
 
-  //   const { getByTestId } = render(
-  //     <CompetenciesContext.Provider value={mockContext}>
-  //       <LinkAndShare />
-  //     </CompetenciesContext.Provider>
-  //   );
+    expect(getByTestId("copy-button")).toBeInTheDocument();
+  });
 
-  //   expect(getByTestId("share-button")).toBeInTheDocument();
+  it("renders the share button if navigator.share is available", () => {
+    const shareSpy = jest.spyOn(navigator, 'share').mockImplementation(() => Promise.resolve());
 
-  //   delete global.navigator.share;
-  // });
+    const { getByTestId } = render(
+      <CompetenciesContext.Provider value={{
+        ...mockContext,
+        link: 'https://example.com',
+      }}>
+        <LinkAndShare />
+      </CompetenciesContext.Provider>
+    );
 
-  // it("renders the copy button if navigator.share is not available", () => {
-  //   const { getByTestId } = render(
-  //     <CompetenciesContext.Provider value={mockContext}>
-  //       <LinkAndShare />
-  //     </CompetenciesContext.Provider>
-  //   );
+    expect(getByTestId("share-button")).toBeInTheDocument();
+    shareSpy.mockRestore();
+  });
 
-  //   expect(getByTestId("copy-button")).toBeInTheDocument();
-  // });
+  it("calls the share function when the share button is clicked", () => {
+    const shareSpy = jest.spyOn(navigator, 'share').mockImplementation(() => Promise.resolve());
 
-  // it("calls the share function when the share button is clicked", () => {
-  //   const { getByTestId } = render(
-  //     <CompetenciesContext.Provider value={mockContext}>
-  //       <LinkAndShare />
-  //     </CompetenciesContext.Provider>
-  //   );
+    const { getByTestId } = render(
+      <CompetenciesContext.Provider value={{
+        ...mockContext,
+        link: 'https://example.com',
+      }}>
+        <LinkAndShare />
+      </CompetenciesContext.Provider>
+    );
 
-  //   fireEvent.click(getByTestId("share-button"));
-
-  //   expect(mockShare).toHaveBeenCalled();
-  // });
+    fireEvent.click(getByTestId("share-button"));
+    expect(mockShare).toHaveBeenCalled();
+    shareSpy.mockRestore();
+  });
 
   it("calls the copy function when the copy button is clicked", () => {
     const { getByTestId } = render(
