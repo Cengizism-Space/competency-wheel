@@ -25,6 +25,13 @@ const Competency: React.FC = () => {
   const [improvement, setImprovement] = useState(false);
   const [error, setError] = useState("");
 
+  const clearForm = useCallback(() => {
+    setTitle("");
+    setValue(5);
+    setImprovement(false);
+    setDescription("");
+  }, []);
+
   useEffect(() => {
     if (activeIndex !== null) {
       const activeCompetency = wheel.competencies[activeIndex];
@@ -38,13 +45,13 @@ const Competency: React.FC = () => {
       /* istanbul ignore next */
       clearForm();
     }
-  }, [activeIndex, wheel]);
+  }, [activeIndex, wheel, clearForm]);
 
   const handleCompetencyTitleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const trimmedTitle = event.target.value.trim();
       setTitle(trimmedTitle);
-  
+
       if (trimmedTitle && wheel.competencies.length > 0) {
         /* istanbul ignore next */
         dispatch({
@@ -103,7 +110,7 @@ const Competency: React.FC = () => {
   const handleCompetencyDescriptionChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       setDescription(event.target.value);
-  
+
       if (wheel.competencies.length > 0) {
         /* istanbul ignore next */
         dispatch({
@@ -119,8 +126,8 @@ const Competency: React.FC = () => {
   );
 
   const handleImprovementToggle = useCallback(() => {
-    setImprovement(prev => !prev);
-  
+    setImprovement((prev) => !prev);
+
     if (wheel.competencies.length > 0) {
       /* istanbul ignore next */
       dispatch({
@@ -132,13 +139,6 @@ const Competency: React.FC = () => {
       });
     }
   }, [wheel, dispatch, improvement]);
-
-  const clearForm = useCallback(() => {
-    setTitle("");
-    setValue(5);
-    setImprovement(false);
-    setDescription("");
-  }, []);
 
   // TODO: Some funtions are reduntant, but I'm keeping them for now
   const handleCompetencyAddOrUpdate = useCallback(() => {
@@ -220,10 +220,12 @@ const Competency: React.FC = () => {
           />
 
           {error && (
-            <p 
+            <p
               className="text-sm text-red-500 leading-none mb-4"
               data-testid="error-message"
-              >{error}</p>
+            >
+              {error}
+            </p>
           )}
 
           <InputField
@@ -281,7 +283,10 @@ const Competency: React.FC = () => {
               htmlFor="competencyValue"
               className="text-left block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
             >
-              <span data-testid="scale-of-label" className="text-xs font-medium text-gray-700">
+              <span
+                data-testid="scale-of-label"
+                className="text-xs font-medium text-gray-700"
+              >
                 Scale of
               </span>
               <div className="flex items-center gap-1">
@@ -317,11 +322,11 @@ const Competency: React.FC = () => {
             </label>
           </div>
 
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             onClick={handleCompetencyAddOrUpdate}
             data-testid="competency-submit-button"
-            >
+          >
             {activeIndex !== null ? "Update" : "Add"}
           </Button>
         </form>

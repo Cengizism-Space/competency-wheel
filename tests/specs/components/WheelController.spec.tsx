@@ -84,18 +84,6 @@ describe("WheelController", () => {
     expect(screen.getByText("Delete wheel")).toBeInTheDocument();
   });
 
-  it('renders "Update" button when isInitial is false', async () => {
-    await act(async () => {
-      render(
-        <CompetenciesContext.Provider value={mockContext}>
-          <WheelController />
-        </CompetenciesContext.Provider>
-      );
-    });
-
-    expect(screen.getByText("Update")).toBeInTheDocument();
-  });
-
   it('renders "Delete wheel" button and opens confirmation dialog when clicked', async () => {
     await act(async () => {
       render(
@@ -185,12 +173,6 @@ describe("WheelController", () => {
     expect(savingButton).toBeInTheDocument();
   });
 
-  // it('renders "Update" when "link" is provided', () => {
-  //   render(<WheelController link="test-link" />);
-  //   const updateButton = screen.getByText('Update');
-  //   expect(updateButton).toBeInTheDocument();
-  // });
-
   // TODO: Fix this test
   it("opens the delete confirmation dialog when confirmation button is clicked, starts deleting", async () => {
     await act(async () => {
@@ -217,7 +199,7 @@ describe("WheelController", () => {
 
     //   fireEvent.click(closeButton);
     // });
-    
+
     // const deletingText = await screen.findByText("Deleting");
     // expect(deletingText).toBeInTheDocument();
   });

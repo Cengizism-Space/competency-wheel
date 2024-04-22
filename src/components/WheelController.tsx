@@ -12,7 +12,6 @@ const WheelController = () => {
   const {
     wheel,
     initialWheel,
-    isInitial,
     isExportable,
     link,
     isSaved,
@@ -130,11 +129,9 @@ const WheelController = () => {
         </div>
       )}
 
-      {/* {!isInitial && ( */}
       <Button onClick={handleSaveWheel} disabled={isSaving}>
-        {isSaving ? "Saving" : link ? "Update" : "Save"}
+        {isSaving ? "Saving" : "Save"}
       </Button>
-      {/* )} */}
 
       <Transition appear show={isDeleteConfirmationDialogOpen} as={Fragment}>
         <Dialog

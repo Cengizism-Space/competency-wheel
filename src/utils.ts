@@ -1,5 +1,6 @@
 import slugify from 'slugify';
-import { TemplateWithRandomCompetenciesType } from '../typings';
+import { TemplateWithRandomCompetenciesType, WheelType } from '../typings';
+import { isEqual } from "lodash";
 
 export const createSlug = (input: string): string => {
   const now = Math.floor(Date.now() / 1000);
@@ -27,3 +28,11 @@ export const randomizeCompetencies = (templates: TemplateWithRandomCompetenciesT
     };
   });
 };
+
+export function defineWheelStates(wheel: WheelType, initialWheel: WheelType | null) {
+  const isExportable = wheel.title.length > 0 && wheel.competencies.length > 0;
+  const isInitial = isEqual(wheel, initialWheel);
+  const isEmpty = wheel.competencies.length === 0;
+
+  return { isExportable, isInitial, isEmpty };
+}

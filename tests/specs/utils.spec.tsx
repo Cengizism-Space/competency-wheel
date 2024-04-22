@@ -2,9 +2,11 @@ import {
   createSlug,
   degreesToRadians,
   randomizeCompetencies,
+  defineWheelStates,
 } from "../../src/utils";
 import slugify from "slugify";
 import { TemplateWithRandomCompetenciesType } from "../../typings";
+import { DEFAULT_WHEEL } from "@/constants";
 
 jest.mock("slugify");
 
@@ -69,6 +71,39 @@ describe("Utils", () => {
       expect(randomizedTemplates[0].randomCompetencies.split(", ").length).toBe(
         3
       );
+    });
+  });
+
+  describe("defineWheelStates", () => {
+    it("should return the correct states", () => {
+      const wheel = {
+        ...DEFAULT_WHEEL,
+        title: "Test Wheel",
+        competencies: [
+          {
+            title: "Test",
+            value: 5,
+            improvement: false,
+            description: "Test description",
+          },
+        ],
+      };
+      const initialWheel = {
+        ...DEFAULT_WHEEL,
+        title: "Test Wheel",
+        competencies: [
+          {
+            title: "Test",
+            value: 5,
+            improvement: false,
+            description: "Test description",
+          },
+        ],
+      };
+      const states = defineWheelStates(wheel, initialWheel);
+      expect(states.isExportable).toBe(true);
+      expect(states.isInitial).toBe(true);
+      expect(states.isEmpty).toBe(false);
     });
   });
 });

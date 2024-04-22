@@ -2,11 +2,12 @@ import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { CompetenciesContext } from "@/context";
-// import { CompetenciesReducer } from "../../src/reducer";
 import Wheel from "../../../src/components/Wheel";
 import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
 import useDrawChart from "../../../src/hooks/useDrawChart";
 import { fetchWheel } from "../../../sanity/client";
+import { CompetenciesReducer } from "@/reducer";
+import { defineWheelStates } from "../../../src/utils";
 
 jest.mock("../../../sanity/client", () => ({
   fetchWheel: jest.fn(),
@@ -218,29 +219,76 @@ describe("Wheel", () => {
     expect(screen.getByTestId("reset-button-component")).toBeInTheDocument();
   });
 
-  // it("sets and dispatches isExportable correctly", () => {
-  //   const newState = CompetenciesReducer(defaultState, {
-  //     type: "setState",
-  //     payload: {
-  //       ...defaultState,
-  //       wheel: {
-  //         ...defaultState.wheel,
-  //         title: "Test Title",
-  //         competencies: []
-  //         // [
-  //         //   {
-  //         //     title: "Test Competency",
-  //         //     description: "Test Description",
-  //         //     value: 1,
-  //         //     improvement: true,
-  //         //   },
-  //         // ],
-  //       },
-  //     },
-  //   });
+  it("sets wheel and initialWheel first and defines wheel states correctly", () => {
+    const newState = CompetenciesReducer(defaultState, {
+      type: "setState",
+      payload: {
+        ...defaultState,
+        wheel: {
+          ...defaultState.wheel,
+          title: "Test Title",
+          competencies: [
+            {
+              title: "Test Competency",
+              description: "Test Description",
+              value: 1,
+              improvement: true,
+            },
+          ],
+        },
+        initialWheel: {
+          ...defaultState.wheel,
+          title: "",
+          competencies: [],
+        },
+      },
+    });
 
-  //   expect(newState.isEmpty).toBe(true);
-  // });
+    const { isExportable, isInitial, isEmpty } = defineWheelStates(
+      newState.wheel,
+      newState.initialWheel
+    );
 
+    expect(isExportable).toBe(true);
+    expect(isInitial).toBe(false);
+    expect(isEmpty).toBe(false);
+  });
 
+  it('renders LinkAndShare when "lisSaved" is true', async () => {
+    await act(async () => {
+      render(
+        <CompetenciesContext.Provider
+          value={{
+            ...mockContext,
+            isSaved: true,
+          }}
+        >
+          <Wheel slug="test-slug" />
+        </CompetenciesContext.Provider>
+      );
+    });
+
+    let copyButton, shareButton;
+    try {
+      copyButton = await screen.findByTestId("copy-button");
+    } catch (error) {
+      // Ignore the error if the copy-button is not found
+    }
+
+    try {
+      shareButton = await screen.findByTestId("share-button");
+    } catch (error) {
+      // Ignore the error if the share-button is not found
+    }
+
+    if (copyButton) {
+      expect(copyButton).toBeInTheDocument();
+    } else if (shareButton) {
+      expect(shareButton).toBeInTheDocument();
+    } else {
+      throw new Error(
+        'Neither "copy-button" nor "share-button" was found in the document.'
+      );
+    }
+  });
 });

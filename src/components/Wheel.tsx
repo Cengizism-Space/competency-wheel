@@ -14,7 +14,7 @@ import {
   CompetencyType,
   WheelType,
 } from "../../typings";
-import { createSlug } from "@/utils";
+import { createSlug, defineWheelStates } from "@/utils";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import useContainerDimensions from "@/hooks/useContainerDimensions";
@@ -28,20 +28,19 @@ import LoadingWheel from "./LoadingWheel";
 import NotFound from "./NotFound";
 import Help from "./Help";
 import { RocketLaunchIcon } from "@heroicons/react/24/solid";
-import { isEqual } from "lodash";
 
 const Competency = lazy(() => import("./Competency"));
 const WheelController = lazy(() => import("./WheelController"));
 const LinkAndShare = lazy(() => import("./LinkAndShare"));
 
-const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug = null }) => {
+const Wheel: React.FC<{ slug?: string | null | undefined }> = ({
+  slug = null,
+}) => {
   const {
     svgRef,
     wheel,
     initialWheel,
     isLoading,
-    isExportable,
-    isInitial,
     isFound,
     isEditing,
     isEmpty,
@@ -83,6 +82,7 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug = null }) 
     return {
       wheel,
       initialWheel: wheel,
+      link: `${window.location.origin}/wheel/${wheel?.slug.current}`,
       isFound: true,
       isSaved: !initialWheel.template,
       isInitial: true,
@@ -134,39 +134,20 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({ slug = null }) 
   }, [slug]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    const isExportable =
-      wheel.title.length > 0 && wheel.competencies.length > 0;
-    const isInitial = isEqual(wheel, initialWheel);
-    // const link : string = wheel.hasOwnProperty("_id")
-    //   ? `${window.location.origin}/wheel/${wheel?.slug.current}`
-    //   : link;
-    const isEmpty = wheel.competencies.length === 0;
+    const { isExportable, isInitial, isEmpty } = defineWheelStates(
+      wheel,
+      initialWheel
+    );
 
-    // if (
-    //   isExportable !== isExportable ||
-    //   isInitial !== isInitial ||
-    //   // link !== link ||
-    //   isEmpty !== isEmpty
-    // ) {
     dispatch({
       type: "setState",
       payload: {
         isExportable,
         isInitial,
-        // link,
         isEmpty,
       },
     });
-    // }
-  }, [
-    wheel,
-    initialWheel,
-    isExportable,
-    isInitial,
-    // link,
-    isEmpty,
-    dispatch,
-  ]);
+  }, [wheel, initialWheel]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
