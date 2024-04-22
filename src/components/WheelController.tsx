@@ -49,7 +49,7 @@ const WheelController = () => {
         });
       };
 
-      if (!link) {
+      if (!wheel.hasOwnProperty("_id")){
         await saveWheel(wheel);
         updateLink();
       } else {

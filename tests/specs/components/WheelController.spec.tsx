@@ -51,6 +51,10 @@ describe("WheelController", () => {
   // @ts-ignore
   window.location = { assign: jest.fn() };
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("renders without crashing", async () => {
     await act(async () => {
       render(
@@ -207,8 +211,10 @@ describe("WheelController", () => {
       ...mockContext,
       wheel: {
         ...mockContext.wheel,
+        _id: 'some-id',
         slug: { _type: "slug" as "slug", current: "new-wheel" },
       },
+      updateWheel
     };
 
     await act(async () => {
