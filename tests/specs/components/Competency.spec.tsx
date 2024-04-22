@@ -127,13 +127,15 @@ describe("Competency", () => {
         <Competency />
       </CompetenciesContext.Provider>
     );
-  
+
     const titleInput = getByTestId("competency-title-input");
     fireEvent.change(titleInput, { target: { value: " " } });
-  
+
     fireEvent.click(getByTestId("competency-submit-button"));
-  
-    expect(getByTestId("error-message").textContent).toBe("Competency name cannot be empty");
+
+    expect(getByTestId("error-message").textContent).toBe(
+      "Competency name cannot be empty"
+    );
     expect(mockDispatch).not.toHaveBeenCalled();
   });
 
@@ -216,7 +218,7 @@ describe("Competency", () => {
         <Competency />
       </CompetenciesContext.Provider>
     );
-  
+
     fireEvent.click(getByTestId("increase-value-button"));
     expect(mockDispatch).not.toHaveBeenCalled();
   });
@@ -291,5 +293,62 @@ describe("Competency", () => {
 
     fireEvent.click(getByText("Update"));
     expect(mockDispatch).toHaveBeenCalled();
+  });
+});
+
+describe("Max Competency", () => {
+  const mockDispatch = jest.fn(),
+    mockContext = {
+      ...defaultState,
+      wheel: {
+        ...DEFAULT_WHEEL,
+        competencies: new Array(20).fill({
+          title: "Test",
+          description: "Test",
+          value: 5,
+          improvement: false,
+        }),
+      },
+      activeIndex: null,
+      dispatch: mockDispatch,
+    };
+
+  afterEach(() => {
+    mockDispatch.mockClear();
+  });
+
+  it("disables the add button when max competencies are reached and no competency is selected", async () => {
+    const { getByTestId } = render(
+      <CompetenciesContext.Provider value={mockContext}>
+        <Competency />
+      </CompetenciesContext.Provider>
+    );
+
+    expect(getByTestId("competency-submit-button")).toBeDisabled();
+  });
+
+  it("shows max amount reached info text when max competencies are reached", async () => {
+    const { getByTestId } = render(
+      <CompetenciesContext.Provider value={mockContext}>
+        <Competency />
+      </CompetenciesContext.Provider>
+    );
+
+    expect(getByTestId("max-amount-reached-info")).toBeInTheDocument();
+  });
+
+  it("does not disable the add button when max competencies are reached but a competency is selected", () => {
+    const { getByTestId } = render(
+      <CompetenciesContext.Provider
+        value={{
+          ...mockContext,
+          activeIndex: 0,
+        }}
+      >
+        <Competency />
+      </CompetenciesContext.Provider>
+    );
+
+    expect(getByTestId("competency-submit-button")).not.toBeDisabled();
   });
 });

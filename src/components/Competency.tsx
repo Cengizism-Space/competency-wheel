@@ -24,6 +24,7 @@ const Competency: React.FC = () => {
   const [value, setValue] = useState(5);
   const [improvement, setImprovement] = useState(false);
   const [error, setError] = useState("");
+  const [isMaxAmountReached, setIsMaxAmountReached] = useState(false);
 
   const clearForm = useCallback(() => {
     setTitle("");
@@ -46,6 +47,10 @@ const Competency: React.FC = () => {
       clearForm();
     }
   }, [activeIndex, wheel, clearForm]);
+
+  useEffect(() => {
+    setIsMaxAmountReached(wheel.competencies.length === 20);
+  }, [wheel.competencies.length]);
 
   const handleCompetencyTitleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -326,10 +331,21 @@ const Competency: React.FC = () => {
             type="submit"
             onClick={handleCompetencyAddOrUpdate}
             data-testid="competency-submit-button"
+            disabled={isMaxAmountReached && activeIndex === null}
           >
             {activeIndex !== null ? "Update" : "Add"}
           </Button>
         </form>
+
+        {isMaxAmountReached && (
+          <p
+            data-testid="max-amount-reached-info"
+            className="italic text-sm text-gray-500"
+          >
+            Max amount of competencies reached. Remove some if you want to add
+            new ones.
+          </p>
+        )}
       </div>
     </div>
   );
