@@ -52,7 +52,7 @@ const Competency: React.FC = () => {
     setIsMaxAmountReached(wheel.competencies.length === 20);
   }, [wheel.competencies.length]);
 
-  const handleCompetencyTitleChange = useCallback(
+  const handleTitleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const trimmedTitle = event.target.value.trim();
       setTitle(trimmedTitle);
@@ -71,7 +71,7 @@ const Competency: React.FC = () => {
     [wheel, dispatch]
   );
 
-  const handleCompetencyValueChange = useCallback(
+  const handleScaleValueChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       setValue(Number(event.target.value));
 
@@ -92,7 +92,7 @@ const Competency: React.FC = () => {
     [wheel, dispatch, title, description, improvement]
   );
 
-  const handleCompetencyValueAdjust = useCallback(
+  const handleScaleValueSteps = useCallback(
     (adjustment: number) => {
       if (activeIndex !== null) {
         /* istanbul ignore next */
@@ -112,7 +112,7 @@ const Competency: React.FC = () => {
     [dispatch, activeIndex]
   );
 
-  const handleCompetencyDescriptionChange = useCallback(
+  const handleDescriptionChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       setDescription(event.target.value);
 
@@ -221,7 +221,7 @@ const Competency: React.FC = () => {
             label="Title"
             placeholder="JavaScript, User research, ..."
             value={title}
-            onChange={handleCompetencyTitleChange}
+            onChange={handleTitleChange}
           />
 
           {error && (
@@ -238,7 +238,7 @@ const Competency: React.FC = () => {
             label="Description (Optional)"
             placeholder="Ability to write clean code, ..."
             value={description}
-            onChange={handleCompetencyDescriptionChange}
+            onChange={handleDescriptionChange}
           />
 
           <div className="flex flex-row gap-2 items-center">
@@ -299,7 +299,7 @@ const Competency: React.FC = () => {
                   type="button"
                   data-testid="decrease-value-button"
                   className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
-                  onClick={() => handleCompetencyValueAdjust(-1)}
+                  onClick={() => handleScaleValueSteps(-1)}
                 >
                   -
                 </button>
@@ -309,7 +309,7 @@ const Competency: React.FC = () => {
                   id="competencyValue"
                   data-testid="competency-value"
                   value={value}
-                  onChange={handleCompetencyValueChange}
+                  onChange={handleScaleValueChange}
                   min={1}
                   max={10}
                   className="h-10 w-16 rounded border-gray-200 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
@@ -319,7 +319,7 @@ const Competency: React.FC = () => {
                   type="button"
                   data-testid="increase-value-button"
                   className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
-                  onClick={() => handleCompetencyValueAdjust(1)}
+                  onClick={() => handleScaleValueSteps(1)}
                 >
                   +
                 </button>
