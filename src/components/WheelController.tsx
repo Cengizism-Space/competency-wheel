@@ -83,7 +83,7 @@ const WheelController = () => {
         },
       });
     }
-  }, [link, wheel, initialWheel, dispatch, urlWithSlug]);
+  }, [wheel, initialWheel, dispatch, urlWithSlug]);
 
   const handleDeleteWheel = useCallback(async () => {
     try {
