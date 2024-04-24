@@ -13,6 +13,7 @@ import Button from "@/components/Button";
 import { Switch } from "@headlessui/react";
 import classNames from "classnames";
 import { RocketLaunchIcon } from "@heroicons/react/24/solid";
+import Help from "./Help";
 
 const Competency: React.FC = () => {
   const { wheel, activeIndex, dispatch } = useContext(
@@ -215,31 +216,25 @@ const Competency: React.FC = () => {
           onSubmit={(e) => e.preventDefault()}
           className="flex flex-col gap-5"
         >
-          <InputField
-            id="competencyTitle"
-            dataTestId="competency-title-input"
-            label="Title"
-            placeholder="JavaScript, User research, ..."
-            value={title}
-            onChange={handleTitleChange}
-          />
+          <div className="flex flex-col gap-2">
+            <InputField
+              id="competencyTitle"
+              dataTestId="competency-title-input"
+              label="Title"
+              placeholder="JavaScript, User research, ..."
+              value={title}
+              onChange={handleTitleChange}
+            />
 
-          {error && (
-            <p
-              className="text-sm text-red-500 leading-none mb-4"
-              data-testid="error-message"
-            >
-              {error}
-            </p>
-          )}
-
-          <InputField
-            id="competencyDescription"
-            label="Description (Optional)"
-            placeholder="Ability to write clean code, ..."
-            value={description}
-            onChange={handleDescriptionChange}
-          />
+            {error && (
+              <p
+                className="italic text-sm text-red-500 leading-normal mb-4"
+                data-testid="error-message"
+              >
+                {error}
+              </p>
+            )}
+          </div>
 
           <div className="flex flex-row gap-2 items-center">
             <Switch
@@ -278,53 +273,65 @@ const Competency: React.FC = () => {
             >
               <div className="flex flex-row items-center gap-1">
                 <RocketLaunchIcon className="w-4 h-4" />
-                <span className="text-sm">Want to improve</span>
+                <span className="text-sm">Want to improve it more</span>
               </div>
             </Button>
           </div>
 
-          <div className="w-24">
-            <label
-              htmlFor="competencyValue"
-              className="text-left block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
-            >
-              <span
-                data-testid="scale-of-label"
-                className="text-xs font-medium text-gray-700"
+          <InputField
+            id="competencyDescription"
+            label="Description (Optional)"
+            placeholder="Ability to write clean code, ..."
+            value={description}
+            onChange={handleDescriptionChange}
+          />
+
+          <div className="flex flex-row gap-4">
+            <div className="w-24">
+              <label
+                htmlFor="competencyValue"
+                className="text-left block overflow-hidden rounded-md border bg-white border-gray-200 px-3 py-2 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
               >
-                Scale of
-              </span>
-              <div className="flex items-center gap-1">
-                <button
-                  type="button"
-                  data-testid="decrease-value-button"
-                  className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
-                  onClick={() => handleScaleValueSteps(-1)}
+                <span
+                  data-testid="scale-of-label"
+                  className="text-xs font-medium text-gray-700"
                 >
-                  -
-                </button>
+                  Scale of
+                </span>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    data-testid="decrease-value-button"
+                    className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
+                    onClick={() => handleScaleValueSteps(-1)}
+                  >
+                    -
+                  </button>
 
-                <input
-                  type="number"
-                  id="competencyValue"
-                  data-testid="competency-value"
-                  value={value}
-                  onChange={handleScaleValueChange}
-                  min={1}
-                  max={10}
-                  className="h-10 w-16 rounded border-gray-200 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-                />
+                  <input
+                    type="number"
+                    id="competencyValue"
+                    data-testid="competency-value"
+                    value={value}
+                    onChange={handleScaleValueChange}
+                    min={1}
+                    max={10}
+                    className="h-10 w-16 rounded border-gray-200 text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+                  />
 
-                <button
-                  type="button"
-                  data-testid="increase-value-button"
-                  className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
-                  onClick={() => handleScaleValueSteps(1)}
-                >
-                  +
-                </button>
-              </div>
-            </label>
+                  <button
+                    type="button"
+                    data-testid="increase-value-button"
+                    className="size-10 leading-10 text-gray-600 transition hover:opacity-75"
+                    onClick={() => handleScaleValueSteps(1)}
+                  >
+                    +
+                  </button>
+                </div>
+              </label>
+            </div>
+
+            <Help />
           </div>
 
           <Button
@@ -340,7 +347,7 @@ const Competency: React.FC = () => {
         {isMaxAmountReached && (
           <p
             data-testid="max-amount-reached-info"
-            className="italic text-sm text-gray-500"
+            className="italic text-sm text-red-500 leading-normal"
           >
             Max amount of competencies reached. Remove some if you want to add
             new ones.

@@ -26,8 +26,8 @@ import MadeBy from "./MadeBy";
 import Alert from "./Alert";
 import LoadingWheel from "./LoadingWheel";
 import NotFound from "./NotFound";
-import Help from "./Help";
 import { RocketLaunchIcon } from "@heroicons/react/24/solid";
+import Help from "./Help";
 
 const Competency = lazy(() => import("./Competency"));
 const WheelController = lazy(() => import("./WheelController"));
@@ -194,9 +194,15 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({
             />
 
             {!isEditing && (
-              <div className="fixed bottom-6 left-6 flex flex-row items-center gap-2 text-gray-500">
-                <RocketLaunchIcon className="w-4 h-4" />
-                <span className="text-sm">Want to improve</span>
+              <div className="fixed bottom-4 left-6">
+                <Help />
+
+                <div className="flex flex-row items-center gap-1 text-gray-400">
+                  <RocketLaunchIcon className="w-4 h-4" />
+                  <span className="italic text-sm">
+                    Competency is in improving
+                  </span>
+                </div>
               </div>
             )}
 
@@ -220,8 +226,6 @@ const Wheel: React.FC<{ slug?: string | null | undefined }> = ({
             </Suspense>
 
             <div className="sticky inset-x-0 bottom-0">
-              <Help />
-
               {!isEmpty && (
                 <Suspense fallback={null}>
                   <WheelController />

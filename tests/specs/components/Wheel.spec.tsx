@@ -82,7 +82,7 @@ describe("Wheel", () => {
     expect(screen.getByTestId("wheel-component")).toBeInTheDocument();
   });
 
-  it("renders without crashing with ?presentation=true", async () => {
+  it("renders without crashing with in presentation mode", async () => {
     await act(async () => {
       render(
         <CompetenciesContext.Provider
@@ -97,6 +97,24 @@ describe("Wheel", () => {
     });
 
     expect(screen.queryByTestId("edit-title-button")).not.toBeInTheDocument();
+  });
+
+  it("shows wheel legenda in presentation mode", async () => {
+    await act(async () => {
+      render(
+        <CompetenciesContext.Provider
+          value={{
+            ...mockContext,
+            isEditing: false,
+          }}
+        >
+          <Wheel slug="test-slug" />
+        </CompetenciesContext.Provider>
+      );
+    });
+
+    expect(screen.queryByText(/How are the scale values calculated?/)).toBeInTheDocument();
+    expect(screen.queryByText(/Competency is in improving/)).toBeInTheDocument();
   });
 
   it("renders without crashing without presentation parameter", async () => {
@@ -136,7 +154,7 @@ describe("Wheel", () => {
     expect(screen.getByTestId("mode-switcher-component")).toBeInTheDocument();
   });
 
-  it("renders LoadingWheel when isLoading is true", async () => {
+  it("renders LoadingWheel when is in loading state", async () => {
     await act(async () => {
       render(
         <CompetenciesContext.Provider
@@ -153,7 +171,7 @@ describe("Wheel", () => {
     expect(screen.getByTestId("loading-wheel-component")).toBeInTheDocument();
   });
 
-  it("renders NotFound when isFound is false", async () => {
+  it("renders NotFound when wheel is not found", async () => {
     await act(async () => {
       render(
         <CompetenciesContext.Provider
@@ -170,7 +188,7 @@ describe("Wheel", () => {
     expect(screen.getByTestId("not-found-component")).toBeInTheDocument();
   });
 
-  it("renders CompetencyToolbar when isFound is true and isEmpty is false", async () => {
+  it("renders CompetencyToolbar when wheel is found and not empty", async () => {
     await act(async () => {
       render(
         <CompetenciesContext.Provider
@@ -202,7 +220,7 @@ describe("Wheel", () => {
     expect(screen.getByTestId("made-by-component")).toBeInTheDocument();
   });
 
-  it("renders ResetButton when isEditing is true", async () => {
+  it("renders ResetButton when in editing mode", async () => {
     await act(async () => {
       render(
         <CompetenciesContext.Provider

@@ -49,7 +49,7 @@ describe("Competency", () => {
     expect(getByLabelText("Title")).toBeInTheDocument();
     expect(getByLabelText("Description (Optional)")).toBeInTheDocument();
     expect(getAllByLabelText("Scale of")[0]).toBeInTheDocument();
-    expect(getByText("Want to improve")).toBeInTheDocument();
+    expect(getByText("Want to improve it more")).toBeInTheDocument();
     expect(getByTestId("competency-submit-button")).toBeInTheDocument();
   });
 

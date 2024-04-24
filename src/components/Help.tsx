@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Button from "./Button";
 import { scaleValues } from "../constants";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -13,10 +12,9 @@ const Help = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-2 px-8 mb-2">
+      <div className="flex flex-col ">
         <Button onClick={openModal} variant="link">
-          <InformationCircleIcon className="h-6 w-6" />
-          <span className="text-sm italic">
+          <span className="text-sm italic text-left">
             How are the scale values calculated?
           </span>
         </Button>
@@ -52,7 +50,7 @@ const Help = () => {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Competency scale values
+                    How are the scale values calculated?
                   </Dialog.Title>
 
                   <table className="border-collapse table-auto w-full text-sm my-8">
@@ -85,7 +83,7 @@ const Help = () => {
 
                   <p className="text-sm text-gray-500">
                     Just use lower or upper value of the range to indicate your
-                    level of expertise
+                    level of expertise. Happy defining.
                   </p>
 
                   <div className="mt-4">

@@ -16,7 +16,7 @@ describe("Help component", () => {
       fireEvent.click(getByText("How are the scale values calculated?"));
     });
 
-    expect(getByText("Competency scale values")).toBeInTheDocument();
+    expect(getByText(/Just use lower or upper value/)).toBeInTheDocument();
   });
 
   it("closes the modal when the close button is clicked", async () => {
