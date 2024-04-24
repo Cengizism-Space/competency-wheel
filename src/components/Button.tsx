@@ -18,7 +18,7 @@ export const styles = {
     commons
   ),
   link: classNames(
-    "inline-flex text-gray-500 transition hover:text-gray-700 focus:none",
+    "inline-flex text-gray-500 underline transition hover:text-gray-700 focus:none",
     commons
   ),
   danger: classNames(
