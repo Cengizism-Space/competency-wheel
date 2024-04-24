@@ -1,10 +1,10 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { CompetenciesContext } from "@/context";
+import { CompetenciesContext } from "../../../src/context";
 import useDrawChart from "../../../src/hooks/useDrawChart";
 import * as d3 from "d3";
 import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
-import { CompetencyContextType } from "../../../types/typings";
+import { CompetencyContextType } from "../../../types/app";
 
 jest.mock("d3", () => ({
   select: jest.fn().mockReturnThis(),
