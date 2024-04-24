@@ -1,5 +1,5 @@
 import { produce } from "immer";
-import { Action, State } from "../typings";
+import { Action, State } from "../types/app";
 
 export const CompetenciesReducer = produce((draft: State, action: Action) => {
   switch (action.type) {

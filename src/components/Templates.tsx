@@ -4,7 +4,7 @@ import { CompetenciesContext } from "@/context";
 import {
   CompetencyContextType,
   TemplateWithRandomCompetenciesType,
-} from "../../typings";
+} from "../../types/app";
 import { randomizeCompetencies } from "@/utils";
 import { fetchTemplates } from "../../sanity/client";
 import classNames from "classnames";

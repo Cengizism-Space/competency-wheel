@@ -1,5 +1,5 @@
 import slugify from 'slugify';
-import { TemplateWithRandomCompetenciesType, WheelType } from '../typings';
+import { TemplateWithRandomCompetenciesType, WheelType } from '../types/app';
 import { isEqual } from "lodash";
 
 export const createSlug = (input: string): string => {

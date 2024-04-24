@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import { CompetencyContextType } from "../../types/app";
 import { ShareIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { useWebShare } from "@/hooks/useWebShare";
 import { useClipboard } from "@/hooks/useClipboard";

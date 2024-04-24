@@ -1,6 +1,6 @@
 import React, { useContext, FC, MouseEventHandler } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import { CompetencyContextType } from "../../types/app";
 import classNames from "classnames";
 import {
   PencilSquareIcon,

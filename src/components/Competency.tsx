@@ -7,7 +7,7 @@ import React, {
   Fragment,
 } from "react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyType, CompetencyContextType } from "../../typings";
+import { CompetencyType, CompetencyContextType } from "../../types/app";
 import InputField from "@/components/InputField";
 import Button from "@/components/Button";
 import { Switch } from "@headlessui/react";

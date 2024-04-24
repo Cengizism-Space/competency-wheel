@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useCallback, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import { CompetencyContextType } from "../../types/app";
 import { saveWheel, updateWheel, deleteWheel } from "../../sanity/client";
 import Button from "@/components/Button";
 import useExportToPng from "@/hooks/useExportToPng";

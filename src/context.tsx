@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useRef } from "react";
-import { CompetencyContextType } from "@/../typings";
+import { CompetencyContextType } from "../types/app";
 import { CompetenciesReducer } from "./reducer";
 import { defaultState } from "./constants";
 

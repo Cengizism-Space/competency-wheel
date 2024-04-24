@@ -1,6 +1,6 @@
 import { useEffect, useContext, useMemo } from 'react';
 import * as d3 from 'd3';
-import { CompetencyType, CompetencyContextType } from '@/../typings';
+import { CompetencyType, CompetencyContextType } from '../../types/app';
 import { degreesToRadians } from "@/utils";
 import { colors, TO_BE_IMPROVED_ICON } from "@/constants";
 import { CompetenciesContext } from "@/context";

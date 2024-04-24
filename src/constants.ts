@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CompetencyContextType, CompetencyType, WheelType } from "../typings";
+import { CompetencyContextType, CompetencyType, WheelType } from "../types/app";
 import { createSlug } from "./utils";
 
 export const metadata: Metadata = {

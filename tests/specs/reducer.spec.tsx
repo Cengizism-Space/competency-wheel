@@ -1,6 +1,6 @@
 import { CompetenciesReducer } from "../../src/reducer";
 import { defaultState, DEFAULT_WHEEL } from "../../src/constants";
-import { CompetencyType, State } from "../../typings";
+import { CompetencyType, State } from "../../types/typings";
 
 describe("CompetenciesReducer", () => {
   let initialState: State;

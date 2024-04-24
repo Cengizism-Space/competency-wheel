@@ -13,7 +13,7 @@ import {
   CompetencyContextType,
   CompetencyType,
   WheelType,
-} from "../../typings";
+} from "../../types/app";
 import { createSlug, defineWheelStates } from "@/utils";
 import useDrawChart from "@/hooks/useDrawChart";
 import useOutsideClick from "@/hooks/useOutsideClick";

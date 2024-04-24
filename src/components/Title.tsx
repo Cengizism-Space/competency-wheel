@@ -1,7 +1,7 @@
 import React, { useState, useRef, FormEvent, useContext } from "react";
 import useOutsideClick from "@/hooks/useOutsideClick";
 import { CompetenciesContext } from "@/context";
-import { CompetencyContextType } from "../../typings";
+import { CompetencyContextType } from "../../types/app";
 import { createSlug } from "@/utils";
 import { PencilSquareIcon, CheckIcon } from "@heroicons/react/24/outline";
 import Button from "./Button";

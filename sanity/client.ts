@@ -1,5 +1,5 @@
 import { createClient } from "next-sanity";
-import { CompetencyType, TemplateWithRandomCompetenciesType, WheelType } from "../typings";
+import { CompetencyType, TemplateWithRandomCompetenciesType, WheelType } from "../types/app";
 import { apiVersion, projectId, dataset, token } from "./env";
 
 const sanity = createClient({

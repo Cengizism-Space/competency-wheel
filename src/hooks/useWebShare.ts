@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { ShareData } from '../../typings';
+import { ShareData } from '../../types/app';
 
 export function useWebShare() {
   const share = useCallback(async ({ title, text, url }: ShareData) => {
