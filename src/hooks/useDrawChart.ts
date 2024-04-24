@@ -156,7 +156,7 @@ const useDrawChart = ({ dimensions }: { dimensions: { width: number; height: num
             "dy",
             j === 0 ? `${(-lineHeight * (numLines - 1)) / 2}em` : `${lineHeight}em`
           )
-          .text(word);
+          .text(!isEditing && j === words.length - 1 ? `${word} (${competency.value})` : word);
 
         // @ts-ignore
         const computedTextLength = tspan.node()?.getComputedTextLength();
