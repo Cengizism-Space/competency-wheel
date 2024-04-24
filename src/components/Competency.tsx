@@ -55,16 +55,16 @@ const Competency: React.FC = () => {
 
   const handleTitleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      const trimmedTitle = event.target.value.trim();
-      setTitle(trimmedTitle);
-
-      if (trimmedTitle && wheel.competencies.length > 0) {
+      const title = event.target.value;
+      setTitle(title);
+  
+      if (title.trim() && wheel.competencies.length > 0) {
         /* istanbul ignore next */
         dispatch({
           type: "updateCompetency",
           payload: (competency: CompetencyType) => ({
             ...competency,
-            title: trimmedTitle,
+            title: title,
           }),
         });
       }
