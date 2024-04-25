@@ -17,3 +17,5 @@
 - Slugify
 - Next.js
 - Jest
+- Testing Library
+- Puppeteer
