@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { CompetenciesContext } from "@/context";
+import { CompetenciesContext } from "../../../src/context";
 import Templates from "../../../src/components/Templates";
 import { defaultState } from "../../../src/constants";
 // import { waitFor } from "@testing-library/react";

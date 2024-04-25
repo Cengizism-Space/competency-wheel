@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { useRef } from "react";
 import useOutsideClick from "../../../src/hooks/useOutsideClick";
 
 describe("useOutsideClick", () => {

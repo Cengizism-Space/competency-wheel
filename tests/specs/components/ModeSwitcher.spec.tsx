@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { CompetenciesContext } from "@/context";
+import { CompetenciesContext } from "../../../src/context";
 import ModeSwitcher, {
   ModeSwitcherButton,
 } from "../../../src/components/ModeSwitcher";

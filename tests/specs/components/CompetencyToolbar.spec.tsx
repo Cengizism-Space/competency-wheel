@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { CompetenciesContext } from "@/context";
+import { CompetenciesContext } from "../../../src/context";
 import CompetencyToolbar from "../../../src/components/CompetencyToolbar";
 import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
 

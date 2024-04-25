@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { useRef } from "react";
 import useExportToPng from "../../../src/hooks/useExportToPng";
 
 // @ts-ignore
@@ -12,7 +11,9 @@ HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
   })),
 }));
 
-HTMLCanvasElement.prototype.toDataURL = jest.fn(() => "data:image/png;base64,TEST");
+HTMLCanvasElement.prototype.toDataURL = jest.fn(
+  () => "data:image/png;base64,TEST"
+);
 
 function TestComponent() {
   const svgRef = useRef(null);

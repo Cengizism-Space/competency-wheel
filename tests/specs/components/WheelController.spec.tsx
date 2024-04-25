@@ -8,7 +8,7 @@ import {
   act,
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { CompetenciesContext } from "@/context";
+import { CompetenciesContext } from "../../../src/context";
 import WheelController from "../../../src/components/WheelController";
 import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
 import { saveWheel, updateWheel } from "../../../sanity/client";

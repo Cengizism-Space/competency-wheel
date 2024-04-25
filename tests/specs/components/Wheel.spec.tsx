@@ -1,12 +1,12 @@
 import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { CompetenciesContext } from "@/context";
+import { CompetenciesContext } from "../../../src/context";
 import Wheel from "../../../src/components/Wheel";
 import { defaultState, DEFAULT_WHEEL } from "../../../src/constants";
 import useDrawChart from "../../../src/hooks/useDrawChart";
 import { fetchWheel } from "../../../sanity/client";
-import { CompetenciesReducer } from "@/reducer";
+import { CompetenciesReducer } from "../../../src/reducer";
 import { defineWheelStates } from "../../../src/utils";
 
 jest.mock("../../../sanity/client", () => ({

@@ -5,8 +5,8 @@ import {
   defineWheelStates,
 } from "../../src/utils";
 import slugify from "slugify";
-import { TemplateWithRandomCompetenciesType } from "../../types/typings";
-import { DEFAULT_WHEEL } from "@/constants";
+import { TemplateWithRandomCompetenciesType } from "../../types/app";
+import { DEFAULT_WHEEL } from "../../src/constants";
 
 jest.mock("slugify");
 
