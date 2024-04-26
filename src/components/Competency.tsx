@@ -280,6 +280,7 @@ const Competency: React.FC = () => {
 
           <InputField
             id="competencyDescription"
+            dataTestId="competency-description-input"
             label="Description (Optional)"
             placeholder="Ability to write clean code, ..."
             value={description}

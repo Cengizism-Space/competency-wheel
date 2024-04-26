@@ -37,7 +37,11 @@ const Landing: React.FC = () => {
 
         <div className="flex">
           <div className="mt-6 flex flex-col-reverse items-center justify-center gap-4 w-full">
-            <Link className={styles.secondary} href="/wheel/">
+            <Link
+              className={styles.secondary}
+              href="/wheel/"
+              data-testid="start-fresh-wheel-button"
+            >
               Start with your own wheel
             </Link>
             <Templates />
