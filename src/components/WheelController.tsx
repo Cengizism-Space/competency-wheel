@@ -73,13 +73,13 @@ const WheelController = () => {
         history.replaceState({}, "", urlWithSlug);
       }
     } catch (error) {
+      console.error("Error saving wheel:", error);
       dispatch({
         type: "setState",
         payload: {
           isSaving: false,
           isErrored: true,
-          errorMessage:
-            "An error occurred while saving the wheel. Please try again later.",
+          errorMessage:`An error occurred: ${(error as Error).message}. Please try again later.`,
         },
       });
     }
