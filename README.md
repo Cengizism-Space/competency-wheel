@@ -1,5 +1,5 @@
 # Consultant Competency Wheel app
-Documentation will follow soon. In any case of questions, contact me at [cengiz.ulusoy@alten.nl](mailto:cengiz.ulusoy@alten.nl).
+
 
 ## Stack
 - TypeScript
